@@ -1,0 +1,7 @@
+- alias: hasura
+  config:
+    configmap: controller-conf
+    namespace: octagon58-hasura
+  data: null
+  kubeContext: octagon58
+  name: octagon58
