@@ -45,7 +45,7 @@ def signup():
     resp1=resp
     data=resp.json()
     if data['code'] == "user-exists":
-        print "user exists"
+        
     else:
         # This is the url to which the query is made
         url = "https://data.octagon58.hasura-app.io/v1/query"
@@ -96,8 +96,10 @@ def check_password(str):
 
 
 @app.route("/")
+
 def hello():
-  return render_template('index.html')
+ 	
+	return render_template('index.html')
 
 
 if __name__ == '__main__':
