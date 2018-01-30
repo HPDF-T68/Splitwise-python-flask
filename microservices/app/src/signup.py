@@ -4,7 +4,6 @@ from flask import jsonify
 import json
 from urllib3 import request
 app=Flask(__name__)
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     content = request.get_json(force=True)
@@ -15,7 +14,7 @@ def signup():
     if b == False :
         list = [
             {
-                "code": "user-exists",
+                "code": "error",
                 "message": "Entered password must be atleast 8 digit",
                 "detail": "null"
             }
@@ -43,6 +42,7 @@ def signup():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    resp1=resp
     data=resp.json()
     if data['code'] == "user-exists":
         print "user exists"
@@ -79,7 +79,7 @@ def signup():
         print resp.content
 
 
-    return resp.content
+    return resp1.content
 
 
 def check_password(str):
