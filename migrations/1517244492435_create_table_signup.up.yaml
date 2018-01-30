@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "signup"("uid" numeric NOT NULL DEFAULT 0, "email" text NOT
+      NULL, "mobile" text NOT NULL, "currency" text NOT NULL, PRIMARY KEY ("uid")
+      )
+  type: run_sql
+- args:
+    name: signup
+  type: add_existing_table_or_view
