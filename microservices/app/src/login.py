@@ -4,7 +4,7 @@ import json
 from urllib3 import request
 app=Flask(__name__)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def signup():
     content = request.get_json(force=True)
       # This is the url to which the query is made
@@ -37,5 +37,5 @@ def signup():
     # resp.content contains the json response.
     #print resp.content
     return resp.content
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
