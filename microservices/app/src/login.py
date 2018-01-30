@@ -1,11 +1,11 @@
-from flask import Flask
+from flask import Flask,request
 import requests
 import json
-from urllib3 import request
-app=Flask(__name__)
+#from urllib3 import request
+app = Flask(__name__)
 
-@app.route('/login', methods=['POST'])
-def signup():
+@app.route('/login', methods=['GET','POST'])
+def login():
     content = request.get_json(force=True)
       # This is the url to which the query is made
 
@@ -37,5 +37,6 @@ def signup():
     # resp.content contains the json response.
     #print resp.content
     return resp.content
+
 if __name__ == '__main__':
     app.run(debug=True)
