@@ -1,17 +1,20 @@
-from flask import Flask,request
+from flask import Flask, request
 import requests
 from flask import jsonify
 import json
-#from urllib3 import request
-app=Flask(__name__)
-@app.route('/signup', methods=['GET','POST'])
+
+# from urllib3 import request
+app = Flask(__name__)
+
+
+@app.route('/signup', methods=['GET', 'POST'])
 def signup():
     content = request.get_json(force=True)
-      # This is the url to which the query is made
+    # This is the url to which the query is made
 
-    js = json.loads(content)
-    b =check_password(js['password']);
-    if b == False :
+    js = json.loads(json.dumps(content))
+    b = check_password(js['password']);
+    if not b:
         list = [
             {
                 "code": "error",
@@ -21,33 +24,31 @@ def signup():
         ]
         return jsonify(resp=list)
 
-
-
     # This is the url to which the query is made
     url = "https://auth.octagon58.hasura-app.io/v1/signup"
 
     # This is the json payload for the query
     requestPayload = {
-    "provider": "username",
-    "data": {
-        "username": js['username'],
-        "password": js['password']
-    }
+        "provider": "username",
+        "data": {
+            "username": js['username'],
+            "password": js['password']
+        }
     }
 
     # Setting headers
     headers = {
-    "Content-Type": "application/json"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    resp1=resp
-    data=resp.json()
-    if data['code'] == "user-exists":
-        {}
+    resp1 = resp
+    data = resp.json()
+    if data['code'] != "user-exists":
 
-    else:
+
+
         # This is the url to which the query is made
         url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -58,10 +59,10 @@ def signup():
                 "table": "signup",
                 "objects": [
                     {
-                        "uid": data['code'] ,
+                        "uid": data['code'],
                         "email": js['email'],
                         "mobile": js['mobile'],
-                        "currency":js['currency']
+                        "currency": js['currency']
                     }
                 ]
             }
@@ -77,30 +78,23 @@ def signup():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
         # resp.content contains the json response.
-        #print resp.content
-
+        # print resp.content
 
     return resp1.content
 
 
 def check_password(str):
-    a=len(str)
-    if a<8:
+    a = len(str)
+    if a < 8:
         return False
     else:
         return True
     return True
 
 
-
-
-
-
 @app.route("/")
-
 def hello():
- 	
-	return render_template('index.html')
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
