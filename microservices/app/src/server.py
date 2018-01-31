@@ -7,14 +7,14 @@ import json
 app = Flask(__name__)
 @app.route('/logout', methods=['POST'])
 def logout():
-
+    data=request.data
     # This is the url to which the query is made
     url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
 
     # This is the json payload for the query
     # Setting headers
     headers = {
-        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf",
+        "Authorization": "Bearer "+data,
         "Content-Type": "application/json"
     }
 
