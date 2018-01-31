@@ -14,7 +14,7 @@ def logout():
     # This is the json payload for the query
     a=r.headers['Authorization']
     # Setting headers
-    a="Bearer "+ a;
+    #a='Bearer '+ a;
     headers = {
         "Authorization": a,
         "Content-Type": "application/json"
