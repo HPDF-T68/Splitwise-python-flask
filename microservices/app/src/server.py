@@ -5,33 +5,22 @@ import json
 
 # from urllib3 import request
 app = Flask(__name__)
-
-@app.route('/login', methods=['POST'])
-def login():
-    content = request.get_json()
-    js = json.loads(json.dumps(content))
-
+@app.route('/logout', methods=['POST'])
+def logout():
     # This is the url to which the query is made
-    url = "https://auth.octagon58.hasura-app.io/v1/login"
+    url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
 
     # This is the json payload for the query
-    requestPayload = {
-        "provider": "username",
-        "data": {
-            "username": js['data']['username'],
-            "password": js['data']['password']
-        }
-    }
-
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-
+        "Authorization": "Bearer <>",
+        "Content-Type": "application/json"
     }
 
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+# Make the query and store response in resp
+    resp = requests.request("POST", url, headers=headers)
 
+# resp.content contains the json response.
     return resp.content
 
 @app.route('/signup', methods=['POST'])
@@ -71,7 +60,7 @@ def signup():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    resp1=resp
+    resp1-resp
     #data = json.dumps(resp)
     #data= resp.json()
     #if 'This user already exists' != resp.json()['message']:
