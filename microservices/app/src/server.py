@@ -9,11 +9,11 @@ app = Flask(__name__)
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
-    #content = request.get_json(force=True)
-    content = request.json
+    js = request.get_json()
+    #content = request.json
     # This is the url to which the query is made
 
-    js = json.loads(json.dumps(content))
+    #js = json.loads(json.dumps(content))
     b = check_password(js['password']);
     if not b:
         list = [
