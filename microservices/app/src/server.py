@@ -45,7 +45,7 @@ def signup():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     resp1 = resp
     data = resp.json()
-    if data['resp']['code'] != "user-exists":
+    if data['data']['code'] != "user-exists":
 
 
 
@@ -59,7 +59,7 @@ def signup():
                 "table": "signup",
                 "objects": [
                     {
-                        "uid": data['resp']['code'],
+                        "uid": data['data']['code'],
                         "email": js['data']['email'],
                         "mobile": js['data']['mobile'],
                         "currency": js['data']['currency']
