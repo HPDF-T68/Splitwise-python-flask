@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/signup', methods=['POST'])
 def signup():
-    content = request.get_json(Force=True)
+    content = request.get_json()
     #content = request.json
     #This is the url to which the query is made
 
