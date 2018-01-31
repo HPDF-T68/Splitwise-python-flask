@@ -14,7 +14,7 @@ def logout():
     # This is the json payload for the query
     # Setting headers
     headers = {
-        "Authorization": "Bearer <auth_token>",
+        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf",
         "Content-Type": "application/json"
     }
 
