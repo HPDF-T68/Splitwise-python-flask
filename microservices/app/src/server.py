@@ -43,7 +43,7 @@ def signup():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
+    resp1=resp
     #data = json.dumps(resp)
     #data= resp.json()
     #if 'This user already exists' != resp.json()['message']:
@@ -82,7 +82,7 @@ def signup():
         # resp.content contains the json response.
         # print resp.content
 
-    return resp.content
+    return resp1.content
 
 
 def check_password(str):
