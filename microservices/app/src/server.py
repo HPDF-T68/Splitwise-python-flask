@@ -7,7 +7,7 @@ import json
 app = Flask(__name__)
 
 
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['POST'])
 def signup():
     js = request.get_json()
     #content = request.json
