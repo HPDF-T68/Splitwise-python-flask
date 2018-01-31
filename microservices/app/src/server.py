@@ -44,8 +44,9 @@ def signup():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     resp1 = resp
-    data = resp.json()
-    if data['data']['code'] != "user-exists":
+    #data = json.dumps(resp)
+    #data= resp.json()
+    if resp.json()['code']!= "user-exists":
 
 
 
@@ -59,7 +60,7 @@ def signup():
                 "table": "signup",
                 "objects": [
                     {
-                        "uid": data['data']['code'],
+                        "uid": resp.json()['code'],
                         "email": js['data']['email'],
                         "mobile": js['data']['mobile'],
                         "currency": js['data']['currency']
