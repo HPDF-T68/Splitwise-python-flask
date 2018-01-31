@@ -7,8 +7,8 @@ import json
 app = Flask(__name__)
 
 
-@app.route('/signup/<uuid>', methods=['GET', 'POST'])
-def signup(uuid):
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
     #content = request.get_json(force=True)
     content = request.json
     # This is the url to which the query is made
