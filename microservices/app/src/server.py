@@ -31,8 +31,8 @@ def signup():
     requestPayload = {
         "provider": "username",
         "data": {
-            "username": js['username'],
-            "password": js['password']
+            "username": js['data']['username'],
+            "password": js['data']['password']
         }
     }
 
@@ -60,9 +60,9 @@ def signup():
                 "objects": [
                     {
                         "uid": data['code'],
-                        "email": js['email'],
-                        "mobile": js['mobile'],
-                        "currency": js['currency']
+                        "email": js['data']['email'],
+                        "mobile": js['data']['mobile'],
+                        "currency": js['data']['currency']
                     }
                 ]
             }
