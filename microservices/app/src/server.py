@@ -6,15 +6,14 @@ import json
 # from urllib3 import request
 app = Flask(__name__)
 
-
 @app.route('/signup', methods=['POST'])
 def signup():
-    content = request.get_json()
+    content = request.get_json(Force=True)
     #content = request.json
     #This is the url to which the query is made
 
     js = json.loads(json.dumps(content))
-    b = check_password(js['password']);
+    b = check_password(js['data']['password'])
     if not b:
         list = [
             {
