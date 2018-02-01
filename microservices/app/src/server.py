@@ -5,7 +5,7 @@ import json
 
 # from urllib3 import request
 app = Flask(__name__)
-@app.route('/info', methods=['POST'])
+@app.route('/info', methods=['POST','GET'])
 def info():
     content = request.get_json()
 
@@ -21,7 +21,7 @@ def info():
     }
 
     # Make the query and store response in resp
-    resp = requests.request("POST", url, headers=headers)
+    resp = requests.request("GET", url, headers=headers)
 
     # resp.content contains the json response.
     return resp.content
