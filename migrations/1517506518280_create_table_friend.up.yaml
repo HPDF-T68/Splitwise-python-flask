@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "friend"("s.n" bigserial NOT NULL DEFAULT 0, "uid" text NOT
+      NULL, "friend_id" text NOT NULL, PRIMARY KEY ("s.n") )
+  type: run_sql
+- args:
+    name: friend
+  type: add_existing_table_or_view
