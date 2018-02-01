@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request,render_template
 import requests
 from flask import jsonify
 import json
@@ -63,7 +63,7 @@ def signup():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    resp1-resp
+    resp1 = resp
     #data = json.dumps(resp)
     #data= resp.json()
     #if 'This user already exists' != resp.json()['message']:
@@ -112,6 +112,35 @@ def check_password(str):
     else:
         return True
     return True
+
+
+@app.route('/login', methods=['POST'])
+def login():
+    content = request.get_json()
+    js = json.loads(json.dumps(content))
+
+    # This is the url to which the query is made
+    url = "https://auth.octagon58.hasura-app.io/v1/login"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "provider": "username",
+        "data": {
+            "username": js['data']['username'],
+            "password": js['data']['password']
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+    return resp.content
 
 
 @app.route("/")
