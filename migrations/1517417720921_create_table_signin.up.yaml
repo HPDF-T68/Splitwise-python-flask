@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "signin"("uid" numeric NOT NULL, "email" text NOT NULL, "mobile"
+      text NOT NULL, "currency" text NOT NULL, PRIMARY KEY ("uid") )
+  type: run_sql
+- args:
+    name: signin
+  type: add_existing_table_or_view

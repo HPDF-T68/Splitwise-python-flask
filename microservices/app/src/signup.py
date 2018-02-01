@@ -1,10 +1,10 @@
-from flask import Flask
+from flask import Flask,request
 import requests
 from flask import jsonify
 import json
-from urllib3 import request
+#from urllib3 import request
 app=Flask(__name__)
-@app.route('/signup', methods=['GET', 'POST'])
+@app.route('/signup', methods=['GET','POST'])
 def signup():
     content = request.get_json(force=True)
       # This is the url to which the query is made
@@ -90,5 +90,5 @@ def check_password(str):
         return True
     return True
 
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
