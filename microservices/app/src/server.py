@@ -5,18 +5,18 @@ import json
 
 # from urllib3 import request
 app = Flask(__name__)
-@app.route('/user', methods=['POST'])
-def user():
+@app.route('/info', methods=['POST'])
+def info():
+    content = request.get_json()
 
+
+    js = json.loads(json.dumps(content))
     # This is the url to which the query is made
-    url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
-    r = requests.get('https://app.octagon58.hasura-app.io/user')
-    # This is the json payload for the query
-    a=r.headers['Authorization']
-    # Setting headers
-    #a='Bearer '+ a;
+    url = "https://auth.octagon58.hasura-app.io/v1/user/info"
+
+
     headers = {
-        "Authorization": a,
+        "Authorization": js['data']['Authorization'],
         "Content-Type": "application/json"
     }
 
@@ -25,7 +25,6 @@ def user():
 
 # resp.content contains the json response.
     return resp.content
-
 
 @app.route('/logout', methods=['POST'])
 def logout():
