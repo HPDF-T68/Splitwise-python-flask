@@ -70,9 +70,9 @@ def add_friend():
                     "table": "friend",
                     "objects": [
                         {
-                            "friend_id": js['data']['friend_id'] ,
+                            "friend_id": data[0]['uid'] ,
 
-                            "uid":  data[0]['uid']
+                            "uid":  js['data']['user_id']
                         }
                     ]
                 }
