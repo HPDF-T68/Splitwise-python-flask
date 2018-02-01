@@ -72,7 +72,7 @@ def add_friend():
                         {
                             "friend_id": js['data']['friend_id'] ,
 
-                            "uid":  js['data']['uid']
+                            "uid":  data[0]['uid']
                         }
                     ]
                 }
