@@ -5,6 +5,126 @@ import json
 
 # from urllib3 import request
 app = Flask(__name__)
+
+@app.route('/add_friend', methods=['POST'])
+def add_friend():
+    content = request.get_json()
+    js = json.loads(json.dumps(content))
+
+    # user authorization
+    url = "https://app.octagon58.hasura-app.io/info"
+
+    requestPayload = {
+        "provider": "username",
+        "data": {
+            "Authorization": js['data']['Authorization']
+        }
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+    data1=resp.json()
+    if "hasura_id" in resp.json():
+
+
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "signup",
+                    "columns": [
+                    "uid"
+                        ],
+                    "where": {
+                    "$or": [
+                        {
+                            "email": {
+                                "$eq": js[ 'data' ][ 'friend_id' ]
+                            }
+                        },
+                        {
+                            "username": {
+                                "$eq": js[ 'data' ][ 'friend_id' ]
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+            }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data = json.loads(resp.content);
+        # print data[0]['uid']
+        # resp.content contains the json response.
+        if not data:
+            list = [
+                {
+
+                    "message": "This user does not exists"
+
+                }
+            ]
+            return jsonify(resp=list)
+        else:
+
+            # This is the url to which the query is made
+            url = "https://data.octagon58.hasura-app.io/v1/query"
+
+            # This is the json payload for the query
+            requestPayload = {
+                "type": "insert",
+                "args": {
+                    "table": "friend",
+                    "objects": [
+                        {
+                            "friend_id": js['data']['friend_id'] ,
+
+                            "uid":  data1['hasura_id']
+                        }
+                    ]
+                }
+            }
+
+            # Setting headers
+            headers = {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+                }
+
+            resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+            list = [
+                {
+
+                    "message": "User Added"
+
+                }
+            ]
+            return jsonify(resp=list)
+            # resp.content contains the json response.
+    else:
+        list = [
+            {
+                "error": "unauthorized access"
+            }
+        ]
+        return jsonify(resp=list)
+
+    return resp.content
+
+
 @app.route('/info', methods=['POST','GET'])
 def info():
     content = request.get_json()
