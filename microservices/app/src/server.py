@@ -20,10 +20,10 @@ def info():
         "Content-Type": "application/json"
     }
 
-# Make the query and store response in resp
+    # Make the query and store response in resp
     resp = requests.request("POST", url, headers=headers)
 
-# resp.content contains the json response.
+    # resp.content contains the json response.
     return resp.content
 
 @app.route('/logout', methods=['POST'])
