@@ -22,8 +22,41 @@ def info():
 
     # Make the query and store response in resp
     resp = requests.request("GET", url, headers=headers)
+    data=resp.json()
+    # This is the url to which the query is made
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "email",
+                "mobile",
+                "currency",
+                "money"
+            ],
+            "where": {
+                "uid": {
+                    "$eq": data['hasura_id']
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     # resp.content contains the json response.
+
+
     return resp.content
 
 @app.route('/logout', methods=['POST'])
