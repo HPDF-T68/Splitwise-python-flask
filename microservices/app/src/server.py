@@ -32,6 +32,7 @@ def info():
         "args": {
             "table": "signup",
             "columns": [
+                "username"
                 "email",
                 "mobile",
                 "currency",
@@ -138,7 +139,9 @@ def signup():
                         "uid": resp.json()['hasura_id'],
                         "email": js['data']['email'],
                         "mobile": js['data']['mobile'],
-                        "currency": js['data']['currency']
+                        "currency": js['data']['currency'],
+                        "username": js['data']['username'],
+
                     }
                 ]
             }
