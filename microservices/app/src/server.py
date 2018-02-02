@@ -5,7 +5,7 @@ import json
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-
+app = Flask(__name__)
 # from urllib3 import request
 
 def email_send(toaddr,sub,body):
