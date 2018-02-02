@@ -2,10 +2,32 @@ from flask import Flask, request,render_template
 import requests
 from flask import jsonify
 import json
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # from urllib3 import request
 app = Flask(__name__)
+@app.route('/email_send', methods=['POST'])
+def email_send():
 
+    fromaddr = "t68pf1@gmail.com"
+    toaddr = "manish.kumar212111@gmail.com"
+    msg = MIMEMultipart()
+    msg[ 'From' ] = fromaddr
+    msg[ 'To' ] = toaddr
+    msg[ 'Subject' ] = "check"
+
+    body = "Manish here"
+    msg.attach(MIMEText(body, 'plain'))
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "man12345")
+    text = msg.as_string()
+    resp= server.sendmail(fromaddr, toaddr, text)
+    server.quit()
+    return resp
 
 @app.route('/add_friend', methods=['POST'])
 def add_friend():
