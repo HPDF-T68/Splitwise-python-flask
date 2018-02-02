@@ -5,6 +5,7 @@ import json
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import datetime
 app = Flask(__name__)
 # from urllib3 import request
 
@@ -30,7 +31,7 @@ def email_send(toaddr,sub,body):
 @app.route('/create_group',  methods=['GET','POST'])
 def create_group():
     content = request.get_json(force=True)
-    js = json.loads(content)
+    js = json.loads(json.dumps(content))
     uid=js['data']['uid']
     gname=js['data']['group_name']
     mno=js['data']['member_no']
