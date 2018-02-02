@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "group_user" ALTER COLUMN "cash_paid" TYPE integer;
+  type: run_sql
+- args:
+    sql: ALTER TABLE ONLY "group_user" ALTER COLUMN "cash_paid" SET DEFAULT 0;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "group_user" ALTER COLUMN "cash_paid" DROP NOT NULL;
+  type: run_sql

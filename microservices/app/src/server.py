@@ -31,8 +31,76 @@ def email_send(toaddr,sub,body):
 def create_group():
     content = request.get_json(force=True)
     js = json.loads(content)
+    uid=js['data']['uid']
+    gname=js['data']['group_name']
+    mno=js['data']['member_no']
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+    requestPayload = {
+        "type": "insert",
+        "args": {
+            "table": "group",
+            "objects": [
+                {
+                    "gdate": datetime.date.today(),
+                    "uid": uid,
+                    "gname": gname,
+                    "member_no": mno,
 
-    return jsonify(content)
+                }
+                ] ,
+                "returning": [
+        "gid"
+      ]
+
+        }
+    }
+
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+    data=json.loads(resp.content)
+
+    for i in range[js['data']['member_no']]:
+        requestPayload = {
+         "type": "insert",
+            "args": {
+                "table": "group_member",
+                "objects": [
+                    {
+                        "gid":data ['returning'][0]['gid'],
+                        "uid": js['data']['member_no'][i]
+
+
+                    }
+                ]
+            }
+        }
+        resp1 = requests.request("POST", url, data1=json.dumps(requestPayload), headers=headers)
+
+    requestPayload = {
+        "type": "insert",
+        "args": {
+            "table": "group_user",
+            "objects": [
+                {
+                    "gid": data[ 'returning' ][ 0 ][ 'gid' ],
+                    "uid": js[ 'data' ][ 'uid' ],
+                    "date": datetime.date.today()
+
+                }
+            ]
+        }
+    }
+    resp2 = requests.request("POST", url, data2=json.dumps(requestPayload), headers=headers)
+
+    # resp.content contains the json response.
+    return resp.content
+
 
 @app.route('/add_friend', methods=['POST'])
 def add_friend():
