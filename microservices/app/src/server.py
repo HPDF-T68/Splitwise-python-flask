@@ -117,7 +117,8 @@ def add_friend():
             "args": {
                 "table": "signup",
                     "columns": [
-                    "uid"
+                    "uid",
+                    "username"
                         ],
                     "where": {
                     "$or": [
@@ -170,7 +171,8 @@ def add_friend():
                         {
                             "friend_id": data[0]['uid'] ,
 
-                            "uid":  js['data']['uid']
+                            "uid":  js['data']['uid'],
+                            "username": js[0]['username']
                         }
                     ]
                 }
