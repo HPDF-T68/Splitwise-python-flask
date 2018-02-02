@@ -28,6 +28,41 @@ def email_send(toaddr,sub,body):
     resp= server.sendmail(fromaddr, toaddr, text)
     server.quit()
     return True
+@app.route('/list_group',  methods=['GET','POST'])
+def list_group():
+    content = request.get_json()
+    js = json.loads(json.dumps(content))
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "group",
+            "columns": [
+                "gid",
+                "gname"
+            ],
+            "where": {
+                "uid": {
+                    "$eq": js['data']['uid']
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+    # resp.content contains the json response.
+    return resp.content
+
 
 @app.route('/list_friend',  methods=['GET','POST'])
 def list_friend():
