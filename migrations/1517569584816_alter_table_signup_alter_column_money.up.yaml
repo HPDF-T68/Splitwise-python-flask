@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "signup" ALTER COLUMN "money" TYPE bigint;
+  type: run_sql
+- args:
+    sql: ALTER TABLE ONLY "signup" ALTER COLUMN "money" SET DEFAULT 0;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "signup" ALTER COLUMN "money" SET NOT NULL;
+  type: run_sql

@@ -277,7 +277,7 @@ def signup():
         body = " Thanks ," + js[ 'data' ][ 'username' ] + " For showing interest in us"
         email_send(js[ 'data' ][ 'email' ], sub, body)
 
-    return resp.content
+    return resp1.content
 
 
 def check_password(str):
