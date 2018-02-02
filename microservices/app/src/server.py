@@ -30,7 +30,8 @@ def email_send(toaddr,sub,body):
 @app.route('/create_group',  methods=['GET','POST'])
 def create_group():
     content = request.get_json(force=True)
-    #js = json.loads(content)
+    js = json.loads(content)
+
     return jsonify(content)
 
 @app.route('/add_friend', methods=['POST'])
