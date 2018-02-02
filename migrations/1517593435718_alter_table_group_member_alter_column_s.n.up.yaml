@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "group_member" ALTER COLUMN "s.n" TYPE bigint;
+  type: run_sql
+- args:
+    sql: ALTER TABLE ONLY "group_member" ALTER COLUMN "s.n" SET DEFAULT nextval('"group_member_s.n_seq"'::regclass);
+  type: run_sql
+- args:
+    sql: ALTER TABLE "group_member" ALTER COLUMN "s.n" SET NOT NULL;
+  type: run_sql
