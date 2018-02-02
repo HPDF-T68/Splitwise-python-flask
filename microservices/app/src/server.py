@@ -65,8 +65,8 @@ def create_group():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     data=json.loads(resp.content)
-
-    for i in range[js['data']['member_no']]:
+    a=(js['data']['member_no'])
+    for i in range[len(js['data']['member_no'])]:
         requestPayload = {
          "type": "insert",
             "args": {
