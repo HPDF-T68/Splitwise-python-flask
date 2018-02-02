@@ -270,13 +270,14 @@ def signup():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        sub="SignUp Confirmation For splitwise"
-        body=" Thanks ," + js['data']['username'] + " For showing interest in us"
-        email_send(js['data']['email'], sub, body)
+
         # resp.content contains the json response.
         # print resp.content
+        sub = "SignUp Confirmation For splitwise"
+        body = " Thanks ," + js[ 'data' ][ 'username' ] + " For showing interest in us"
+        email_send(js[ 'data' ][ 'email' ], sub, body)
 
-    return resp1.content
+    return resp.content
 
 
 def check_password(str):
