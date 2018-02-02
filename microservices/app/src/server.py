@@ -8,7 +8,7 @@ from email.mime.multipart import MIMEMultipart
 
 # from urllib3 import request
 app = Flask(__name__)
-@app.route('/email_send', methods=['POST'])
+@app.route('/email_send')
 def email_send():
 
     fromaddr = "t68pf1@gmail.com"
