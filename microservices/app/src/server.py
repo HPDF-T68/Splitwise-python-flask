@@ -27,6 +27,11 @@ def email_send(toaddr,sub,body):
     resp= server.sendmail(fromaddr, toaddr, text)
     server.quit()
     return True
+@app.route('/create_group',  methods=['GET','POST'])
+def create_group():
+    content = request.get_json(force=True)
+    js = json.loads(content)
+    return jsonify(js)
 
 @app.route('/add_friend', methods=['POST'])
 def add_friend():
