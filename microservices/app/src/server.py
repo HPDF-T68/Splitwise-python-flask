@@ -7,18 +7,17 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 # from urllib3 import request
-app = Flask(__name__)
-@app.route('/email_send')
-def email_send():
+
+def email_send(toaddr,sub,body):
 
     fromaddr = "t68pf1@gmail.com"
-    toaddr = "manish.kumar212111@gmail.com"
+    #toaddr = "manish.kumar212111@gmail.com"
     msg = MIMEMultipart()
     msg[ 'From' ] = fromaddr
     msg[ 'To' ] = toaddr
-    msg[ 'Subject' ] = "check"
+    msg[ 'Subject' ] = sub
 
-    body = "Manish here"
+    #body = "Manish here"
     msg.attach(MIMEText(body, 'plain'))
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
@@ -27,7 +26,7 @@ def email_send():
     text = msg.as_string()
     resp= server.sendmail(fromaddr, toaddr, text)
     server.quit()
-    return resp.content
+    return True
 
 @app.route('/add_friend', methods=['POST'])
 def add_friend():
@@ -271,7 +270,9 @@ def signup():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
+        sub="SignUp Confirmation For splitwise"
+        body=" Thanks ," + js['data']['username'] + " For showing interest in us"
+        email_send(js['data']['email'], sub, body)
         # resp.content contains the json response.
         # print resp.content
 
