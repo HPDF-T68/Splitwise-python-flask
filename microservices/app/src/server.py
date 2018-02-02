@@ -83,7 +83,7 @@ def create_group():
                 ]
             }
         }
-        resp1 = requests.request("POST", url, data1=json.dumps(requestPayload), headers=headers)
+        resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     requestPayload = {
         "type": "insert",
@@ -99,7 +99,7 @@ def create_group():
             ]
         }
     }
-    resp2 = requests.request("POST", url, data2=json.dumps(requestPayload), headers=headers)
+    resp2 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     # resp.content contains the json response.
     return resp.content
