@@ -65,7 +65,8 @@ def create_group():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     data=json.loads(resp.content)
-    a=(js['data']['member_no'][0])
+    assert isinstance(js, object)
+    a=len(js['data']['group_member'])
     for i in range(len(js['data']['group_member'])):
         requestPayload = {
          "type": "insert",
@@ -74,7 +75,7 @@ def create_group():
                 "objects": [
                     {
                         "gid":data ['returning'][0]['gid'],
-                        "uid": js['data']['member_no'][i]
+                        "uid": js['data']['group_member'][i]
 
 
                     }
