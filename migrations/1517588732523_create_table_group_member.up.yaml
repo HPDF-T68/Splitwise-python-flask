@@ -1,0 +1,7 @@
+- args:
+    sql: CREATE TABLE "group_member"("s.n" bigserial NOT NULL, "gid" bigint NOT NULL,
+      "uid" numeric NOT NULL, PRIMARY KEY ("s.n") )
+  type: run_sql
+- args:
+    name: group_member
+  type: add_existing_table_or_view

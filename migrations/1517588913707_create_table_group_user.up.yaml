@@ -1,0 +1,8 @@
+- args:
+    sql: CREATE TABLE "group_user"("s.n" bigserial NOT NULL, "gid" bigint NOT NULL,
+      "uid" numeric NOT NULL, "cash_paid" integer NOT NULL, "date" date NOT NULL,
+      PRIMARY KEY ("s.n") )
+  type: run_sql
+- args:
+    name: group_user
+  type: add_existing_table_or_view
