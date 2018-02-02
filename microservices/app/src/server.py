@@ -32,6 +32,7 @@ def email_send(toaddr,sub,body):
 def create_group():
     content = request.get_json(force=True)
     js = json.loads(json.dumps(content))
+    return jsonify(js)
     uid=js['data']['uid']
     gname=js['data']['group_name']
     mno=js['data']['member_no']
