@@ -68,7 +68,7 @@ def create_group():
     data=json.loads(resp.content)
     assert isinstance(js, object)
     a=len(js['group_member'])
-    for i in range(len(js['data']['group_member'])):
+    for i in range(len(js['group_member'])):
         requestPayload = {
          "type": "insert",
             "args": {
