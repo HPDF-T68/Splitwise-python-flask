@@ -93,7 +93,7 @@ def create_group():
                 {
                     "gid": data[ 'returning' ][ 0 ][ 'gid' ],
                     "uid": js[ 'data' ][ 'uid' ],
-                    "date": datetime.date.today()
+                    "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),
 
                 }
             ]
