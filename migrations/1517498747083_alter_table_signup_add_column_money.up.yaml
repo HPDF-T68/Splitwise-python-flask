@@ -1,3 +1,0 @@
-- args:
-    sql: ALTER TABLE "signup" ADD COLUMN "money" numeric NUll DEFAULT 00
-  type: run_sql

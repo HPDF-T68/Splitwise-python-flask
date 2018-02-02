@@ -1,6 +1,0 @@
-- args:
-    sql: CREATE TABLE "test"("test" bigint NOT NULL, PRIMARY KEY ("test") )
-  type: run_sql
-- args:
-    name: test
-  type: add_existing_table_or_view

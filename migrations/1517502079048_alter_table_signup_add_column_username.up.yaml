@@ -1,3 +1,0 @@
-- args:
-    sql: ALTER TABLE "signup" ADD COLUMN "username" text NUll
-  type: run_sql

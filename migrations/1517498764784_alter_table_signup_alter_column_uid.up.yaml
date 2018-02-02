@@ -1,9 +1,0 @@
-- args:
-    sql: ALTER TABLE "signup" ALTER COLUMN "uid" TYPE numeric;
-  type: run_sql
-- args:
-    sql: ALTER TABLE "signup" ALTER COLUMN "uid" DROP DEFAULT;
-  type: run_sql
-- args:
-    sql: ALTER TABLE "signup" ALTER COLUMN "uid" SET NOT NULL;
-  type: run_sql

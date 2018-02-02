@@ -1,3 +1,0 @@
-- args:
-    sql: DROP TABLE "signin"
-  type: run_sql
