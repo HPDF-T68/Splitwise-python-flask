@@ -42,7 +42,7 @@ def create_group():
             "table": "group",
             "objects": [
                 {
-                    "gdate": datetime.date.today(),
+                    "gdate": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),
                     "uid": uid,
                     "gname": gname,
                     "member_no": mno,
