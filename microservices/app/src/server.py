@@ -32,7 +32,7 @@ def email_send(toaddr,sub,body):
 def create_group():
     content = request.get_json(force=True)
     js = json.loads(json.dumps(content))
-    return jsonify(js)
+    #return jsonify(js)
     uid=js['data']['uid']
     gname=js['data']['group_name']
     mno=js['data']['member_no']
@@ -67,7 +67,7 @@ def create_group():
 
     data=json.loads(resp.content)
     assert isinstance(js, object)
-    a=len(js['data']['group_member'])
+    a=len(js['group_member'])
     for i in range(len(js['data']['group_member'])):
         requestPayload = {
          "type": "insert",
@@ -76,7 +76,7 @@ def create_group():
                 "objects": [
                     {
                         "gid":data ['returning'][0]['gid'],
-                        "uid": js['data']['group_member'][i]
+                        "uid": js['group_member'][i]
 
 
                     }
