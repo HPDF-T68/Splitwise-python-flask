@@ -27,7 +27,7 @@ def email_send():
     text = msg.as_string()
     resp= server.sendmail(fromaddr, toaddr, text)
     server.quit()
-    return resp
+    return resp.content
 
 @app.route('/add_friend', methods=['POST'])
 def add_friend():
