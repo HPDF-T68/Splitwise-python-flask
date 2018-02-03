@@ -62,8 +62,106 @@ def add_money_group():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data=json.loads(resp.content)
-    if data[0]['money'] > js['data']['money']:
-        return jsonify(list=[{"message":"okay" ,"m1":data[0]['money']}])
+    if data[0]['money'] >= js['data']['money']:
+
+
+        # This is the json payload for the query
+        requestPayload = {
+            "type": "insert",
+            "args": {
+                "table": "group_user",
+                "objects": [
+                    {
+                        "cash_paid": js['data']['money'],
+                        "gid": js['data']['gid'],
+                        "uid": js['data']['uid'],
+                        "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str)
+                    }
+                ]
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "group",
+                "columns": [
+                    "total_expanse"
+                ],
+                "where": {
+                    "gid": {
+                        "$eq": js['data']['gid']
+                    }
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+        data=json.loads(resp.content)
+        a=data[0]['total_expanse']+js['data']['money']
+
+        requestPayload = {
+            "type": "update",
+            "args": {
+                "table": "group",
+                "where": {
+                    "gid": {
+                        "$eq": js['data']['gid']
+                    }
+                },
+                "$set": {
+                    "total_expanse": a
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+        requestPayload = {
+            "type": "update",
+            "args": {
+                "table": "signup",
+                "where": {
+                    "uid": {
+                        "$eq": js[ 'data' ][ 'uid' ]
+                    }
+                },
+                "$set": {
+                    "money": (data['0']['money'] - js['data']['money'])
+                }
+            }
+        }
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        # resp.content contains the json response.
+
+        return jsonify(list=[{"message":"money added"}])
+
+
+
     else:
         return jsonify(list=[ {"error":"insufficient amount in account" ,"required_amount":(js['data']['money']-data[0]['money'])}])
 
