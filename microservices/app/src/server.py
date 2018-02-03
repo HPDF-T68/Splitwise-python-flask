@@ -62,12 +62,14 @@ def add_money_group():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data=json.loads(resp.content)
-    if data[0]['money']< js['data']['money']:
-        return jsonify(list=[{"message":"okay"}])
+    if data[0]['money'] < js['data']['money']:
+        return jsonify(list=[{"message":"okay" ,"m1":data[0]['money']}])
     else:
-        return jsonify(list=[ {"message":"no okay" }])
+        return jsonify(list=[ {"message":"no okay" ,"m1":data[0]['money']}])
+
     return resp.content
     # resp.content contains the json response.
+
 
 
 @app.route('/add_money_account', methods=['GET','POST'])
