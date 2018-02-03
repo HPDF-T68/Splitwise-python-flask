@@ -29,6 +29,46 @@ def email_send(toaddr,sub,body):
     server.quit()
     return True
 
+@app.route('/add_money_group', methods['GET','POST'])
+def add_money_group():
+
+    content=request.get_json()
+    js=json.loads(json.dumps(content))
+    # This is the url to which the query is made
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "money"
+            ],
+            "where": {
+                "uid": {
+                    "$eq": js['data']['uid']
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    data=json.loads(resp.content)
+    if data[0]['money']< js['data']['money']:
+        return jsonify(resp=list["message":"okay"])
+    else:
+        return jsonify(resp=list[ "message":"okay" ])
+    return resp.content
+    # resp.content contains the json response.
+
+
 @app.route('/add_money_account', methods=['GET','POST'])
 def add_money_account():
     content=request.get_json()
