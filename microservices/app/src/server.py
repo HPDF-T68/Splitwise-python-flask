@@ -29,7 +29,7 @@ def email_send(toaddr,sub,body):
     server.quit()
     return True
 
-@app.route('/add_money_group', methods['GET','POST'])
+@app.route('/add_money_group', methods=['GET','POST'])
 def add_money_group():
 
     content=request.get_json()
