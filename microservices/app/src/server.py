@@ -62,6 +62,8 @@ def add_money_group():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data=json.loads(resp.content)
+    b=data[0]['money']
+    c=js['data']['money']
     if data[0]['money'] >= js['data']['money']:
 
 
@@ -151,7 +153,7 @@ def add_money_group():
                     }
                 },
                 "$set": {
-                    "money": (data[0]['money'] - js['data']['money'])
+                    "money": b-c
                 }
             }
         }
