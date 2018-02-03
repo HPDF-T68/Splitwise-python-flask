@@ -63,9 +63,9 @@ def add_money_group():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data=json.loads(resp.content)
     if data[0]['money']< js['data']['money']:
-        return jsonify(resp=list[{"message":"okay"}])
+        return jsonify(list=[{"message":"okay"}])
     else:
-        return jsonify(resp=list[ {"message":"no okay" }])
+        return jsonify(list=[ {"message":"no okay" }])
     return resp.content
     # resp.content contains the json response.
 
