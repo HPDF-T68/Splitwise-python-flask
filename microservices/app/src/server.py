@@ -62,10 +62,10 @@ def add_money_group():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data=json.loads(resp.content)
-    if data[0]['money'] < js['data']['money']:
+    if data[0]['money'] > js['data']['money']:
         return jsonify(list=[{"message":"okay" ,"m1":data[0]['money']}])
     else:
-        return jsonify(list=[ {"error":"insufficient amount in account" ,"message":"money to be added " +(js['data']['money']-data[0]['money'])}])
+        return jsonify(list=[ {"error":"insufficient amount in account" ,"required_amount":(js['data']['money']-data[0]['money'])}])
 
     return resp.content
     # resp.content contains the json response.
