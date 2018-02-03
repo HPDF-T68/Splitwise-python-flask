@@ -151,7 +151,7 @@ def add_money_group():
                     }
                 },
                 "$set": {
-                    "money": (data['0']['money'] - js['data']['money'])
+                    "money": (data[0]['money'] - js['data']['money'])
                 }
             }
         }
