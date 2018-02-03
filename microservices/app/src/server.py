@@ -65,7 +65,7 @@ def add_money_group():
     if data[0]['money'] < js['data']['money']:
         return jsonify(list=[{"message":"okay" ,"m1":data[0]['money']}])
     else:
-        return jsonify(list=[ {"message":"no okay" ,"m1":data[0]['money']}])
+        return jsonify(list=[ {"error":"insufficient amount in account" ,"message":"money to be added " +(js['data']['money']-data[0]['money'])}])
 
     return resp.content
     # resp.content contains the json response.
