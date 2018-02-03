@@ -55,7 +55,8 @@ def add_money_group():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+         "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
     }
 
     # Make the query and store response in resp
