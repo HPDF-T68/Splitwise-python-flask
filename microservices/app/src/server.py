@@ -62,7 +62,6 @@ def login_form():
     return render_template('login.html')
 @app.route('/login_submit', methods = ['POST','GET'])
 def login_submit():
-    if request.method == 'POST':
         username=request.form['username']
         password = request.form['password']
 
@@ -90,7 +89,7 @@ def login_submit():
             return render_template('main.html',username="raja")
 
 
-    return render_template('index.html')
+        return render_template('index.html')
 
 
 def email_send(toaddr,sub,body):
