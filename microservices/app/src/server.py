@@ -14,7 +14,7 @@ app = Flask(__name__)
 @app.route('/')
 def index():
     return render_template('index.html')
-@app.route('/register')
+@app.route('/register',methods=['POST','GET'])
 def register():
     return render_template('register.html')
 
@@ -26,7 +26,7 @@ def signup_submit():
         mobile = request.form['mobile']
         password = request.form['password']
 
-        url = "/signup"
+        url = "https://app.octagon58.hasura-app.io/signup"
 
         # This is the json payload for the query
         requestPayload = {
@@ -57,7 +57,7 @@ def signup_submit():
     return render_template('index.html')
 
 
-@app.route('/login_form')
+@app.route('/login_form',methods=['POST','GET'])
 def login_form():
     return render_template('login.html')
 @app.route('/login_submit', methods = ['POST','GET'])
@@ -66,7 +66,7 @@ def login_submit():
         username=request.form['username']
         password = request.form['password']
 
-        url = "/login"
+        url = "https://app.octagon58.hasura-app.io/login"
 
         # This is the json payload for the query
         requestPayload = {
