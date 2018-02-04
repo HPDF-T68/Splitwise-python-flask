@@ -84,7 +84,14 @@ def login_submit():
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         #data=json.loads(resp.content)
-        return resp.content
+        if 'hasura_id' in resp.json():
+            return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
+        else:
+            return render_template('main.html',username="raja")
+
+
+    return render_template('index.html')
+
 
 def email_send(toaddr,sub,body):
 
