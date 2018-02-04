@@ -2,14 +2,14 @@
 
 Source code GitHub repo: https://github.com/HPDF-T68/Splitwise-ui-ReactNative
 
-##Features/Components
+## Features/Components
 
 * Uses React Native 0.50.3
 * Login/Signup with hasura Auth
 * Hasura Data API 
 * Hasura filestore API for images.
 
-##Installation
+## Installation
 
 Once you have downloaded or cloned this repository, run `npm install` inside the directory.
 
