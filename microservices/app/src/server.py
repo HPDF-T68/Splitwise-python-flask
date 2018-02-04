@@ -48,7 +48,7 @@ def signup_submit():
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data=json.loads(resp.content)
-        if "hasura_id" in resp.json():
+        if 'hasura_id' in resp.json():
             return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
         else:
             return render_template('index.html',username="raja")
@@ -62,6 +62,7 @@ def login_form():
     return render_template('login.html')
 @app.route('/login_submit', methods = ['POST','GET'])
 def login_submit():
+    if method=='POST':
         username=request.form['username']
         password = request.form['password']
 
@@ -82,14 +83,14 @@ def login_submit():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        data=json.loads(resp.content)
-        if "hasura_id" in resp.json():
-            return render_template('main.html',auth_token=data['auth_token'],username=data['username'],hasura_id=data['hasura_id'])
+        #data=json.loads(resp.content)
+        if 'hasura_id' in resp.json():
+            return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
         else:
             return render_template('main.html',username="raja")
 
 
-        return render_template('index.html')
+    return render_template('index.html')
 
 
 def email_send(toaddr,sub,body):
