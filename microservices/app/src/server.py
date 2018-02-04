@@ -9,6 +9,90 @@ import datetime
 app = Flask(__name__)
 # from urllib3 import request
 
+
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/signup_submit', methods=['POST'])
+def signup_submit():
+    if request.method == 'POST':
+        username=request.form['username']
+        email = request.form['email']
+        mobile = request.form['mobile']
+        password = request.form['password']
+
+        url = "https://app.octagon58.hasura-app.io/signup"
+
+        # This is the json payload for the query
+        requestPayload = {
+            "data": {
+                "username": username,
+                "email":email,
+                "mobile":mobile,
+                "password":password,
+                "currency": "INR"
+
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data=json.loads(resp.content)
+        if "hasura_id" in resp.json():
+            return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
+        else:
+            return render_template('index.html',username="raja")
+
+
+    return render_template('index.html')
+
+
+@app.route('/login_form')
+def login_form():
+    return render_template('login.html')
+@app.route('/login_submit', methods = ['POST'])
+def login_submit():
+    if request.method == 'POST':
+        username=request.form['username']
+        password = request.form['password']
+
+        url = "https://app.octagon58.hasura-app.io/login"
+
+        # This is the json payload for the query
+        requestPayload = {
+            "data": {
+                "username": username,
+                "password":password
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data=json.loads(resp.content)
+        if "hasura_id" in resp.json():
+            return render_template('main.html',auth_token=data['auth_token'],username=data['username'],hasura_id=data['hasura_id'])
+        else:
+            return render_template('main.html',username="raja")
+
+
+    return render_template('index.html')
+
+
 def email_send(toaddr,sub,body):
 
     fromaddr = "t68pf1@gmail.com"
@@ -663,9 +747,7 @@ def login():
     return resp.content
 
 
-@app.route("/")
-def hello():
-    return render_template('index.html')
+
 
 
 if __name__ == '__main__':
