@@ -18,7 +18,7 @@ def index():
 def register():
     return render_template('register.html')
 
-@app.route('/signup_submit', methods=['POST'])
+@app.route('/signup_submit', methods=['POST','GET'])
 def signup_submit():
     if request.method == 'POST':
         username=request.form['username']
@@ -60,7 +60,7 @@ def signup_submit():
 @app.route('/login_form')
 def login_form():
     return render_template('login.html')
-@app.route('/login_submit', methods = ['POST'])
+@app.route('/login_submit', methods = ['POST','GET'])
 def login_submit():
     if request.method == 'POST':
         username=request.form['username']
