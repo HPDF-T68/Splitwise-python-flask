@@ -520,7 +520,7 @@ def info():
 
     return resp.content
 
-@app.route('/logout', methods=['POST'])
+@app.route('/logout', methods=['POST','GET'])
 def logout():
     content = request.get_json()
 
@@ -541,7 +541,7 @@ def logout():
 # resp.content contains the json response.
     return resp.content
 
-@app.route('/signup', methods=['POST'])
+@app.route('/signup', methods=['POST','GET'])
 def signup():
     content = request.get_json()
     #content = request.json
@@ -634,7 +634,7 @@ def check_password(str):
     return True
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def login():
     content = request.get_json()
     js = json.loads(json.dumps(content))
