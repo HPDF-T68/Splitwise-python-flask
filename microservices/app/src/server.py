@@ -62,7 +62,7 @@ def login_form():
     return render_template('login.html')
 @app.route('/login_submit', methods = ['POST','GET'])
 def login_submit():
-    if method=='POST':
+    if request.method=='POST':
         username=request.form['username']
         password = request.form['password']
 
