@@ -26,7 +26,7 @@ def signup_submit():
         mobile = request.form['mobile']
         password = request.form['password']
 
-        url = "https://app.octagon58.hasura-app.io/signup"
+        url = "/signup"
 
         # This is the json payload for the query
         requestPayload = {
@@ -66,7 +66,7 @@ def login_submit():
         username=request.form['username']
         password = request.form['password']
 
-        url = "https://app.octagon58.hasura-app.io/login"
+        url = "/login"
 
         # This is the json payload for the query
         requestPayload = {
