@@ -34,7 +34,7 @@ def logout_user():
             session.pop('auth_token', None)
             session.pop('hasura_id', None)
             flash('Successfully logged out')
-            return redirect('https://app.octagon58.hasura-app.io')
+            return render_template('index.html')
         else:
             flash('Please Login First')
             return render_template('login.html')
