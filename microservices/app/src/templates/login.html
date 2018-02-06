@@ -77,7 +77,9 @@ display: table-cell;
             <p class="center login-form-text">S P L I T WI S E - L O G I N</p>
           </div>
           {%with messages = get_flashed_messages() %}
-          {% if messages%}
+          {% for message in messages %}
+               {{ message }}
+               {% endfor %}
          <font color="red"> {{messages}} </font>
 
    {% endif %}
@@ -86,7 +88,7 @@ display: table-cell;
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input name="username" id="username" type="text" class="validate_username" default="{{username}}"  required>
+            <input name="username" id="username" type="text" class="validate_username" value="{{username}}"  required>
             <label for="username" class="center-align">Username</label>
           </div>
         </div>
