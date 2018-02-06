@@ -7,7 +7,7 @@
 <body>
  {%with messages = get_flashed_messages() %}
           {% for message in messages %}
-             <strong> alert({{message}}) </strong>
+             <strong> alert("{{message}}") </strong>
                {% endfor %}
           {% endwith %}
 <!-- Navbar (sit on top) -->
