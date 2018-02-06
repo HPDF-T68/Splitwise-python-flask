@@ -20,7 +20,7 @@ def index():
 
 @app.route('/logout_user')
 def logout_user():
-    if 'auth_token' in session['auth_token']:
+    if 'auth_token' in session:
         # hasura_id=request.args.get('hasura_id')
         url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
         headers = {
