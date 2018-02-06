@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, session, flash
+from flask import Flask,url_for, request, render_template, session, flash
 import requests
 from flask import jsonify
 import json
@@ -34,7 +34,7 @@ def logout_user():
             session.pop('auth_token', None)
             session.pop('hasura_id', None)
             flash('Successfully logged out')
-            return render_template('index.html')
+            return redirect('https://app.octagon58.hasura-app.io')
         else:
             flash('Please Login First')
             return render_template('login.html')
