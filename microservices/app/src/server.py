@@ -39,7 +39,7 @@ def logout_user():
             flash('Please Login First')
             return render_template('login.html')
     flash('invalid session')
-    return render_template('index.html',error=session['auth_token'])
+    return render_template('index.html')
 
 
 @app.route('/register', methods=[ 'POST' , 'GET' ])
