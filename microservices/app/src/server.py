@@ -20,7 +20,7 @@ def index():
 
 @app.route('/logout_user')
 def logout_user():
-    if 'auth_token' in session:
+    if 'auth_token' in session['auth_token']:
         # hasura_id=request.args.get('hasura_id')
         url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
         headers = {
@@ -42,7 +42,7 @@ def logout_user():
     return render_template('index.html')
 
 
-@app.route('/register', methods=[ 'POST', 'GET' ])
+@app.route('/register', methods=[ 'POST' , 'GET' ])
 def register():
     return render_template('register.html')
 
@@ -117,8 +117,8 @@ def login_submit():
         # data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
 
-            session[ 'auth_token' ] = resp.json()[ 'auth_token' ]
-            session[ 'hasura_id' ] = resp.json()[ 'hasura_id' ]
+            session['auth_token'] = resp.json()['auth_token']
+            session['hasura_id'] = resp.json()['hasura_id']
             return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
                                    username=resp.json()[ 'username' ], hasura_id=resp.json()[ 'hasura_id' ])
         else:
