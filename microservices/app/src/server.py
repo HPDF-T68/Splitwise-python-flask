@@ -16,6 +16,22 @@ app.secret_key=os.urandom(24)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/logout_user')
+def logout_user():
+    auth_token=request.args.get('auth_token')
+    url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
+
+    headers = {
+        "Authorization": "Bearer " + auth_token,
+        "Content-Type": "application/json"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, headers=headers)
+
+    # resp.content contains the json response.
+
 @app.route('/register',methods=['POST','GET'])
 def register():
     return render_template('register.html')
