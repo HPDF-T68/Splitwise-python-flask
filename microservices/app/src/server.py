@@ -1,4 +1,4 @@
-from flask import Flask, request,render_template,session,flash
+from flask import Flask, request, render_template, session, flash
 import requests
 from flask import jsonify
 import json
@@ -10,35 +10,29 @@ import os
 
 app = Flask(__name__)
 # from urllib3 import request
-app.secret_key=os.urandom(24)
+app.secret_key = os.urandom(24)
 
 
 @app.route('/')
 def index():
-
     return render_template('index.html')
+
 
 @app.route('/logout_user')
 def logout_user():
-    if 'username' in session:
-        hasura_id=request.args.get('hasura_id')
-        url = "https://auth.octagon58.hasura-app.io/v1/admin/user/deactivate"
-
-        # This is the json payload for the query
-        requestPayload = {
-            "hasura_id": hasura_id
-        }
-
-        # Setting headers
+    if 'auth_token' in session:
+        # hasura_id=request.args.get('hasura_id')
+        url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
         headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+            "Authorization": "Bearer " + session['auth_token']
         }
 
-        # Make the query and store response in resp
-        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        if 'created' in resp.json():
-            session.pop('username',None)
+        resp = requests.request("POST", url, headers=headers)
+
+        if resp.json()['message'] !=  "logged out":
+            session.pop('auth_token', None)
+            session.pop('hasura_id', None)
             flash('Successfully logged out')
             return render_template('main.html')
         else:
@@ -48,17 +42,18 @@ def logout_user():
     return render_template('index.html')
 
 
-@app.route('/register',methods=['POST','GET'])
+@app.route('/register', methods=[ 'POST', 'GET' ])
 def register():
     return render_template('register.html')
 
-@app.route('/signup_submit', methods=['POST','GET'])
+
+@app.route('/signup_submit', methods=[ 'POST', 'GET' ])
 def signup_submit():
     if request.method == 'POST':
-        username=request.form['username']
-        email = request.form['email']
-        mobile = request.form['mobile']
-        password = request.form['password']
+        username = request.form[ 'username' ]
+        email = request.form[ 'email' ]
+        mobile = request.form[ 'mobile' ]
+        password = request.form[ 'password' ]
 
         url = "https://app.octagon58.hasura-app.io/signup"
 
@@ -66,9 +61,9 @@ def signup_submit():
         requestPayload = {
             "data": {
                 "username": username,
-                "email":email,
-                "mobile":mobile,
-                "password":password,
+                "email": email,
+                "mobile": mobile,
+                "password": password,
                 "currency": "INR"
 
             }
@@ -81,24 +76,26 @@ def signup_submit():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        data=json.loads(resp.content)
+        data = json.loads(resp.content)
         if 'hasura_id' in resp.json():
-            return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
+            return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
+                                   username=resp.json()[ 'username' ], hasura_id=resp.json()[ 'hasura_id' ])
         else:
-            return render_template('index.html',username="raja")
-
+            return render_template('index.html', username="raja")
 
     return render_template('index.html')
 
 
-@app.route('/login_form',methods=['POST','GET'])
+@app.route('/login_form', methods=[ 'POST', 'GET' ])
 def login_form():
     return render_template('login.html')
-@app.route('/login_submit', methods = ['POST','GET'])
+
+
+@app.route('/login_submit', methods=[ 'POST', 'GET' ])
 def login_submit():
-    if request.method=='POST':
-        username=request.form['username']
-        password = request.form['password']
+    if request.method == 'POST':
+        username = request.form[ 'username' ]
+        password = request.form[ 'password' ]
 
         url = "https://app.octagon58.hasura-app.io/login"
 
@@ -106,7 +103,7 @@ def login_submit():
         requestPayload = {
             "data": {
                 "username": username,
-                "password":password
+                "password": password
             }
         }
 
@@ -117,44 +114,44 @@ def login_submit():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        #data=json.loads(resp.content)
+        # data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
 
-            session['username']=resp.json()['username']
-            return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
+            session[ 'auth_token' ] = resp.json()[ 'auth_token' ]
+            session[ 'hasura_id' ] = resp.json()[ 'hasura_id' ]
+            return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
+                                   username=resp.json()[ 'username' ], hasura_id=resp.json()[ 'hasura_id' ])
         else:
             flash('Please Check username or password')
-            return render_template('login.html',username=username)
-
+            return render_template('login.html', username=username)
 
     return render_template('index.html')
 
 
-def email_send(toaddr,sub,body):
-
+def email_send(toaddr, sub, body):
     fromaddr = "t68pf1@gmail.com"
-    #toaddr = "manish.kumar212111@gmail.com"
+    # toaddr = "manish.kumar212111@gmail.com"
     msg = MIMEMultipart()
     msg[ 'From' ] = fromaddr
     msg[ 'To' ] = toaddr
     msg[ 'Subject' ] = sub
 
-    #body = "Manish here"
+    # body = "Manish here"
     msg.attach(MIMEText(body, 'plain'))
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login(fromaddr, "man12345")
     text = msg.as_string()
-    resp= server.sendmail(fromaddr, toaddr, text)
+    resp = server.sendmail(fromaddr, toaddr, text)
     server.quit()
     return True
 
-@app.route('/add_money_group', methods=['GET','POST'])
-def add_money_group():
 
-    content=request.get_json()
-    js=json.loads(json.dumps(content))
+@app.route('/add_money_group', methods=[ 'GET', 'POST' ])
+def add_money_group():
+    content = request.get_json()
+    js = json.loads(json.dumps(content))
     # This is the url to which the query is made
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -168,7 +165,7 @@ def add_money_group():
             ],
             "where": {
                 "uid": {
-                    "$eq": js['data']['uid']
+                    "$eq": js[ 'data' ][ 'uid' ]
                 }
             }
         }
@@ -177,16 +174,15 @@ def add_money_group():
     # Setting headers
     headers = {
         "Content-Type": "application/json",
-         "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
     }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    data=json.loads(resp.content)
-    b=data[0]['money']
-    c=js['data']['money']
-    if data[0]['money'] >= js['data']['money']:
-
+    data = json.loads(resp.content)
+    b = data[ 0 ][ 'money' ]
+    c = js[ 'data' ][ 'money' ]
+    if data[ 0 ][ 'money' ] >= js[ 'data' ][ 'money' ]:
 
         # This is the json payload for the query
         requestPayload = {
@@ -195,9 +191,9 @@ def add_money_group():
                 "table": "group_user",
                 "objects": [
                     {
-                        "cash_paid": js['data']['money'],
-                        "gid": js['data']['gid'],
-                        "uid": js['data']['uid'],
+                        "cash_paid": js[ 'data' ][ 'money' ],
+                        "gid": js[ 'data' ][ 'gid' ],
+                        "uid": js[ 'data' ][ 'uid' ],
                         "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str)
                     }
                 ]
@@ -222,7 +218,7 @@ def add_money_group():
                 ],
                 "where": {
                     "gid": {
-                        "$eq": js['data']['gid']
+                        "$eq": js[ 'data' ][ 'gid' ]
                     }
                 }
             }
@@ -237,8 +233,8 @@ def add_money_group():
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
-        data=json.loads(resp.content)
-        a=data[0]['total_expanse']+js['data']['money']
+        data = json.loads(resp.content)
+        a = data[ 0 ][ 'total_expanse' ] + js[ 'data' ][ 'money' ]
 
         requestPayload = {
             "type": "update",
@@ -246,7 +242,7 @@ def add_money_group():
                 "table": "group",
                 "where": {
                     "gid": {
-                        "$eq": js['data']['gid']
+                        "$eq": js[ 'data' ][ 'gid' ]
                     }
                 },
                 "$set": {
@@ -274,29 +270,29 @@ def add_money_group():
                     }
                 },
                 "$set": {
-                    "money": b-c
+                    "money": b - c
                 }
             }
         }
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         # resp.content contains the json response.
 
-        return jsonify(list=[{"message":"money added"}])
+        return jsonify(list=[ {"message": "money added"} ])
 
 
 
     else:
-        return jsonify(list=[ {"error":"insufficient amount in account" ,"required_amount":(js['data']['money']-data[0]['money'])}])
+        return jsonify(list=[ {"error": "insufficient amount in account",
+                               "required_amount": (js[ 'data' ][ 'money' ] - data[ 0 ][ 'money' ])} ])
 
     return resp.content
     # resp.content contains the json response.
 
 
-
-@app.route('/add_money_account', methods=['GET','POST'])
+@app.route('/add_money_account', methods=[ 'GET', 'POST' ])
 def add_money_account():
-    content=request.get_json()
-    js=json.loads(json.dumps(content))
+    content = request.get_json()
+    js = json.loads(json.dumps(content))
     # This is the url to which the query is made
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -307,11 +303,11 @@ def add_money_account():
             "table": "signup",
             "where": {
                 "uid": {
-                    "$eq": js['data']['uid']
+                    "$eq": js[ 'data' ][ 'uid' ]
                 }
             },
             "$set": {
-                "money": js['data']['money']
+                "money": js[ 'data' ][ 'money' ]
             }
         }
     }
@@ -329,7 +325,7 @@ def add_money_account():
     return resp.content
 
 
-@app.route('/list_group',  methods=['GET','POST'])
+@app.route('/list_group', methods=[ 'GET', 'POST' ])
 def list_group():
     content = request.get_json()
     js = json.loads(json.dumps(content))
@@ -346,7 +342,7 @@ def list_group():
             ],
             "where": {
                 "uid": {
-                    "$eq": js['data']['uid']
+                    "$eq": js[ 'data' ][ 'uid' ]
                 }
             }
         }
@@ -365,7 +361,7 @@ def list_group():
     return resp.content
 
 
-@app.route('/list_friend',  methods=['GET','POST'])
+@app.route('/list_friend', methods=[ 'GET', 'POST' ])
 def list_friend():
     content = request.get_json()
     js = json.loads(json.dumps(content))
@@ -382,7 +378,7 @@ def list_friend():
             ],
             "where": {
                 "uid": {
-                    "$eq": js['data']['uid']
+                    "$eq": js[ 'data' ][ 'uid' ]
                 }
             }
         }
@@ -401,14 +397,14 @@ def list_friend():
     return resp.content
 
 
-@app.route('/create_group',  methods=['GET','POST'])
+@app.route('/create_group', methods=[ 'GET', 'POST' ])
 def create_group():
     content = request.get_json(force=True)
     js = json.loads(json.dumps(content))
-    #return jsonify(js)
-    uid=js['data']['uid']
-    gname=js['data']['group_name']
-    mno=js['data']['member_no']
+    # return jsonify(js)
+    uid = js[ 'data' ][ 'uid' ]
+    gname = js[ 'data' ][ 'group_name' ]
+    mno = js[ 'data' ][ 'member_no' ]
     url = "https://data.octagon58.hasura-app.io/v1/query"
     requestPayload = {
         "type": "insert",
@@ -422,10 +418,10 @@ def create_group():
                     "member_no": mno,
 
                 }
-                ] ,
-                "returning": [
-        "gid"
-      ]
+            ],
+            "returning": [
+                "gid"
+            ]
 
         }
     }
@@ -438,19 +434,18 @@ def create_group():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
-    data=json.loads(resp.content)
+    data = json.loads(resp.content)
     assert isinstance(js, object)
-    a=len(js['group_member'])
-    for i in range(len(js['group_member'])):
+    a = len(js[ 'group_member' ])
+    for i in range(len(js[ 'group_member' ])):
         requestPayload = {
-         "type": "insert",
+            "type": "insert",
             "args": {
                 "table": "group_member",
                 "objects": [
                     {
-                        "gid":data ['returning'][0]['gid'],
-                        "uid": js['group_member'][i]
-
+                        "gid": data[ 'returning' ][ 0 ][ 'gid' ],
+                        "uid": js[ 'group_member' ][ i ]
 
                     }
                 ]
@@ -492,7 +487,7 @@ def create_group():
     return resp.content
 
 
-@app.route('/add_friend', methods=['POST'])
+@app.route('/add_friend', methods=[ 'POST' ])
 def add_friend():
     content = request.get_json()
     js = json.loads(json.dumps(content))
@@ -500,110 +495,106 @@ def add_friend():
     # user authorization
     url = "https://data.octagon58.hasura-app.io/v1/query"
     requestPayload = {
-            "type": "select",
-            "args": {
-                "table": "signup",
-                    "columns": [
-                    "uid",
-                    "username"
-                        ],
-                    "where": {
-                    "$or": [
-                        {
-                            "email": {
-                                "$eq": js[ 'data' ][ 'friend_id' ]
-                            }
-                        },
-                        {
-                            "username": {
-                                "$eq": js[ 'data' ][ 'friend_id' ]
-                            }
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "uid",
+                "username"
+            ],
+            "where": {
+                "$or": [
+                    {
+                        "email": {
+                            "$eq": js[ 'data' ][ 'friend_id' ]
                         }
-                    ]
-                }
-             }
+                    },
+                    {
+                        "username": {
+                            "$eq": js[ 'data' ][ 'friend_id' ]
+                        }
+                    }
+                ]
             }
-
+        }
+    }
 
     headers = {
         "Content-Type": "application/json",
         "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
-        }
+    }
 
-        # Make the query and store response in resp
+    # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data = json.loads(resp.content);
-        # print data[0]['uid']
-        # resp.content contains the json response.
+    # print data[0]['uid']
+    # resp.content contains the json response.
     if not data:
         list = [
-          {
+            {
 
-                    "message": "This user does not exists"
+                "message": "This user does not exists"
 
-                }
-            ]
+            }
+        ]
         return jsonify(resp=list)
     else:
 
-            # This is the url to which the query is made
-            url = "https://data.octagon58.hasura-app.io/v1/query"
+        # This is the url to which the query is made
+        url = "https://data.octagon58.hasura-app.io/v1/query"
 
-            # This is the json payload for the query
-            requestPayload = {
-                "type": "insert",
-                "args": {
-                    "table": "friend",
-                    "objects": [
-                        {
-                            "friend_id": data[0]['uid'] ,
+        # This is the json payload for the query
+        requestPayload = {
+            "type": "insert",
+            "args": {
+                "table": "friend",
+                "objects": [
+                    {
+                        "friend_id": data[ 0 ][ 'uid' ],
 
-                            "uid":  js['data']['uid'],
-                            "username": data[0]['username']
-                        }
-                    ]
-                }
+                        "uid": js[ 'data' ][ 'uid' ],
+                        "username": data[ 0 ][ 'username' ]
+                    }
+                ]
             }
+        }
 
-            # Setting headers
-            headers = {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
-                }
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        }
 
-            resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-            list = [
-                {
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        list = [
+            {
 
-                    "message": "User Added"
+                "message": "User Added"
 
-                }
-            ]
-            return jsonify(resp=list)
-            # resp.content contains the json response.
+            }
+        ]
+        return jsonify(resp=list)
+        # resp.content contains the json response.
 
     return resp.content
 
 
-
-@app.route('/info', methods=['POST','GET'])
+@app.route('/info', methods=[ 'POST', 'GET' ])
 def info():
     content = request.get_json()
-
 
     js = json.loads(json.dumps(content))
     # This is the url to which the query is made
     url = "https://auth.octagon58.hasura-app.io/v1/user/info"
 
-
     headers = {
-        "Authorization": js['data']['Authorization'],
+        "Authorization": js[ 'data' ][ 'Authorization' ],
         "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
     resp = requests.request("GET", url, headers=headers)
-    data=resp.json()
+    data = resp.json()
     # This is the url to which the query is made
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -621,7 +612,7 @@ def info():
             ],
             "where": {
                 "uid": {
-                    "$eq": data['hasura_id']
+                    "$eq": data[ 'hasura_id' ]
                 }
             }
         }
@@ -641,35 +632,35 @@ def info():
 
     return resp.content
 
-@app.route('/logout', methods=['POST','GET'])
+
+@app.route('/logout', methods=[ 'POST', 'GET' ])
 def logout():
     content = request.get_json()
-
 
     js = json.loads(json.dumps(content))
     # This is the url to which the query is made
     url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
 
-
     headers = {
-        "Authorization": js['data']['Authorization'],
+        "Authorization": js[ 'data' ][ 'Authorization' ],
         "Content-Type": "application/json"
     }
 
-# Make the query and store response in resp
+    # Make the query and store response in resp
     resp = requests.request("POST", url, headers=headers)
 
-# resp.content contains the json response.
+    # resp.content contains the json response.
     return resp.content
 
-@app.route('/signup', methods=['POST','GET'])
+
+@app.route('/signup', methods=[ 'POST', 'GET' ])
 def signup():
     content = request.get_json()
-    #content = request.json
-    #This is the url to which the query is made
+    # content = request.json
+    # This is the url to which the query is made
 
     js = json.loads(json.dumps(content))
-    b = check_password(js['data']['password'])
+    b = check_password(js[ 'data' ][ 'password' ])
     if not b:
         list = [
             {
@@ -687,8 +678,8 @@ def signup():
     requestPayload = {
         "provider": "username",
         "data": {
-            "username": js['data']['username'],
-            "password": js['data']['password']
+            "username": js[ 'data' ][ 'username' ],
+            "password": js[ 'data' ][ 'password' ]
         }
     }
 
@@ -700,13 +691,10 @@ def signup():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     resp1 = resp
-    #data = json.dumps(resp)
-    #data= resp.json()
-    #if 'This user already exists' != resp.json()['message']:
+    # data = json.dumps(resp)
+    # data= resp.json()
+    # if 'This user already exists' != resp.json()['message']:
     if "hasura_id" in resp.json():
-
-
-
         # This is the url to which the query is made
         url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -717,11 +705,11 @@ def signup():
                 "table": "signup",
                 "objects": [
                     {
-                        "uid": resp.json()['hasura_id'],
-                        "email": js['data']['email'],
-                        "mobile": js['data']['mobile'],
-                        "currency": js['data']['currency'],
-                        "username": js['data']['username'],
+                        "uid": resp.json()[ 'hasura_id' ],
+                        "email": js[ 'data' ][ 'email' ],
+                        "mobile": js[ 'data' ][ 'mobile' ],
+                        "currency": js[ 'data' ][ 'currency' ],
+                        "username": js[ 'data' ][ 'username' ],
 
                     }
                 ]
@@ -755,7 +743,7 @@ def check_password(str):
     return True
 
 
-@app.route('/login', methods=['POST','GET'])
+@app.route('/login', methods=[ 'POST', 'GET' ])
 def login():
     content = request.get_json()
     js = json.loads(json.dumps(content))
@@ -767,8 +755,8 @@ def login():
     requestPayload = {
         "provider": "username",
         "data": {
-            "username": js['data']['username'],
-            "password": js['data']['password']
+            "username": js[ 'data' ][ 'username' ],
+            "password": js[ 'data' ][ 'password' ]
         }
     }
 
@@ -782,9 +770,6 @@ def login():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     return resp.content
-
-
-
 
 
 if __name__ == '__main__':
