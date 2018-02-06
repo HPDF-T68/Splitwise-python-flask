@@ -78,10 +78,18 @@ def signup_submit():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data = json.loads(resp.content)
         if 'hasura_id' in resp.json():
+            session[ 'auth_token' ] = resp.json()[ 'auth_token' ]
+            session[ 'hasura_id' ] = resp.json()[ 'hasura_id' ]
             return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
                                    username=resp.json()[ 'username' ], hasura_id=resp.json()[ 'hasura_id' ])
+
+        if resp.json()['code']== "user-exists":
+            flash('Username Exists Plzz change')
+            return render_template('register.html',email=email,mobile=mobile,username=username)
         else:
-            return render_template('index.html', username="raja")
+            flash('min password len 8 digit')
+            return render_template('register.html', email=email, mobile=mobile)
+
 
     return render_template('index.html')
 
@@ -662,13 +670,13 @@ def signup():
     js = json.loads(json.dumps(content))
     b = check_password(js[ 'data' ][ 'password' ])
     if not b:
-        list = [
-            {
+        list = {
+          "data":  {
                 "code": "error",
                 "message": "Entered password must be atleast 8 digit",
                 "detail": "null"
             }
-        ]
+        }
         return jsonify(resp=list)
 
     # This is the url to which the query is made

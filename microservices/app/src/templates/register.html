@@ -77,24 +77,32 @@ display: table-cell;
             <p class="center login-form-text">S P L I T WI S E - R E G I S T E R</p>
           </div>
         </div>
+
+
+          {%with messages = get_flashed_messages() %}
+          {% for message in messages %}
+             <strong>  {{ message }} </strong>
+               {% endfor %}
+          {% endwith %}
+
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input name="username" id="username" type="text" class="validate_username" required>
+            <input name="username" id="username" type="text" value="{{username}}" class="validate_username" required>
             <label for="username" class="center-align">Username</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-communication-email prefix"></i>
-            <input name="email" id="email" type="email" class="validate" required>
+            <input name="email" id="email" type="email" value="{{email}}" class="validate" required>
             <label for="email" class="center-align">Email</label>
           </div>
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-action-lock-outline prefix"></i>
-            <input id="Mobile" name="mobile" type="number" maxlength="10" required>
+            <input id="Mobile" name="mobile" type="number" value="{{mobile}}" maxlength="10" required>
             <label for="Mobile">Mobile No</label>
           </div>
         </div>
