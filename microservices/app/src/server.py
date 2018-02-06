@@ -40,7 +40,7 @@ def logout_user():
         if 'created' in resp.json():
             session.pop('username',None)
             flash('Successfully logged out')
-            return render_template('index.html')
+            return render_template('main.html')
         else:
             flash('Please Login First')
             return render_template('login.html')
