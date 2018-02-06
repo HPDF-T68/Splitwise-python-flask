@@ -78,7 +78,7 @@ display: table-cell;
           </div>
           {%with messages = get_flashed_messages() %}
           {% if messages%}
-          {{messages}}
+         <font color="red"> {{messages}} </font>
 
    {% endif %}
 {% endwith %}
