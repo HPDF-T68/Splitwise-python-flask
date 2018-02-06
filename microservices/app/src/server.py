@@ -85,7 +85,8 @@ def login_submit():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         #data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
-            session['username']=resp.json()['auth_token']
+            app.secret_key=resp.json()['auth_token']
+            session['username']=resp.json()['username']
             return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
         else:
             flash('Please Check username or password')
