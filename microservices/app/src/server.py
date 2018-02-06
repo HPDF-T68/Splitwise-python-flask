@@ -124,7 +124,8 @@ def login_submit():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         # data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
-
+            session.pop('auth_token', None)
+            session.pop('hasura_id', None)
             session['auth_token'] = resp.json()['auth_token']
             session['hasura_id'] = resp.json()['hasura_id']
             return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
