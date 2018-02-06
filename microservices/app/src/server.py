@@ -6,9 +6,11 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import datetime
+import os
+
 app = Flask(__name__)
 # from urllib3 import request
-app.secret_key=""
+app.secret_key=os.urandom(24)
 
 
 @app.route('/')
@@ -85,7 +87,7 @@ def login_submit():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         #data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
-            app.secret_key=resp.json()['auth_token']
+
             session['username']=resp.json()['username']
             return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
         else:
