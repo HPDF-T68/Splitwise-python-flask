@@ -78,7 +78,7 @@ display: table-cell;
           </div>
           {%with messages = get_flashed_messages() %}
           {% for message in messages %}
-               {{ message }}
+             <strong>  {{ message }} </strong>
                {% endfor %}
           {% endwith %}
         </div>
