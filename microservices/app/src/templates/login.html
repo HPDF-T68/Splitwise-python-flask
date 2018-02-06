@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-  <title>Signup / Registration form using Material Design - Demo by W3lessons</title>
+  <title>Login SPLITWISE</title>
   <!-- CORE CSS-->
 
   </head>
@@ -74,13 +74,16 @@ display: table-cell;
         <div class="row">
           <div class="input-field col s12 center">
 
-            <p class="center login-form-text">S P L I T WI S E - R E G I S T E R</p>
+            <p class="center login-form-text">S P L I T WI S E - L O G I N</p>
           </div>
+          {%with messages = get_flashed_messages() %}
+          {% if messages%}
+          {{messages}}
         </div>
         <div class="row margin">
           <div class="input-field col s12">
             <i class="mdi-social-person-outline prefix"></i>
-            <input name="username" id="username" type="text" class="validate_username" required>
+            <input name="username" id="username" type="text" class="validate_username" default="{{username}}"  required>
             <label for="username" class="center-align">Username</label>
           </div>
         </div>

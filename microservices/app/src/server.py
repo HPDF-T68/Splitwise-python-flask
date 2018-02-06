@@ -1,4 +1,4 @@
-from flask import Flask, request,render_template
+from flask import Flask, request,render_template,session
 import requests
 from flask import jsonify
 import json
@@ -8,7 +8,7 @@ from email.mime.multipart import MIMEMultipart
 import datetime
 app = Flask(__name__)
 # from urllib3 import request
-
+app.secret_key=""
 
 
 @app.route('/')
@@ -85,9 +85,11 @@ def login_submit():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         #data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
+            session['username']=resp.json()['auth_token']
             return render_template('main.html',auth_token=resp.json()['auth_token'],username=resp.json()['username'],hasura_id=resp.json()['hasura_id'])
         else:
-            return render_template('main.html',username="raja")
+            flash('Please Check username or password')
+            return render_template('login.html',username=username)
 
 
     return render_template('index.html')
