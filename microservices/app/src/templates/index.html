@@ -5,11 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <body>
- {%with messages = get_flashed_messages() %}
-          {% for message in messages %}
-             <strong> alert("{{message}}") </strong>
-               {% endfor %}
-          {% endwith %}
+
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-green w3-wide w3-padding w3-card">
@@ -34,4 +30,11 @@
                                                          <a href="https://app.octagon58.hasura-app.io/register" > <img border="0" alt="No Image" src="static/image/3.png" width="350" height="80"></a>
 </pre>
 </body>
+ {%with messages = get_flashed_messages() %}
+          {% for message in messages %}
+             <script type="text/javascript">
+        alert("{{message}}");
+            </script>
+               {% endfor %}
+          {% endwith %}
 </html>
