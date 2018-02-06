@@ -15,22 +15,38 @@ app.secret_key=os.urandom(24)
 
 @app.route('/')
 def index():
+
     return render_template('index.html')
 
 @app.route('/logout_user')
 def logout_user():
-    auth_token=request.args.get('auth_token')
-    url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
+    if 'username' in session:
+        hasura_id=request.args.get('hasura_id')
+        url = "https://auth.octagon58.hasura-app.io/v1/admin/user/deactivate"
 
-    headers = {
-        "Authorization": "Bearer " + auth_token,
-        "Content-Type": "application/json"
-    }
+        # This is the json payload for the query
+        requestPayload = {
+            "hasura_id": hasura_id
+        }
 
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, headers=headers)
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        }
 
-    # resp.content contains the json response.
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        if 'created' in resp.json():
+            session.pop('username',None)
+            flash('Successfully logged out')
+            return render_template('index.html')
+        else:
+            flash('Please Login First')
+            return render_template('login.html')
+    flash('invalid session')
+    return render_template('index.html')
+
 
 @app.route('/register',methods=['POST','GET'])
 def register():
