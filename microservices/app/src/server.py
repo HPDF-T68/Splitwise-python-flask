@@ -31,7 +31,7 @@ def logout_user():
         resp = requests.request("POST", url, headers=headers)
 
         if resp.json()['message'] ==  "logged out":
-
+            session.clear()
             session.pop('auth_token',None)
             flash('Successfully logged out')
             return render_template('index.html')
@@ -128,7 +128,7 @@ def login_submit():
         # data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
             session['auth_token'] = resp.json()['auth_token']
-            #session['hasura_id'] = resp.json()['hasura_id']
+            session['hasura_id'] = resp.json()['hasura_id']
             return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
                                    username=session['auth_token'], hasura_id=resp.json()[ 'hasura_id' ])
         else:
