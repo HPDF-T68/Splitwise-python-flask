@@ -38,7 +38,7 @@ def logout_user():
         else:
             flash('Please Login First')
             return render_template('login.html')
-    flash('invalid session')
+    flash(session['auth_token'])
     return redirect(url_for("index"))
 
 
