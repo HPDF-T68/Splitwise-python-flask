@@ -88,7 +88,7 @@ def otp_verify():
 
 @app.route('/password_change',methods=['POST','GET'])
 def password_change():
-    if request.methods=='POST':
+    if request.method=='POST':
         password=request.form['password']
         url = "https://auth.octagon58.hasura-app.io/v1/admin/user/reset-password"
 
