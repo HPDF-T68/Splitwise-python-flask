@@ -1,4 +1,4 @@
-from flask import Flask,url_for, request, render_template, session, flash
+from flask import Flask,url_for, request, render_template, session, flash,redirect
 import requests
 from flask import jsonify
 import json
@@ -135,7 +135,7 @@ def login_submit():
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
-    return render_template('index.html')
+    return redirect(url_for("index"))
 
 
 def email_send(toaddr, sub, body):
