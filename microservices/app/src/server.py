@@ -10,7 +10,7 @@ import os
 
 app = Flask(__name__)
 # from urllib3 import request
-app.secret_key = os.urandom(24)
+
 
 
 @app.route('/')
@@ -20,22 +20,21 @@ def index():
 
 @app.route('/logout_user')
 def logout_user():
-    if "auth_token" in session:
+    #if 'auth_token' in session:
         # hasura_id=request.args.get('hasura_id')
-        url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
-        headers = {
+    url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
+    headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + session['auth_token']
-        }
+     }
 
-        resp = requests.request("POST", url, headers=headers)
-
-        if resp.json()['message'] ==  "logged out":
+    resp = requests.request("POST", url, headers=headers)
+    if resp.json()['message'] ==  "logged out":
             session.clear()
             session.pop('auth_token',None)
             flash('Successfully logged out')
             return render_template('index.html')
-        else:
+    else:
             flash('Please Login First')
             return render_template('login.html')
     flash('invalid session')
@@ -782,4 +781,5 @@ def login():
 
 
 if __name__ == '__main__':
+    app.secret_key = os.urandom(24)
     app.run(debug=True)
