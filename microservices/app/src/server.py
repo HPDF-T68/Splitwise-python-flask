@@ -39,7 +39,7 @@ def logout_user():
             flash('Please Login First')
             return render_template('login.html')
     flash('invalid session')
-    return render_template('index.html')
+    return redirect(url_for("index"))
 
 
 @app.route('/register', methods=[ 'POST' , 'GET' ])
@@ -131,7 +131,7 @@ def login_submit():
             session['auth_token'] = resp.json()['auth_token']
             #session['hasura_id'] = resp.json()['hasura_id']
             return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
-                                   username=resp.json()[ 'username' ], hasura_id=resp.json()[ 'hasura_id' ])
+                                   username=session['auth_token'], hasura_id=resp.json()[ 'hasura_id' ])
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
