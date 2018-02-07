@@ -102,6 +102,10 @@ def login_form():
 @app.route('/login_submit', methods=[ 'POST', 'GET' ])
 def login_submit():
     if request.method == 'POST':
+        if 'auth_token' in session:
+            session.pop('auth_token', None)
+           # session.pop('hasura_id', None)
+
         username = request.form[ 'username' ]
         password = request.form[ 'password' ]
 
@@ -124,16 +128,13 @@ def login_submit():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         # data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
-            session.pop('auth_token', None)
-            session.pop('hasura_id', None)
             session['auth_token'] = resp.json()['auth_token']
-            session['hasura_id'] = resp.json()['hasura_id']
+            #session['hasura_id'] = resp.json()['hasura_id']
             return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],
                                    username=resp.json()[ 'username' ], hasura_id=resp.json()[ 'hasura_id' ])
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
-
     return render_template('index.html')
 
 
