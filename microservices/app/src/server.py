@@ -37,7 +37,7 @@ def logout_user():
         if resp.json()['message'] ==  "logged out":
             session.pop('hasura_id', None)
             session.pop('auth_token' , None)
-            session.clear()
+
             flash('Successfully logged out')
             return render_template('index.html')
         else:
@@ -106,7 +106,7 @@ def login_form():
 
 @app.route('/login_submit', methods=[ 'POST', 'GET' ])
 def login_submit():
-    app.config[ 'SECRET_KEY' ] = os.urandom(24)
+
     if request.method == 'POST':
 
         username = request.form[ 'username' ]
