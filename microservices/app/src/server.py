@@ -20,21 +20,21 @@ def index():
 
 @app.route('/logout_user')
 def logout_user():
-    #if 'auth_token' in session:
+    if 'auth_token' in session:
         # hasura_id=request.args.get('hasura_id')
-    url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
-    headers = {
+        url = "https://auth.octagon58.hasura-app.io/v1/user/logout"
+        headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + session['auth_token']
-     }
+        }
 
-    resp = requests.request("POST", url, headers=headers)
-    if resp.json()['message'] ==  "logged out":
-            session.clear()
-            session.pop('auth_token',None)
+        resp = requests.request("POST", url, headers=headers)
+        if resp.json()['message'] ==  "logged out":
+
+            session.pop('auth_token' , None)
             flash('Successfully logged out')
             return render_template('index.html')
-    else:
+        else:
             flash('Please Login First')
             return render_template('login.html')
     flash('invalid session')
