@@ -57,7 +57,7 @@ def password_otp():
         data = json.loads(resp.content);
         if not data:
             flash('Incoreect email')
-            return render_template('forgot_password')
+            return render_template('forgot_password.html')
         else:
             toaddr=email;
             num=random.randint(1000, 9999)
@@ -66,7 +66,7 @@ def password_otp():
             email_send(toaddr, sub, body)
             session['otp']=num
             session['hasura_id']= data[ 0 ]['uid']
-            return render_template('otp_send.html',email=email)
+            return render_template('otp_send.html', email=email)
     return render_template('index.html')
 
 
@@ -78,7 +78,7 @@ def otp_verify():
     if request.method=='POST':
         otp=request.form['otp']
         val=session['otp']
-        if otp==val:
+        if otp == val:
             session.pop('otp',None)
             return render_template('password_change.html')
         else:
