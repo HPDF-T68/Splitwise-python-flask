@@ -1,5 +1,5 @@
-from flask import Flask,url_for, request, render_template, session, flash,redirect
-import requests
+from flask import Flask ,curl_for, request, render_template , flash,redirect
+import requests,session
 from flask import jsonify
 import json
 import smtplib
