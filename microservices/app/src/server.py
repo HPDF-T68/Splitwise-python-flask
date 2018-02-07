@@ -105,7 +105,7 @@ def password_change():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        session('hasura_id',None)
+        session.pop('hasura_id',None)
         flash('Password changes now signin')
         return render_template('login.html')
     return render_template('index.html')
