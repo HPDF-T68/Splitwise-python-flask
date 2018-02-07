@@ -78,12 +78,12 @@ def otp_verify():
     if request.method=='POST':
         otp=request.form['otp']
         val=session['otp']
-        if otp is val:
+        if str(otp) == str(val):
             session.pop('otp',None)
             return render_template('password_change.html')
         else:
             flash('incorrect otp')
-            return render_template('otp_send.html',otp=otp+val)
+            return render_template('otp_send.html')
     return render_template('index.html')
 
 @app.route('/password_change',methods=['POST','GET'])
