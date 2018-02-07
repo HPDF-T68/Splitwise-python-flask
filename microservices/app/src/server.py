@@ -77,6 +77,7 @@ def password_otp():
 def otp_verify():
     if request.method=='POST':
         otp=request.form['otp']
+        email=request.form['email']
         val=session['otp']
         if str(otp) == str(val):
             session.pop('otp',None)
@@ -90,6 +91,10 @@ def otp_verify():
 def password_change():
     if request.method=='POST':
         password=request.form['password']
+        if password.len < 8:
+            flash('pass should be of min 8 digit')
+            return render_template('forgot_password.html')
+
         url = "https://auth.octagon58.hasura-app.io/v1/admin/user/reset-password"
 
         # This is the json payload for the query
@@ -100,14 +105,21 @@ def password_change():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
         }
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        session.pop('hasura_id',None)
-        flash('Password changes now signin')
-        return render_template('login.html')
+        if resp.json['message']== "password updated":
+            session.pop('hasura_id',None)
+            flash('Password changes now signin')
+            return render_template('login.html')
+        else:
+            flash('Error encountered')
+            return render_template('index.html')
+
+
     return render_template('index.html')
 
 @app.route('/logout_user')
