@@ -11,7 +11,7 @@ import os
 
 app = Flask(__name__)
 # from urllib3 import request
-
+app.config['SESSION_TYPE'] = 'memcached'
 
 app.config[ 'SECRET_KEY' ] = 'jnxjasbxjsbxjhabsxhsbxjashxb'
 app.config['DEBUG']=True
