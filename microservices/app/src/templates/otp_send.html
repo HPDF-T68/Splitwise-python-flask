@@ -100,21 +100,21 @@ display: table-cell;
           <br>
            </form>
           {%with messages = get_flashed_messages() %}
-          {% for message in messages %}
+          {% if messages %}
 
               <br>
                 <form class="login-form" action="https://app.octagon58.hasura-app.io/password_otp" method="POST">
                   <input type="hidden" name="email" value="{{email}}">
                     <input type="submit" value="Resend otp">
                 </form>
-               {% endfor %}
+               {% endif %}
           {% endwith %}
         <div class="row">
           <div class="input-field col s6 m6 l6">
-            <p class="margin medium-small"><a href="register.html">Register Now!</a></p>
+            <p class="margin medium-small"><a href="https://app.octagon58.hasura-app.io/register">Register Now!</a></p>
           </div>
           <div class="input-field col s6 m6 l6">
-              <p class="margin right-align medium-small"><a href="login.html">Login</a></p>
+              <p class="margin right-align medium-small"><a href="https://app.octagon58.hasura-app.io/login_form">Login</a></p>
           </div>
         </div>
 
