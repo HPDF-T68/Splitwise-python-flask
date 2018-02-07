@@ -106,6 +106,7 @@ def login_form():
 
 @app.route('/login_submit', methods=[ 'POST', 'GET' ])
 def login_submit():
+    app.config[ 'SECRET_KEY' ] = os.urandom(24)
     if request.method == 'POST':
 
         username = request.form[ 'username' ]
