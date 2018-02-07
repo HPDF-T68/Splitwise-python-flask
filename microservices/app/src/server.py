@@ -30,8 +30,9 @@ def logout_user():
 
         resp = requests.request("POST", url, headers=headers)
         if resp.json()['message'] ==  "logged out":
-            
+            session.pop('hasura_id', None)
             session.pop('auth_token' , None)
+            session.clear()
             flash('Successfully logged out')
             return render_template('index.html')
         else:
