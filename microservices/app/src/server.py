@@ -84,14 +84,14 @@ def otp_verify():
             return render_template('password_change.html')
         else:
             flash('incorrect otp')
-            return render_template('otp_send.html')
+            return render_template('otp_send.html',email=email)
     return render_template('index.html')
 
 @app.route('/password_change',methods=['POST','GET'])
 def password_change():
     if request.method=='POST':
         password=request.form['password']
-        if password.len < 8:
+        if len(password) < 8:
             flash('pass should be of min 8 digit')
             return render_template('forgot_password.html')
 
