@@ -62,7 +62,7 @@ def password_otp():
             toaddr=email;
             num=random.randint(1000, 9999)
             sub= 'Password Recovery OTP'
-            body= ' Your SPLITWISE password recovery otp is ' + num
+            body= ' Your SPLITWISE password recovery otp is  ' + 'num'
             email_send(toaddr, sub, body)
             session[otp]=num
             session['hasura_id']=data[0]['uid']
