@@ -4,6 +4,7 @@ from flask import jsonify
 import json
 from flask_debugtoolbar import DebugToolbarExtension
 import smtplib
+import random
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import datetime
@@ -22,7 +23,92 @@ toolbar=DebugToolbarExtension(app)
 def index():
     return render_template('index.html')
 
+@app.route('/forgot_password')
+def forgot_password():
+    return render_template('forgot_password.html')
+@app.route('/password_otp',methods=['POST','GET'])
+def password_otp():
+    if request.method=='POST':
+        email=request.form['email']
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "signup",
+                "columns": [
+                    "email"
+                    "uid"
+                ],
+                "where": {
+                    "email": {
+                        "$eq": email
+                    }
+                }
+            }
+        }
 
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data = json.loads(resp.content);
+        if not data:
+            flash('Incoreect email')
+            return render_template('forgot_password')
+        else:
+            toaddr=email;
+            num=random.randint(1000, 9999)
+            sub= 'Password Recovery OTP'
+            body= ' Your SPLITWISE password recovery otp is ' + num
+            email_send(toaddr, sub, body)
+            session[otp]=num
+            session['hasura_id']=data[0]['uid']
+            return render_template('otp_send.html',email=email)
+    return render_template('index.html')
+
+
+
+    return render_template('forgot_password.html')
+
+@app.route('/otp_verify',methods=['POST','GET'])
+def otp_verify():
+    if request.method=='POST':
+        otp=request.form['otp']
+        val=session['otp']
+        if otp==val:
+            session.pop('otp',None)
+            return render_template('password_change.html')
+        else:
+            flash('incorrect otp')
+            return render_template('otp_send.html')
+    return render_template('index.html')
+
+@app.route('password_change',methods['POST','GET'])
+def password_change():
+    if request.methods=='POST':
+        password=request.form['password']
+        url = "https://auth.octagon58.hasura-app.io/v1/admin/user/reset-password"
+
+        # This is the json payload for the query
+        requestPayload = {
+            "hasura_id": session['hasura_id'],
+            "password": password
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        session('hasura_id',None)
+        flash('Password changes now signin')
+        return render_template('login.html')
+    return render_template('index.html')
 @app.route('/logout_user')
 def logout_user():
     if 'auth_token' in session:
