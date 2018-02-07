@@ -109,6 +109,7 @@ def password_change():
         flash('Password changes now signin')
         return render_template('login.html')
     return render_template('index.html')
+
 @app.route('/logout_user')
 def logout_user():
     if 'auth_token' in session:
