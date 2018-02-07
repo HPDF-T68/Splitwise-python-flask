@@ -2,6 +2,7 @@ from flask import session,Flask ,url_for, request, render_template , flash,redir
 import requests
 from flask import jsonify
 import json
+from flask_debugtoolbar import DebugToolbarExtension
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -12,6 +13,8 @@ app = Flask(__name__)
 # from urllib3 import request
 
 app.secret_key = os.urandom(24)
+app.config['DEBUG']=True
+toolbar=DebugToolbarExtension(app)
 
 @app.route('/')
 def index():
