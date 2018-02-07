@@ -32,8 +32,7 @@ def logout_user():
 
         if resp.json()['message'] ==  "logged out":
 
-            for key in session.keys():
-                session.pop(key)
+            session.clear()
             flash('Successfully logged out')
             return render_template('index.html')
         else:
@@ -103,8 +102,8 @@ def login_form():
 @app.route('/login_submit', methods=[ 'POST', 'GET' ])
 def login_submit():
     if request.method == 'POST':
-        if 'auth_token' in session:
-            session.pop('auth_token', None)
+        if session:
+            session.clear()
            # session.pop('hasura_id', None)
 
         username = request.form[ 'username' ]
