@@ -12,7 +12,8 @@ import os
 app = Flask(__name__)
 # from urllib3 import request
 
-app.secret_key = os.urandom(24)
+
+app.config[ 'SECRET_KEY' ] = os.urandom(24)
 app.config['DEBUG']=True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
