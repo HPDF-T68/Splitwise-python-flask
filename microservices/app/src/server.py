@@ -36,7 +36,7 @@ def password_otp():
             "args": {
                 "table": "signup",
                 "columns": [
-                    "email"
+
                     "uid"
                 ],
                 "where": {
@@ -62,10 +62,10 @@ def password_otp():
             toaddr=email;
             num=random.randint(1000, 9999)
             sub= 'Password Recovery OTP'
-            body= ' Your SPLITWISE password recovery otp is  ' + 'num'
+            body= ' Your SPLITWISE password recovery otp is  ' + str(num)
             email_send(toaddr, sub, body)
             session['otp']=num
-            session['hasura_id']=data[0]['uid']
+            session['hasura_id']= data[ 0 ]['uid']
             return render_template('otp_send.html',email=email)
     return render_template('index.html')
 
