@@ -83,7 +83,7 @@ def otp_verify():
             return render_template('password_change.html')
         else:
             flash('incorrect otp')
-            return render_template('otp_send.html',otp=otp,val=val)
+            return render_template('otp_send.html',otp=otp+val)
     return render_template('index.html')
 
 @app.route('/password_change',methods=['POST','GET'])
