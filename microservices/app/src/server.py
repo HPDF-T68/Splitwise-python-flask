@@ -86,7 +86,7 @@ def otp_verify():
             return render_template('otp_send.html')
     return render_template('index.html')
 
-@app.route('password_change',methods['POST','GET'])
+@app.route('password_change',methods=['POST','GET'])
 def password_change():
     if request.methods=='POST':
         password=request.form['password']
