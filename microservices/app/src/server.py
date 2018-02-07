@@ -1,4 +1,4 @@
-from flask import Flask ,curl_for, request, render_template , flash,redirect
+from flask import Flask ,url_for, request, render_template , flash,redirect
 import requests,session
 from flask import jsonify
 import json
