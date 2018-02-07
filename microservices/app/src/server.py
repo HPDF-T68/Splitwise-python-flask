@@ -13,7 +13,7 @@ app = Flask(__name__)
 # from urllib3 import request
 
 
-app.config[ 'SECRET_KEY' ] = 'manish'#os.urandom(24)
+app.config[ 'SECRET_KEY' ] = os.urandom(12)
 app.config['DEBUG']=True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
@@ -133,7 +133,7 @@ def login_submit():
         if 'hasura_id' in resp.json():
             session['auth_token'] = resp.json()['auth_token']
             session['hasura_id'] = resp.json()['hasura_id']
-            return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],username=session['auth_token'], hasura_id=resp.json()[ 'hasura_id' ])
+            return render_template('main.html', auth_token=resp.json()[ 'auth_token' ],username=resp.json()['username'], hasura_id=resp.json()[ 'hasura_id' ])
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
