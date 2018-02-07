@@ -11,7 +11,7 @@ import os
 app = Flask(__name__)
 # from urllib3 import request
 
-
+app.secret_key = os.urandom(24)
 
 @app.route('/')
 def index():
@@ -781,5 +781,5 @@ def login():
 
 
 if __name__ == '__main__':
-    app.secret_key = os.urandom(24)
+
     app.run(debug=True)
