@@ -232,7 +232,12 @@ li a:hover {
     <form action="#" methods="post">
 
     {% for i in select_friend %}
-    <input type="checkbox" name="vehicle" value="i">{{i}}<br>
+      <table>
+
+        <tr><td><input type="checkbox" name="vehicle" value="{{i}}"></td> <td>{{i}}</td></tr>
+
+        </table>
+        <br>
     {% endfor%}
     <t><input type="submit" value="Add friend"> </t>
 
