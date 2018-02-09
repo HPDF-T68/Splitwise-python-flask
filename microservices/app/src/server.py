@@ -96,7 +96,7 @@ def select_friend():
         s4.add(resp.json()[ i ][ 'username' ])
 
     username = list(s2 - s4)
-    return friend_list
+    return username
 
 
 @app.route('/forgot_password')
