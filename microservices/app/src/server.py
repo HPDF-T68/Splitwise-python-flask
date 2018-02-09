@@ -26,7 +26,7 @@ def index():
     return render_template('index.html')
 
 
-def select_friend():
+def select_friend(num):
     id=session['hasura_id']
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -91,12 +91,17 @@ def select_friend():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     s4 = set()
+
     len1 = len(resp.json())
     for i in range(0, len1):
         s4.add(resp.json()[ i ][ 'username' ])
 
-    username = list(s2 - s4)
-    return username
+    friend=list(s4)
+    if num == 1:
+        return friend
+    else:
+        username = list(s2 - s4)
+        return username
 
 
 @app.route('/forgot_password')
@@ -260,7 +265,7 @@ def signup_submit():
         if 'hasura_id' in resp.json():
             session[ 'auth_token' ] = resp.json()[ 'auth_token' ]
             session[ 'hasura_id' ] = resp.json()[ 'hasura_id' ]
-            return render_template('main.html', username=resp.json()[ 'username' ], select_friend=select_friend(),hasura_id=resp.json()[ 'hasura_id' ])
+            return render_template('main.html', username=resp.json()[ 'username' ], friend=select_friend(1),select_friend=select_friend(2),hasura_id=resp.json()[ 'hasura_id' ])
 
         if resp.json()['code']== "user-exists":
             flash('Username Exists Plzz change')
@@ -307,7 +312,7 @@ def login_submit():
         if 'hasura_id' in resp.json():
             session['auth_token'] = resp.json()['auth_token']
             session['hasura_id'] = resp.json()['hasura_id']
-            return render_template('main.html',select_friend=select_friend(),username=resp.json()['username'])
+            return render_template('main.html',friend=select_friend(1),select_friend=select_friend(2),username=resp.json()['username'])
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
