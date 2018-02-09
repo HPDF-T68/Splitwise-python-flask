@@ -19,9 +19,17 @@ app.config['DEBUG']=True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
 
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/select_friend')
+def select_friend():
+    id=session['hasura_id']
+
+
 
 @app.route('/forgot_password')
 def forgot_password():
