@@ -221,10 +221,10 @@ li a:hover {
       </div>
       <div class="a">
         <button id="myBtn">+Add friends</button><h4><u>Friends</u></h4>
-        {% for i in friend %}
-             <i class="glyphicon glyphicon-user"></i>{{i}}<br>
+        <table>{% for i in friend %}
+             <tr><td><i class="glyphicon glyphicon-user"></i>{{i}}</td></tr>
           {% endfor %}
-
+        </table>
 <div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
