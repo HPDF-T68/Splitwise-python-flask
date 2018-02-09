@@ -226,9 +226,18 @@ li a:hover {
   <!-- Modal content -->
   <div class="modal-content">
     <span class="close">&times;</span>
+
     <h3>Select As Friend </h3>
   <br>
+    <form action="#" methods="post">
 
+    {% for i in range(0,len(select_friend)) %}
+    <input type="checkbox" name="vehicle" value="{{select_friend[i]}}"><t>{{select_friend[i]}}<br>
+    {% endfor%}
+    <t><input type="submit" value="Add friend"> </t>
+
+
+  </form>
 
   </div>
 
