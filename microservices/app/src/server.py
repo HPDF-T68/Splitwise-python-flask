@@ -103,7 +103,7 @@ def select_friend(num):
         return username
 
 @app.route('/add_friend_all', methods=[ 'POST', 'GET' ])
-def add_friend():
+def add_friend_all():
     username=request.args.get('uname')
 
     # user authorization
