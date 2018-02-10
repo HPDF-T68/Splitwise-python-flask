@@ -25,85 +25,6 @@ toolbar=DebugToolbarExtension(app)
 def index():
     return render_template('index.html')
 
-
-def select_friend(num):
-    id=session['hasura_id']
-    url = "https://data.octagon58.hasura-app.io/v1/query"
-
-    requestPayload = {
-        "type": "select",
-        "args": {
-            "table": "signup",
-            "columns": [
-                "uid",
-                "username"
-            ],
-            "where": {
-                "uid": {
-                    "$ne": id
-                }
-            }
-        }
-    }
-
-    # Setting headers
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
-    s2 = set()
-    len1 = len(resp.json())
-
-    for i in range(0, len1):
-        s2.add(resp.json()[ i ][ 'username' ])
-
-    url = "https://data.octagon58.hasura-app.io/v1/query"
-
-    # This is the json payload for the query
-
-    requestPayload = {
-        "type": "select",
-        "args": {
-            "table": "friend",
-            "columns": [
-                "friend_id",
-                "username"
-            ],
-            "where": {
-                "uid": {
-                    "$eq": id
-                }
-            }
-
-        }
-    }
-
-    # Setting headers
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    s4 = set()
-
-    len1 = len(resp.json())
-    for i in range(0, len1):
-        s4.add(resp.json()[ i ][ 'username' ])
-
-    friend=list(s4)
-    if num == 1:
-        return friend
-    else:
-        username = list(s2 - s4)
-        return username
-
-
 @app.route('/forgot_password')
 def forgot_password():
     return render_template('forgot_password.html')
@@ -265,7 +186,7 @@ def signup_submit():
         if 'hasura_id' in resp.json():
             session[ 'auth_token' ] = resp.json()[ 'auth_token' ]
             session[ 'hasura_id' ] = resp.json()[ 'hasura_id' ]
-            return render_template('main.html', username=resp.json()[ 'username' ], hasura_id=resp.json()[ 'hasura_id' ])
+            return render_template('main.html', username=resp.json()[ 'username' ], uid=resp.json()[ 'hasura_id' ])
 
         if resp.json()['code']== "user-exists":
             flash('Username Exists Plzz change')

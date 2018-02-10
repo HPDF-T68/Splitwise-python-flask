@@ -215,9 +215,46 @@ li a:hover {
   <li><a href="#news">Transactions</a></li>
   <li><a href="#contact">Invite friend</a></li>
 </ul>
-      <div class="a">
-        <a href="#">+Add groups</a> <h4><u>Groups </u>   </h4>
+       <div >
+        <button id="myBtn">+Add Group</button><h4><u>My Groups</u></h4>
+
+        <ul id="ul1">
+          <ulbody>
+        </ulbody>
+        </ul>
+
+        <hr>
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <h3>Enter Group Detail </h3>
+  <br>
+    <form action="https://app.octagon58.hasura-app.io/login_submit/#" methods="post">
+
+      Enter Group Name:: <input type="text" name="gname" placeholder="Group Name" required>
+      <table id="table">
+
+            <tbody></tbody>
+        <input type="submit" value="Create Group">
+
+        </table>
+        <br>
+
+    <t><input type="submit" value="Add friend"> </t>
+
+
+  </form>
+
+  </div>
+
+</div>
+
+
       </div>
+     <br>
+
       <div >
         <button id="myBtn">+Add friends</button><h4><u>My Friends</u></h4>
 
@@ -305,6 +342,59 @@ li a:hover {
 
 
 <script>
+//  for group list::
+var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "group",
+        "columns": [
+            "gname",
+            "gid"
+        ],
+        "where": {
+            "uid": {
+                "$eq": {{uid}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+	console.log(result);
+	for (i=0;i<=result.length;i++) {
+
+      $('#ul1 > ulbody').append('<li> <a href="#"><i class="glyphicon glyphicon-user"></i> ' + result[i]['gname'] +  '</li></a>');
+
+}
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+
 // for select friend***********************************************************************
 var url = "https://data.octagon58.hasura-app.io/v1/query";
 
@@ -346,7 +436,7 @@ fetch(url, requestOptions)
 
 	for (i=0;i<=result.length;i++) {
 
-      $('#table > tbody').append('<tr valign="middle"><td><input type="checkbox" name="vehicle" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+      $('#table > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
 }
 
