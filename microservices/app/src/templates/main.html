@@ -236,14 +236,14 @@ li a:hover {
   <br>
     <form action="https://app.octagon58.hasura-app.io/login_submit/#" methods="post">
 
-    {% for i in select_friend %}
-      <table >
 
-        <tr valign="middle"><td><input type="checkbox" name="vehicle" value="{{i}}"></td> <td valign="center">{{i}}</td></tr>
+      <table id="table">
+
+            <tbody></tbody>
 
         </table>
         <br>
-    {% endfor%}
+
     <t><input type="submit" value="Add friend"> </t>
 
 
@@ -305,7 +305,58 @@ li a:hover {
 
 
 <script>
+// for select friend***********************************************************************
+var url = "https://data.octagon58.hasura-app.io/v1/query";
 
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "signup",
+        "columns": [
+            "username"
+        ],
+        "where": {
+            "uid": {
+                "$ne": {{uid}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+	console.log(result);
+
+	for (i=0;i<=result.length;i++) {
+
+      $('#table > tbody').append('<tr valign="middle"><td><input type="checkbox" name="vehicle" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+
+}
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+// For friend list ***********************************************************************************************************************************
   var url = "https://data.octagon58.hasura-app.io/v1/query";
 
 // If you have the auth token saved in offline storage, obtain it in async componentDidMount
@@ -330,7 +381,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$eq": "57"
+                "$eq": {{uid}}
             }
         }
     }
@@ -344,9 +395,6 @@ fetch(url, requestOptions)
 })
 .then(function(result) {
 
-	console.log(result);
-	console.log(result[0]);
-	console.log(result[0]);
 	for (i=0;i<=result.length;i++) {
 
       $('#ul > ulbody').append('<li> <a href=""#><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</li></a>');
