@@ -25,14 +25,6 @@ toolbar=DebugToolbarExtension(app)
 def index():
     return render_template('index.html')
 
-
-@app.route('/add_friend_all', methods=['POST','GET'])
-def add_friend_all():
-    if request.method == 'POST':
-        name = request.form.getlist("addfriend")
-
-
-
 def select_friend(num):
     id=session['hasura_id']
     url = "https://data.octagon58.hasura-app.io/v1/query"
@@ -684,10 +676,17 @@ def create_group():
     return resp.content
 
 
-@app.route('/add_friend', methods=[ 'POST' ])
+@app.route('/add_friend', methods=[ 'POST' ,'GET'])
 def add_friend():
-    content = request.get_json()
-    js = json.loads(json.dumps(content))
+    if method.request=='GET':
+        uname=request.args.
+
+
+
+
+
+     content = request.get_json()
+     js = json.loads(json.dumps(content))
 
     # user authorization
     url = "https://data.octagon58.hasura-app.io/v1/query"
