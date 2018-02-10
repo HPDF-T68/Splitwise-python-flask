@@ -284,13 +284,13 @@ li a:hover {
 
     <h3>Select As Friend </h3>
   <br>
-    <form action="" methods="post">
+    <form action="https://app.octagon58.hasura-app.io/add_friend_all" method="post">
 
     {% for i in all_friend %}
 
        <tr valign="middle"><td><input type="checkbox" name="addfriend" value="{{i}}"></td> <td valign="center">{{i}}</td></tr>
 
-      {% end for%}
+      {% endfor%}
         <br>
 
     <t><input type="submit" value="Add friend"> </t>

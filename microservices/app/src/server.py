@@ -26,6 +26,13 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/add_friend_all', methods=['POST','GET'])
+def add_friend_all():
+    if request.method == 'POST':
+        name = request.form.getlist("addfriend")
+
+
+
 def select_friend(num):
     id=session['hasura_id']
     url = "https://data.octagon58.hasura-app.io/v1/query"
