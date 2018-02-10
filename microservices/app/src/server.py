@@ -312,7 +312,7 @@ def login_submit():
         if 'hasura_id' in resp.json():
             session['auth_token'] = resp.json()['auth_token']
             session['hasura_id'] = resp.json()['hasura_id']
-            return render_template('main.html',friend=select_friend(1),select_friend=select_friend(2),username=resp.json()['username'])
+            return render_template('main.html',friend=select_friend(1),select_friend=select_friend(2),username=resp.json()['username'],uid=resp.json()['hasura_id'])
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)

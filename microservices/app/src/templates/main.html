@@ -214,17 +214,18 @@ li a:hover {
   <li><a href="#home">Dashboard</a></li>
   <li><a href="#news">Transactions</a></li>
   <li><a href="#contact">Invite friend</a></li>
-
 </ul>
       <div class="a">
         <a href="#">+Add groups</a> <h4><u>Groups </u>   </h4>
       </div>
       <div >
         <button id="myBtn">+Add friends</button><h4><u>My Friends</u></h4>
-      <ul>  {% for i in friend %}
-        <li> <a href=""#><i class="glyphicon glyphicon-user"></i>{{i}}</li></a> </li>
-          {% endfor %}
+
+        <ul id="ul">
+          <ulbody>
+        </ulbody>
         </ul>
+
         <hr>
 <div id="myModal" class="modal">
   <!-- Modal content -->
@@ -300,9 +301,68 @@ li a:hover {
   </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 
 <script>
+
+  var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "friend",
+        "columns": [
+            "username",
+            "friend_id"
+        ],
+        "where": {
+            "uid": {
+                "$eq": "57"
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+
+	console.log(result);
+	console.log(result[0]);
+	console.log(result[0]);
+	for (i=0;i<=result.length;i++) {
+
+      $('#ul > ulbody').append('<li> <a href=""#><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</li></a>');
+
+}
+
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+
+
 // Get the modal
 var modal = document.getElementById('myModal');
 
