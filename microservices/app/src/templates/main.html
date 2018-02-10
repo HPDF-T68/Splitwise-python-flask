@@ -203,7 +203,7 @@ li a:hover {
       </ul>
       <ul class="nav navbar-nav navbar-right">
        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i>{{username}}{{session['hasura_id']}}
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i>{{session['username']}}
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="#">Dashboard</a></li>
@@ -287,7 +287,7 @@ li a:hover {
 
 <table>    {% for i in all_friend %}
 
-  <tr valign="middle"><td>{{i}} </td><td> <a href=https://app.octagon58.hasura-app.io/add_friend_all?uname="{{i}}">+add friend</a></td>
+  <tr valign="middle"><td>{{i}} </td><td> <a href=https://app.octagon58.hasura-app.io/add_friend_all?uname={{i}}>+add friend</a></td>
 
       {% endfor%}
   </table>
