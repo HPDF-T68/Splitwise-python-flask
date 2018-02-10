@@ -146,7 +146,7 @@ def add_friend_all():
                 }
             ]
         flash("Some problem occurs")
-        return render_template('main.html')
+        return render_template('main.html',uid=session['hasura_id'],username=session['username'])
     else:
 
      # This is the url to which the query is made
@@ -182,7 +182,7 @@ def add_friend_all():
                 }
             ]
         flash("User Added As Friend")
-        return render_template('main.html')
+        return render_template('main.html',uid=session['hasura_id'],username=session['username'])
             # resp.content contains the json response.
 
 
@@ -347,6 +347,7 @@ def signup_submit():
         if 'hasura_id' in resp.json():
             session[ 'auth_token' ] = resp.json()[ 'auth_token' ]
             session[ 'hasura_id' ] = resp.json()[ 'hasura_id' ]
+            session[ 'username' ] = resp.json()[ 'username' ]
             return render_template('main.html',all_friend=select_friend(2), username=resp.json()[ 'username' ], uid=resp.json()[ 'hasura_id' ])
 
         if resp.json()['code']== "user-exists":
@@ -394,6 +395,7 @@ def login_submit():
         if 'hasura_id' in resp.json():
             session['auth_token'] = resp.json()['auth_token']
             session['hasura_id'] = resp.json()['hasura_id']
+            session[ 'username' ] = resp.json()[ 'username' ]
             return render_template('main.html',all_friend=select_friend(2),username=resp.json()['username'],uid=resp.json()['hasura_id'])
         else:
             flash('Please Check username or password')
