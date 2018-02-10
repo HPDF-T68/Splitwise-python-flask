@@ -146,7 +146,7 @@ def add_friend_all():
                 }
             ]
         flash("Some problem occurs")
-        return render_template('main.html',uid=session['hasura_id'],username=session['username'])
+        return render_template('main.html',all_friend=select_friend(2),uid=session['hasura_id'],username=session['username'])
     else:
 
      # This is the url to which the query is made
@@ -182,7 +182,7 @@ def add_friend_all():
                 }
             ]
         flash("User Added As Friend")
-        return render_template('main.html',uid=session['hasura_id'],username=session['username'])
+        return render_template('main.html',all_friend=select_friend(2),uid=session['hasura_id'],username=session['username'])
             # resp.content contains the json response.
 
 
@@ -299,6 +299,7 @@ def logout_user():
         if resp.json()['message'] ==  "logged out":
             session.pop('hasura_id', None)
             session.pop('auth_token' , None)
+            session.pop('username', None)
 
             flash('Successfully logged out')
             return render_template('index.html')
