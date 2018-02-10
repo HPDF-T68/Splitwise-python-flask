@@ -102,6 +102,90 @@ def select_friend(num):
         username = list(s2 - s4)
         return username
 
+@app.route('/add_friend_all', methods=[ 'POST', 'GET' ])
+def add_friend():
+    username=request.args.get('uname')
+
+    # user authorization
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+    requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "signup",
+                "columns": [
+                    "uid",
+                    "username"
+                ],
+                "where": {
+
+                            "username": {
+                                "$eq": username
+                            }
+
+
+                }
+            }
+        }
+
+    headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    data = json.loads(resp.content);
+    # print data[0]['uid']
+    # resp.content contains the json response.
+    if not data:
+        list = [
+                {
+
+                    "message": "This user does not exists"
+
+                }
+            ]
+        flash("Some problem occurs")
+        return render_template('main.html')
+    else:
+
+     # This is the url to which the query is made
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+
+        # This is the json payload for the query
+        requestPayload = {
+                "type": "insert",
+                "args": {
+                    "table": "friend",
+                    "objects": [
+                        {
+                            "friend_id": data[ 0 ][ 'uid' ],
+
+                            "uid": session['hasura_id'],
+                            "username": username
+                        }
+                    ]
+                }
+            }
+
+        # Setting headers
+        headers = {
+        "Content-Type": "application/json",
+            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        }
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        list = [
+              {
+
+                    "message": "User Added"
+
+                }
+            ]
+        flash("User Added As Friend")
+        return render_template('main.html')
+            # resp.content contains the json response.
+
+
 @app.route('/forgot_password')
 def forgot_password():
     return render_template('forgot_password.html')
@@ -678,15 +762,8 @@ def create_group():
 
 @app.route('/add_friend', methods=[ 'POST' ,'GET'])
 def add_friend():
-    if method.request=='GET':
-        uname=request.args.
-
-
-
-
-
-     content = request.get_json()
-     js = json.loads(json.dumps(content))
+    content = request.get_json()
+    js = json.loads(json.dumps(content))
 
     # user authorization
     url = "https://data.octagon58.hasura-app.io/v1/query"

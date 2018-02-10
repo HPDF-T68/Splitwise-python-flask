@@ -287,7 +287,7 @@ li a:hover {
 
 <table>    {% for i in all_friend %}
 
-  <tr valign="middle"><td>{{i}} </td><td> <a href=https://app.octagon58.hasura-app.io/add_friend?uname="{{i}}">+add friend</a></td>
+  <tr valign="middle"><td>{{i}} </td><td> <a href=https://app.octagon58.hasura-app.io/add_friend_all?uname="{{i}}">+add friend</a></td>
 
       {% endfor%}
   </table>
@@ -577,5 +577,13 @@ window.onclick = function(event) {
 
 </script>
 </body>
+{%with messages = get_flashed_messages() %}
+          {% for message in messages %}
+
+             <script type="text/javascript">
+        alert("{{message}}");
+            </script>
+               {% endfor %}
+          {% endwith %}
 
 </html>
