@@ -6,7 +6,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
@@ -155,7 +155,19 @@ li a:hover {
     border: 1px solid #888;
     width: 40%;
 }
+.close1 {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
 
+.close1:hover,
+.close1:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
 /* The Close Button */
 .close {
     color: #aaaaaa;
@@ -216,33 +228,34 @@ li a:hover {
   <li><a href="#contact">Invite friend</a></li>
 </ul>
        <div >
-        <button id="myBtn">+Add Group</button><h4><u>My Groups</u></h4>
+        <button id="myBtn1">+Add Group</button><h4><u><i class="fa fa-group"></i> </i>My Groups</u></h4>
 
         <ul id="ul1">
           <ulbody>
         </ulbody>
         </ul>
-
-        <hr>
-<div id="myModal" class="modal">
+         <br>
+         </div>
+<div id="myModal1" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span class="close1">&times;</span>
 
     <h3>Enter Group Detail </h3>
   <br>
     <form action="https://app.octagon58.hasura-app.io/login_submit/#" methods="post">
 
       Enter Group Name:: <input type="text" name="gname" placeholder="Group Name" required>
-      <table id="table">
+      Select Group Member
+      <table id="table1">
 
             <tbody></tbody>
-        <input type="submit" value="Create Group">
+
 
         </table>
         <br>
 
-    <t><input type="submit" value="Add friend"> </t>
+    <input type="submit" value="Create Group">
 
 
   </form>
@@ -252,8 +265,8 @@ li a:hover {
 </div>
 
 
-      </div>
-     <br>
+
+
 
       <div >
         <button id="myBtn">+Add friends</button><h4><u>My Friends</u></h4>
@@ -271,14 +284,13 @@ li a:hover {
 
     <h3>Select As Friend </h3>
   <br>
-    <form action="https://app.octagon58.hasura-app.io/login_submit/#" methods="post">
+    <form action="" methods="post">
 
+    {% for i in all_friend %}
 
-      <table id="table">
+       <tr valign="middle"><td><input type="checkbox" name="addfriend" value="{{i}}"></td> <td valign="center">{{i}}</td></tr>
 
-            <tbody></tbody>
-
-        </table>
+      {% end for%}
         <br>
 
     <t><input type="submit" value="Add friend"> </t>
@@ -383,7 +395,7 @@ fetch(url, requestOptions)
 	console.log(result);
 	for (i=0;i<=result.length;i++) {
 
-      $('#ul1 > ulbody').append('<li> <a href="#"><i class="glyphicon glyphicon-user"></i> ' + result[i]['gname'] +  '</li></a>');
+      $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
 
 }
 
@@ -434,19 +446,20 @@ fetch(url, requestOptions)
 .then(function(result) {
 	console.log(result);
 
+
 	for (i=0;i<=result.length;i++) {
 
       $('#table > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
 }
-
 })
 .catch(function(error) {
 	console.log('Request Failed:' + error);
 });
 
 
-// For friend list ***********************************************************************************************************************************
+
+
   var url = "https://data.octagon58.hasura-app.io/v1/query";
 
 // If you have the auth token saved in offline storage, obtain it in async componentDidMount
@@ -487,9 +500,17 @@ fetch(url, requestOptions)
 
 	for (i=0;i<=result.length;i++) {
 
+
+      $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+
       $('#ul > ulbody').append('<li> <a href=""#><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</li></a>');
 
 }
+
+
+
+
+
 
 
 })
@@ -526,6 +547,33 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+var modal1 = document.getElementById('myModal1');
+
+// Get the button that opens the modal
+var btn1 = document.getElementById("myBtn1");
+
+// Get the <span> element that closes the modal
+var span1 = document.getElementsByClassName("close1")[0];
+
+// When the user clicks the button, open the modal
+btn1.onclick = function() {
+    modal1.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span1.onclick = function() {
+    modal1.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal1) {
+        modal1.style.display = "none";
+    }
+}
+
 </script>
 </body>
 
