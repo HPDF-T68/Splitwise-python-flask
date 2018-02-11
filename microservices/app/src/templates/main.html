@@ -243,7 +243,7 @@ li a:hover {
 
     <h3>Enter Group Detail </h3>
   <br>
-    <form action="https://app.octagon58.hasura-app.io/login_submit/#" methods="post">
+    <form action="https://app.octagon58.hasura-app.io/make_group" methods="post">
 
       Enter Group Name:: <input type="text" name="gname" placeholder="Group Name" required>
       Select Group Member
@@ -380,7 +380,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$eq": {{uid}}
+                "$eq":  {{session['hasura_id'}}
             }
         }
     }
@@ -432,7 +432,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$ne": {{uid}}
+                "$ne": {{session['hasura_id'}}
             }
         }
     }
@@ -485,7 +485,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$eq": {{uid}}
+                "$eq":  {{session['hasura_id'}}
             }
         }
     }
@@ -502,17 +502,11 @@ fetch(url, requestOptions)
 	for (i=0;i<=result.length;i++) {
 
 
-      $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+      $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
       $('#ul > ulbody').append('<li> <a href=""#><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</li></a>');
 
 }
-
-
-
-
-
-
 
 })
 .catch(function(error) {

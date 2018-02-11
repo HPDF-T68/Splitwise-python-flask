@@ -102,6 +102,86 @@ def select_friend(num):
         username = list(s2 - s4)
         return username
 
+@app.route('/make_group', methods=[ 'GET', 'POST' ])
+def make_group():
+
+    if request.method =='POST':
+        userid=request.form.getlist("addfriend")
+        gname=request.form['gname']
+        mno=len(userid)
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+        requestPayload = {
+        "type": "insert",
+        "args": {
+            "table": "group",
+            "objects": [
+                {
+                    "gdate": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),
+                    "uid": session['hasura_id'],
+                    "gname": gname,
+                    "member_no": mno,
+
+                }
+            ],
+            "returning": [
+                "gid"
+            ]
+
+        }
+        }
+
+        headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+          }
+
+    # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+        data = json.loads(resp.content)
+
+
+        for i in range(0,mno):
+             requestPayload = {
+            "type": "insert",
+            "args": {
+                "table": "group_member",
+                "objects": [
+                    {
+                        "gid": data[ 'returning' ][ 0 ][ 'gid' ],
+                        "uid": userid[i]
+
+                    }
+                ]
+            }
+            }
+             resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+         requestPayload = {
+        "type": "insert",
+        "args": {
+            "table": "group_member",
+            "objects": [
+                {
+                    "gid": data[ 'returning' ][ 0 ][ 'gid' ],
+                    "uid": uid
+
+                }
+            ]
+        }
+        }
+        resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data = json.loads(resp1.content)
+        if "affected_rows" in data:
+            flash('Group Created successfully')
+            return render_template('main.html', all_friend=select_friend(2))
+        else:
+            flash('Group Creation failed')
+            return render_template('main.html', all_friend=select_friend(2))
+    return render_template('main.html', all_friend=select_friend(2))
+
+
+
+
 @app.route('/add_friend_all', methods=[ 'POST', 'GET' ])
 def add_friend_all():
     username=request.args.get('uname')
@@ -742,22 +822,6 @@ def create_group():
         }
     }
     resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
-    requestPayload = {
-        "type": "insert",
-        "args": {
-            "table": "group_user",
-            "objects": [
-                {
-                    "gid": data[ 'returning' ][ 0 ][ 'gid' ],
-                    "uid": js[ 'data' ][ 'uid' ],
-                    "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),
-
-                }
-            ]
-        }
-    }
-    resp2 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     # resp.content contains the json response.
     return resp.content
