@@ -243,7 +243,7 @@ li a:hover {
 
     <h3>Enter Group Detail </h3>
   <br>
-    <form action="https://app.octagon58.hasura-app.io/make_group" methods="post">
+    <form action="https://app.octagon58.hasura-app.io/make_group" method="post">
 
       Enter Group Name:: <input type="text" name="gname" placeholder="Group Name" required>
       Select Group Member
@@ -380,7 +380,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$eq":  {{session['hasura_id'}}
+                "$eq":  {{session['hasura_id']}}
             }
         }
     }
@@ -432,7 +432,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$ne": {{session['hasura_id'}}
+                "$ne": {{session['hasura_id']}}
             }
         }
     }
@@ -485,7 +485,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$eq":  {{session['hasura_id'}}
+                "$eq":  {{session['hasura_id']}}
             }
         }
     }
