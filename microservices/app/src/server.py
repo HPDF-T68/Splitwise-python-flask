@@ -108,6 +108,7 @@ def make_group():
     if request.method =='POST':
         userid=request.form.getlist("addfriend")
         gname=request.form['gname']
+        uid=session['hasura_id']
         mno=len(userid)
         url = "https://data.octagon58.hasura-app.io/v1/query"
         requestPayload = {
@@ -157,18 +158,18 @@ def make_group():
                 }
              resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
          requestPayload = {
-        "type": "insert",
-        "args": {
-            "table": "group_member",
-            "objects": [
-                {
-                    "gid": data[ 'returning' ][ 0 ][ 'gid' ],
-                    "uid": uid
+            "type": "insert",
+                "args": {
+                    "table": "group_member",
+                        "objects": [
+                            {
+                                "gid": data[ 'returning' ][ 0 ][ 'gid' ],
+                                "uid": uid
 
-                }
-            ]
-            }
-            }
+                            }
+                                ]
+                        }
+                    }
         resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data = json.loads(resp1.content)
         if "affected_rows" in data:
