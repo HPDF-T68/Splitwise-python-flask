@@ -143,7 +143,8 @@ def make_group():
 
 
         for i in range(0,mno):
-             requestPayload = {
+
+            requestPayload = {
             "type": "insert",
             "args": {
                 "table": "group_member",
@@ -156,8 +157,8 @@ def make_group():
                 ]
                 }
                 }
-             resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-         requestPayload = {
+            resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        requestPayload = {
             "type": "insert",
                 "args": {
                     "table": "group_member",
