@@ -158,20 +158,6 @@ def make_group():
                 }
                 }
             resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        requestPayload = {
-            "type": "insert",
-                "args": {
-                    "table": "group_member",
-                        "objects": [
-                            {
-                                "gid": data[ 'returning' ][ 0 ][ 'gid' ],
-                                "uid": uid
-
-                            }
-                                ]
-                        }
-                    }
-        resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data = json.loads(resp1.content)
         if "affected_rows" in data:
             flash('Group Created successfully')
