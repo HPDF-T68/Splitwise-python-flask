@@ -127,7 +127,7 @@ def make_group():
                 "gid"
             ]
 
-        }
+            }
         }
 
         headers = {
@@ -153,8 +153,8 @@ def make_group():
 
                     }
                 ]
-            }
-            }
+                }
+                }
              resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
          requestPayload = {
         "type": "insert",
@@ -167,8 +167,8 @@ def make_group():
 
                 }
             ]
-        }
-        }
+            }
+            }
         resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data = json.loads(resp1.content)
         if "affected_rows" in data:
