@@ -140,7 +140,21 @@ def make_group():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
         data = json.loads(resp.content)
+        requestPayload = {
+            "type": "insert",
+            "args": {
+                "table": "group_member",
+                "objects": [
+                    {
+                        "gid": data[ 'returning' ][ 0 ][ 'gid' ],
+                        "uid": uid,
+                        "gname": gname
 
+                    }
+                ]
+            }
+        }
+        resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
         for i in range(0,mno):
 
@@ -151,7 +165,8 @@ def make_group():
                 "objects": [
                     {
                         "gid": data[ 'returning' ][ 0 ][ 'gid' ],
-                        "uid": userid[i]
+                        "uid": userid[i],
+                        "gname":gname
 
                     }
                 ]
@@ -789,7 +804,8 @@ def create_group():
                 "objects": [
                     {
                         "gid": data[ 'returning' ][ 0 ][ 'gid' ],
-                        "uid": js[ 'group_member' ][ i ]
+                        "uid": js[ 'group_member' ][ i ],
+                        "gname":gname
 
                     }
                 ]
