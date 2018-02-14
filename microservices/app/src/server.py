@@ -189,7 +189,7 @@ def dashboard():
 def update_email():
     return render_template('update_email.html')
 
-@app.route('/change_email',methods=['POST','GET'])
+@app.route('/change_email', method=['POST','GET'])
 def change_email():
     if request.method =='POST':
         email=request.form['email']
