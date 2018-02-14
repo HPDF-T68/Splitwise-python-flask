@@ -65,7 +65,7 @@ def change_mobile():
 
 @app.route('/update_password')
 def update_password():
-    return render_template('update_password.html')
+    return render_template('/update_password.html')
 @app.route('/change_pass', methods=['POST','GET'])
 def change_pass():
     if request.method == 'POST':
@@ -88,9 +88,9 @@ def change_pass():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        data=resp.json(resp.content)
-        if resp.json['messsage'] == "password successfully changed":
-            flash('password updated successfully')
+
+        if "affected_rows" in data:
+            flash('Updated Mobile No is :'+email)
             return render_template('main.html')
     flash('Some error occurs')
     return render_template('main.html')
