@@ -76,8 +76,8 @@ def change_pass():
 
         # This is the json payload for the query
         requestPayload = {
-            "old_password": "<oldPassword>",
-            "new_password": "<newPassword>"
+            "old_password": old_password,
+            "new_password": new_password
         }
 
         # Setting headers
