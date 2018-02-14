@@ -399,10 +399,25 @@ fetch(url, requestOptions)
       $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
 
 }
-
-
-
 })
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
 
 var body = {
     "type": "select",
@@ -418,6 +433,8 @@ var body = {
         }
     }
 };
+
+
 
 requestOptions.body = JSON.stringify(body);
 
