@@ -113,9 +113,9 @@ div.a1{
 
 .avatar {
     vertical-align: middle;
-    width: 25px;
-    height: 25px;
-    border-radius: 35%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 ul {
     list-style-type: none;
@@ -189,6 +189,30 @@ li a:hover {
     text-decoration: none;
     cursor: pointer;
 }
+ input[type=submit] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=email]:focus {
+    border: 3px solid #555;
+}
+
   </style>
 </head>
 <body>
@@ -210,13 +234,13 @@ li a:hover {
       </ul>
       <ul class="nav navbar-nav navbar-right">
        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img src="static/image/1.png" alt="Avatar" class="avatar">{{session['username']}}
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i><img src="static/image/1.png" alt="Avatar" class="avatar">{{session['username']}}
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a href="https://app.octagon58.hasura-app.io/dashboard">Dashboard</a></li>
           <li><a href="https://app.octagon58.hasura-app.io/update_email">Update Email</a></li>
-          <li><a href="https://app.octagon58.hasura-app.io/update_mobile">Update Mobile No</a></li>
-          <li><a href="https://app.octagon58.hasura-app.io/update_password">Update password</a></li>
+          <li><a href="#">Update Mobile No</a></li>
+          <li><a href="#">Update password</a></li>
           <li><a href="https://app.octagon58.hasura-app.io/logout_user">Logout</a></li>
         </ul>
       </li>
@@ -301,7 +325,7 @@ li a:hover {
 
         <br>
 
-    <
+
 
 
   </form>
@@ -321,25 +345,15 @@ li a:hover {
       </div>
     <div class="col-sm-8 text-left">
 
-      <pre><h1>DASHBOARD</h1>                                                                       <button type="button" class="btn btn-info btn-lg"><a href="#">Add Bill</a></button>        <button type="button" class="btn btn-warning btn-lg"><a href="#">Settle Up</a></button>  </pre>
+<form action="https://app.octagon58.hasura-app.io/change_email" method="post">
+  <label for="fname"><h1>Enter Your New Mobile No.</h1></label>
+  <input type="number" id="fname" name="mobile" maxlength="10" required><br>
+  <input type="submit" value="Change Mobile no">
 
-    <table border="0" id="customers">
-  <tr valign="center">
-    <th class="a">Wallet Amount</th>
-    <th class="a1">Contributed amount</th>
-    <th class="a3"><a href="#" class="button">Redeem Your Wallet</a></th>
-
-  </tr>
-  <tr>
-    <th>Rs. 00</th>
-    <th>Rs. 00</th>
-
-  </tr>
-  <tr>
-  </tr></table>
-<hr>
+</form>
     </div>
-    <div class="col-sm-2 sidenav">
+
+        <div class="col-sm-2 sidenav">
       <div class="well">
 
         <strong><div class="a"><h4><u>RULES</u></h4><br>
@@ -586,6 +600,5 @@ window.onclick = function(event) {
             </script>
                {% endfor %}
           {% endwith %}
-
 
 </html>
