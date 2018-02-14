@@ -186,8 +186,9 @@ def make_group():
 def dashboard():
     return render_template('main.html',all_friend=select_friend(2))
 @app.route('/update_email')
+
 def update_email():
-    return render_template('update_email',)
+    return render_template('update_email')
 
 
 
