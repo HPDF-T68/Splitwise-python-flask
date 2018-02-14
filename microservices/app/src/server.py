@@ -69,7 +69,8 @@ def update_password():
 @app.route('/change_pass', methods=['POST','GET'])
 def change_pass():
     if request.method == 'POST':
-        password=request.form['password']
+        new_password=request.form['new_password']
+        old_password=request.form['old_password']
 
         url = "https://auth.octagon58.hasura-app.io/v1/providers/username/change-password"
 
