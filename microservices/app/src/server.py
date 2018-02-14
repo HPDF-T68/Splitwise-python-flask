@@ -20,7 +20,7 @@ app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
 
 
-
+'''
 @app.route('/update_mobile')
 def update_mobile():
     return render_template('update_mobile.html')
@@ -94,7 +94,7 @@ def change_pass():
             return render_template('main.html')
     flash('Some error occurs')
     return render_template('main.html')
-
+'''
 @app.route('/')
 def index():
     return render_template('index.html')
