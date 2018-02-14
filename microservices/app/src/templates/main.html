@@ -294,7 +294,7 @@ li a:hover {
 
         <br>
 
-    <
+
 
 
   </form>
@@ -465,16 +465,17 @@ fetchAction(url, requestOptions)
 .then(function(response) {
 	return response.json();
 })
-.then(function(result) {
-	console.log(result);
-	for (i=0;i<=result.length;i++) {
+.then(function(result1) {
+	console.log(result1);
+	for (i=0;i<=result1.length;i++) {
 
-      $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
+      $('#ul1 > ulbody').append('<li> <a href="#">' + result1[i]['gname'] +  '</li></a>');
 
 }
 
 
 })
+}
 .catch(function(error) {
 	console.log('Request Failed:' + error);
 });
