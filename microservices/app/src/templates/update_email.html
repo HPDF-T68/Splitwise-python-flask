@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home page</title>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 25px;
+      }
+      .row.content {height:auto;}
+    }
+    #customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th.a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+}
+#customers th{
+text-align:center;
+}
+
+#customers th.a1 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+    background-color:#4CAF50;
+    color: white;
+}
+#customers th.a3 {
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-align: center;
+    background-color: white;
+    color: white;
+}
+
+div.a{
+    background-color: lightgrey;
+    width: 180px;
+    border: 2px solid green;
+    padding: 2px;
+    margin: 2px;
+}
+div.a1{
+    background-color: green;
+    width: 180px;
+    border: 2px solid green;
+    padding: 12px;
+    margin: 20px;
+}
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+
+    background-color: #fefefe;
+    margin: auto;
+    overflow: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%;
+}
+.close1 {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close1:hover,
+.close1:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+ input[type=submit] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+input[type=email] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 3px solid #ccc;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=email]:focus {
+    border: 3px solid #555;
+}
+
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">S P L I T W I S E</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i><img src="static/image/1.png" alt="Avatar" class="avatar">{{session['username']}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="https://app.octagon58.hasura-app.io/dashboard">Dashboard</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/update_email">Update Email</a></li>
+          <li><a href="#">Update Mobile No</a></li>
+          <li><a href="#">Update password</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/logout_user">Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+
+      <ul>
+  <li><a href="#home">Dashboard</a></li>
+  <li><a href="#news">Transactions</a></li>
+  <li><a href="#contact">Invite friend</a></li>
+</ul>
+       <div >
+        <button id="myBtn1">+Add Group</button><h4><u><i class="fa fa-group"></i> </i>My Groups</u></h4>
+
+        <ul id="ul1">
+          <ulbody>
+        </ulbody>
+        </ul>
+         <br>
+         </div>
+<div id="myModal1" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close1">&times;</span>
+
+    <h3>Enter Group Detail </h3>
+  <br>
+    <form action="https://app.octagon58.hasura-app.io/make_group" method="post">
+
+      Enter Group Name:: <input type="text" name="gname" placeholder="Group Name" required>
+      Select Group Member
+      <table id="table1">
+
+            <tbody></tbody>
+
+
+        </table>
+        <br>
+
+    <input type="submit" value="Create Group">
+
+
+  </form>
+
+  </div>
+
+</div>
+
+
+
+
+
+      <div >
+        <button id="myBtn">+Add friends</button><h4><u>My Friends</u></h4>
+
+        <ul id="ul">
+          <ulbody>
+        </ulbody>
+        </ul>
+
+        <hr>
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+
+    <h3>Select As Friend </h3>
+  <br>
+
+<table>    {% for i in session['all_friend'] %}
+
+  <tr valign="middle"><td>{{i}} </td><td> <a href=https://app.octagon58.hasura-app.io/add_friend_all?uname={{i}}>+add friend</a></td>
+
+      {% endfor%}
+  </table>
+
+        <br>
+
+
+
+
+  </form>
+
+  </div>
+
+</div>
+
+
+      </div>
+     <br>   <ul>
+  <li><a href="#home">Contact</a></li>
+  <li><a href="#news">FAQ</a></li>
+  <li><a href="#contact">Supports</a></li>
+
+</ul>
+      </div>
+    <div class="col-sm-8 text-left">
+
+<form>
+  <label for="fname"><h1>Enter Your New Email</h1></label>
+  <input type="email" id="fname" name="email" required><br>
+  <input type="submit" value="Change Email">
+
+</form>
+    </div>
+
+        <div class="col-sm-2 sidenav">
+      <div class="well">
+
+        <strong><div class="a"><h4><u>RULES</u></h4><br>
+        * Users are given $100 as welcome bonus.<br>
+        * You need to add friends before you can create group.<br>
+        * Groups are immutable to prevent distortion of group history.<br>
+        * Bills are always split equally.<br>
+        * Payments are made outside the app.<br></div>
+        </strong></div><br>
+      <strong><div class="a1"><h4>Minimum Value <u>Product</u></h4>
+
+        Please use a desktop browser & decent internet connection to use this app<br></div>
+        </strong></div>
+
+      </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+<script>
+//  for group list::
+var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "group_member",
+        "columns": [
+            "gname",
+            "gid"
+        ],
+        "where": {
+            "uid": {
+                "$eq":  {{session['hasura_id']}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+	console.log(result);
+	for (i=0;i<=result.length;i++) {
+
+      $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
+
+}
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+
+// for select friend***********************************************************************
+var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "signup",
+        "columns": [
+            "username"
+        ],
+        "where": {
+            "uid": {
+                "$ne": {{session['hasura_id']}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+	console.log(result);
+
+
+	for (i=0;i<=result.length;i++) {
+
+      $('#table > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+
+}
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+
+  var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "friend",
+        "columns": [
+            "username",
+            "friend_id"
+        ],
+        "where": {
+            "uid": {
+                "$eq":  {{session['hasura_id']}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+
+	for (i=0;i<=result.length;i++) {
+
+
+      $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+
+      $('#ul > ulbody').append('<li> <a href=""#><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</li></a>');
+
+}
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+
+
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+var modal1 = document.getElementById('myModal1');
+
+// Get the button that opens the modal
+var btn1 = document.getElementById("myBtn1");
+
+// Get the <span> element that closes the modal
+var span1 = document.getElementsByClassName("close1")[0];
+
+// When the user clicks the button, open the modal
+btn1.onclick = function() {
+    modal1.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span1.onclick = function() {
+    modal1.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal1) {
+        modal1.style.display = "none";
+    }
+}
+
+</script>
+</body>
+{%with messages = get_flashed_messages() %}
+          {% for message in messages %}
+
+             <script type="text/javascript">
+        alert("{{message}}");
+            </script>
+               {% endfor %}
+          {% endwith %}
+
+</html>
