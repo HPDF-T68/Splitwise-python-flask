@@ -294,7 +294,7 @@ li a:hover {
 
         <br>
 
-
+    <
 
 
   </form>
@@ -404,88 +404,7 @@ fetch(url, requestOptions)
 .catch(function(error) {
 	console.log('Request Failed:' + error);
 });
-// for another group list
 
-var fetchAction =  require('fetch');
-
-var url = "https://data.octagon58.hasura-app.io/v1/query";
-
-var requestOptions = {
-    "method": "POST",
-    "headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-};
-
-var body = {
-    "type": "select",
-    "args": {
-        "table": "group_member",
-        "columns": [
-            "gid"
-        ],
-        "where": {
-            "uid": {
-                "$eq": {{session['hasura_id']}}
-            }
-        }
-    }
-};
-
-requestOptions.body = JSON.stringify(body);
-
-fetchAction(url, requestOptions)
-.then(function(response) {
-	return response.json();
-})
-.then(function(result) {
-	console.log(result);
-	for(i=0;i<result.length;i++)
-	{
-
-	var body = {
-    "type": "select",
-    "args": {
-        "table": "group",
-        "columns": [
-            "gname"
-        ],
-        "where": {
-            "gid": {
-                "$eq": result[i]['gid']
-            }
-        }
-    }
-};
-
-requestOptions.body = JSON.stringify(body);
-
-fetchAction(url, requestOptions)
-.then(function(response) {
-	return response.json();
-})
-.then(function(result1) {
-	console.log(result1);
-	for (i=0;i<=result1.length;i++) {
-
-      $('#ul1 > ulbody').append('<li> <a href="#">' + result1[i]['gname'] +  '</li></a>');
-
-}
-
-
-})
-}
-.catch(function(error) {
-	console.log('Request Failed:' + error);
-});
-
-	}
-
-})
-.catch(function(error) {
-	console.log('Request Failed:' + error);
-});
 
 
 
