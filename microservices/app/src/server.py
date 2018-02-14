@@ -390,6 +390,7 @@ def logout_user():
             session.pop('hasura_id', None)
             session.pop('auth_token' , None)
             session.pop('username', None)
+            session.pop('all_friend',None)
 
             flash('Successfully logged out')
             return render_template('index.html')
