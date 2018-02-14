@@ -393,14 +393,81 @@ fetch(url, requestOptions)
 	return response.json();
 })
 .then(function(result) {
-	console.log(result);
+
 	for (i=0;i<=result.length;i++) {
 
       $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
 
 }
 
+
+
 })
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "group_member",
+        "columns": [
+            "gid"
+        ],
+        "where": {
+            "uid": {
+                "$eq": session['hasura_id']
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+
+
+	for (i=0;i<=result.length;i++) {
+
+        var body = {
+    "type": "select",
+    "args": {
+        "table": "group",
+        "columns": [
+            "gname",
+            "gid"
+        ],
+        "where": {
+            "gid": {
+                "$eq": result[i]['gid']
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+
+for (i=0;i<=result.length;i++) {
+
+      $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
+
+}
+
+})
+}
+
+
+})
+
+
+
 .catch(function(error) {
 	console.log('Request Failed:' + error);
 });
