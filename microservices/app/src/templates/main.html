@@ -428,7 +428,7 @@ var body = {
         ],
         "where": {
             "uid": {
-                "$eq": session['hasura_id']
+                "$eq": {{session['hasura_id']}}
             }
         }
     }
