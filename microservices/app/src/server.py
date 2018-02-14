@@ -186,12 +186,46 @@ def make_group():
 def dashboard():
     return render_template('main.html',all_friend=select_friend(2))
 @app.route('/update_email')
-
 def update_email():
     return render_template('update_email')
 
+@app.route('/change_email',methods=['POST','GET'])
+def change_email():
+    if request.methods =='POST':
+        email=request.form['form']
 
+        url = "https://data.octagon58.hasura-app.io/v1/query"
 
+        # This is the json payload for the query
+        requestPayload = {
+            "type": "update",
+            "args": {
+                "table": "signup",
+                "where": {
+                    "uid": {
+                        "$eq": session['hasura_id']
+                    }
+                },
+                "$set": {
+                    "email": email
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data = json.loads(resp.content)
+        if "affected_rows" in data:
+            flash('Updated email id is :'+email)
+            return render_template('main.html')
+    flash('Some error occurs')
+    return render_template('main.html')
 @app.route('/add_friend_all', methods=[ 'POST', 'GET' ])
 def add_friend_all():
     username=request.args.get('uname')
