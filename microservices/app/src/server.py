@@ -21,7 +21,7 @@ toolbar=DebugToolbarExtension(app)
 
 
 
-@app.route('update_mobile')
+@app.route('/update_mobile')
 def update_mobile():
     return render_template('update_mobile.html')
 @app.route('/change_mobile', methods=['POST','GET'])
@@ -65,6 +65,43 @@ def change_mobile():
 
 @app.route('update_password')
 def update_password():
+    return render_template('update_password.html')
+@app.route('/change_pass', methods=['POST','GET'])
+def change_pass():
+    if request.method == 'POST':
+        mobile=request.form['mobile']
+
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+
+        # This is the json payload for the query
+        requestPayload = {
+            "type": "update",
+            "args": {
+                "table": "signup",
+                "where": {
+                    "uid": {
+                        "$eq": session['hasura_id']
+                    }
+                },
+                "$set": {
+                    "mobile": mobile
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data = json.loads(resp.content)
+        if "affected_rows" in data:
+            flash('Updated Mobile No is :'+email)
+            return render_template('main.html')
+    flash('Some error occurs')
     return render_template('main.html')
 
 @app.route('/')
