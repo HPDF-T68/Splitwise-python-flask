@@ -185,6 +185,10 @@ def make_group():
 @app.route('/dashboard')
 def dashboard():
     return render_template('main.html',all_friend=select_friend(2))
+@app.route('/update_email')
+def update_email():
+    return render_template('update_email',)
+
 
 
 @app.route('/add_friend_all', methods=[ 'POST', 'GET' ])
@@ -434,7 +438,8 @@ def signup_submit():
             session[ 'auth_token' ] = resp.json()[ 'auth_token' ]
             session[ 'hasura_id' ] = resp.json()[ 'hasura_id' ]
             session[ 'username' ] = resp.json()[ 'username' ]
-            return render_template('main.html',all_friend=select_friend(2), username=resp.json()[ 'username' ], uid=resp.json()[ 'hasura_id' ])
+            session[ 'all_friend' ] = select_friend(2)
+            return render_template('main.html')
 
         if resp.json()['code']== "user-exists":
             flash('Username Exists Plzz change')
@@ -482,7 +487,8 @@ def login_submit():
             session['auth_token'] = resp.json()['auth_token']
             session['hasura_id'] = resp.json()['hasura_id']
             session[ 'username' ] = resp.json()[ 'username' ]
-            return render_template('main.html',all_friend=select_friend(2),username=resp.json()['username'],uid=resp.json()['hasura_id'])
+            session[ 'all_friend' ] = select_friend(2)
+            return render_template('main.html')
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
