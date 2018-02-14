@@ -110,6 +110,13 @@ div.a1{
     margin: 4px 2px;
     cursor: pointer;
 }
+
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
 ul {
     list-style-type: none;
     margin: 0;
@@ -203,11 +210,11 @@ li a:hover {
       </ul>
       <ul class="nav navbar-nav navbar-right">
        <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i>{{session['username']}}
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="glyphicon glyphicon-user"></i><img src="static/image/1.png" alt="Avatar" class="avatar">{{session['username']}}
         <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">Dashboard</a></li>
-          <li><a href="#">Update Email</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/dashboard">Dashboard</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/update_email">Update Email</a></li>
           <li><a href="#">Update Mobile No</a></li>
           <li><a href="#">Update password</a></li>
           <li><a href="https://app.octagon58.hasura-app.io/logout_user">Logout</a></li>

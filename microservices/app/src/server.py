@@ -182,7 +182,9 @@ def make_group():
             return render_template('main.html', all_friend=select_friend(2))
     return render_template('main.html', all_friend=select_friend(2))
 
-
+@app.route('/dashboard')
+def dashboard():
+    return render_template('main.html',all_friend=select_friend(2))
 
 
 @app.route('/add_friend_all', methods=[ 'POST', 'GET' ])
