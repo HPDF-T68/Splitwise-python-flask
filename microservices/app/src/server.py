@@ -192,7 +192,7 @@ def update_email():
 @app.route('/change_email',methods=['POST','GET'])
 def change_email():
     if request.method =='POST':
-        email=request.form['form']
+        email=request.form['email']
 
         url = "https://data.octagon58.hasura-app.io/v1/query"
 
