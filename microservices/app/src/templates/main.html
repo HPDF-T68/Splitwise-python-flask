@@ -332,8 +332,8 @@ li a:hover {
 
   </tr>
   <tr>
-    <th id="wallet"> </th>
-    <th id="contributed"></th>
+    <th >Rs. 00 </th>
+    <th >Rs. 00</th>
 
   </tr>
   <tr>
@@ -363,54 +363,7 @@ li a:hover {
 
 
 <script>
-// contributed balance
 
-var fetchAction =  require('fetch');
-
-var url = "https://data.octagon58.hasura-app.io/v1/query";
-
-var requestOptions = {
-    "method": "POST",
-    "headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-};
-
-var body = {
-    "type": "select",
-    "args": {
-        "table": "group_user",
-        "columns": [
-            "cash_paid"
-        ],
-        "where": {
-            "uid": {
-                "$eq": {{session['hasura_id']}}
-            }
-        }
-    }
-};
-
-requestOptions.body = JSON.stringify(body);
-
-fetchAction(url, requestOptions)
-.then(function(response) {
-	return response.json();
-})
-.then(function(result) {
-var amount=0;
-
-	for(i=0;i<result.length;i++)
-	{
-	    amount=amount+result[i]['cash_paid'];
-	}
-	document.getElementById("contributed").innerHTML = 'Rs. '+ amount;
-
-})
-.catch(function(error) {
-	console.log('Request Failed:' + error);
-});
 
 
 //  for group list::
