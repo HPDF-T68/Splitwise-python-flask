@@ -13,12 +13,44 @@ import os
 app = Flask(__name__)
 # from urllib3 import request
 app.config['SESSION_TYPE'] = 'memcached'
+# for image upload
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app.config[ 'SECRET_KEY' ] = 'jnxjasbxjsbxjhabsxhsbxjashxb'
 app.config['DEBUG']=True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
 
+@app.route('/update_profile')
+def update_profile():
+    return render_template('update_profile.html')
+@app.route('/change_profile', methods=['POST','GET'])
+def change_profile():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return render_template('update_profile.html')
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return render_template('update_profile.html')
+        if file and allowed_file(file.filename):
+            #filename = secure_filename(file.filename)
+            a='static/profile/'+session['hasura_id']+'.jpg'
+            file.save(a)
+            flash('Profile picture changes successfully')
+            return render_template('main.html')
+        else:
+            flash('Something wrong')
+            return render_template('update_profile.html')
+    flash('Something wrong')
+    return render_template('update_profile.html')
 
 
 @app.route('/update_mobile')
@@ -92,7 +124,11 @@ def change_pass():
         if resp.json()['message']=='password successfully changed':
             flash('password changed successfully')
             return render_template('main.html')
-    flash('unable to change password due to internal error')
+        else:
+            flash('unable to change password due to internal error')
+            return render_template('main.html')
+
+    flash('some error occurs')
     return render_template('main.html')
 
 @app.route('/')

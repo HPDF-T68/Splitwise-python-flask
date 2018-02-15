@@ -198,7 +198,7 @@ li a:hover {
     margin: 4px 2px;
     cursor: pointer;
 }
-input[type=email]input[type=number] {
+input[type=email] {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -239,7 +239,7 @@ input[type=email]:focus {
         <ul class="dropdown-menu">
           <li><a href="https://app.octagon58.hasura-app.io/dashboard">Dashboard</a></li>
           <li><a href="https://app.octagon58.hasura-app.io/update_email">Update Email</a></li>
-         <li><a href="https://app.octagon58.hasura-app.io/update_mobile">Update Mobile No</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/update_mobile">Update Mobile No</a></li>
           <li><a href="https://app.octagon58.hasura-app.io/update_password">Update password</a></li>
             <li><a href="https://app.octagon58.hasura-app.io/update_profile">Update profile pic</a></li>
           <li><a href="https://app.octagon58.hasura-app.io/logout_user">Logout</a></li>
@@ -346,10 +346,18 @@ input[type=email]:focus {
       </div>
     <div class="col-sm-8 text-left">
 
-<form action="https://app.octagon58.hasura-app.io/change_mobile" method ="post">
-  <label for="fname"><h1>Enter Your New Mobile No.</h1></label>
-  <input type="number" id="fname" name="mobile" maxlength="10" required><br>
-          <center>             <input type="submit" value="Change Mobile no"></center>
+<form action="https://app.octagon58.hasura-app.io/change_profile" method="post" enctype = "multipart/form-data">
+  <label for="fname"><h1>Select profile pic</h1></label>
+  <input type="file" id="fname" name="file" multiple accept='image/*' required><br>
+  <input type="submit" value="Change picture">
+    {%with messages = get_flashed_messages() %}
+          {% for message in messages %}
+
+             <script type="text/javascript">
+      <strong> {{message}}</strong>
+            </script>
+               {% endfor %}
+          {% endwith %}
 
 </form>
     </div>
@@ -593,13 +601,6 @@ window.onclick = function(event) {
 
 </script>
 </body>
-{%with messages = get_flashed_messages() %}
-          {% for message in messages %}
 
-             <script type="text/javascript">
-        alert("{{message}}");
-            </script>
-               {% endfor %}
-          {% endwith %}
 
 </html>
