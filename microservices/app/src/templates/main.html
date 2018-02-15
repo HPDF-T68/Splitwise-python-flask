@@ -235,7 +235,7 @@ li a:hover {
   <li><a href="#news">Transactions</a></li>
   <li><a href="#contact">Invite friend</a></li>
 </ul>
-       <div >
+       <div ><br>
         <button id="myBtn1">+Add Group</button><h4><u><i class="fa fa-group"></i> </i>My Groups</u></h4>
 
         <ul id="ul1">
@@ -512,7 +512,7 @@ fetch(url, requestOptions)
 
       $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
-      $('#ul > ulbody').append('<li> <a href=""#><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</li></a>');
+      $('#ul > ulbody').append('<li> <a href=""><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</a><button onclick="confirm(result[i]['username'])>Remove</button></li>');
 
 }
 
@@ -520,8 +520,73 @@ fetch(url, requestOptions)
 .catch(function(error) {
 	console.log('Request Failed:' + error);
 });
+// Remove friends
+
+function confirm(name) {
+    var r = confirm("Are You Sure To remove "+name);
+    if(r==true){
+                var fetchAction =  require('fetch');
+
+var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage
+// var authToken = window.localStorage.getItem('HASURA_AUTH_TOKEN');
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "delete",
+    "args": {
+        "table": "friend",
+        "where": {
+            "$and": [
+                {
+                    "username": {
+                        "$eq": name
+                    }
+                },
+                {
+                    "uid": {
+                        "$eq": {{session['hasura_id']}}
+                    }
+                }
+            ]
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetchAction(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+	console.log(result);
+	if(result['affected_rows']==1)
+	{
+	alert('Removed Successfully');
+	}
+	else
+	{
+	alert('unable to remove');
+	}
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
 
 
+
+    }
+}
 
 
 
