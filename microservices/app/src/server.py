@@ -30,8 +30,45 @@ toolbar=DebugToolbarExtension(app)
 @app.route('/remove_friend', methods=['POST','GET'])
 def remove_friend():
     username=request.args.get('username')
+    url = "https://data.octagon58.hasura-app.io/v1/query"
 
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "delete",
+        "args": {
+            "table": "friend",
+            "where": {
+                "$and": [
+                    {
+                        "username": {
+                            "$eq": username
+                        }
+                    },
+                    {
+                        "uid": {
+                            "$eq": session['hasura_id']
+                        }
+                    }
+                ]
+            }
+        }
+    }
 
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    if resp.json['affected_rows']:
+        flash('Successfully removed'+username)
+        return render_template('main.html')
+    else:
+        flash('Some problem occurs')
+        return render_template('main.html')
+    return render_template('main.html')
 
 @app.route('/update_profile')
 def update_profile():
