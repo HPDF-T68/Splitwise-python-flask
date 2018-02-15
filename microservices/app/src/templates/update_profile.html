@@ -303,10 +303,10 @@ input[type=email]:focus {
       <div >
         <button id="myBtn">+Add friends</button><h4><u>My Friends</u></h4>
 
-        <ul id="ul">
-          <ulbody>
-        </ulbody>
-        </ul>
+        <table id="tab">
+          <tbody>
+        </tbody>
+        </table>
 
         <hr>
 <div id="myModal" class="modal">
@@ -535,7 +535,7 @@ fetch(url, requestOptions)
 
       $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
-      $('#ul > ulbody').append('<li> <a href=""#><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</li></a>');
+       $('#tab > tbody').append('<tr ><td align="left" bgcolor="#ccccff"><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] + ' </td><td align="right"><a href="https://app.octagon58.hasura-app.io/remove_friend?username='+result[i]['username']+'">Remove</a></td></tr><br>');
 
 }
 
