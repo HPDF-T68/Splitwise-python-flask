@@ -27,7 +27,7 @@ def update_mobile():
 @app.route('/change_mobile', methods=['POST','GET'])
 def change_mobile():
     if request.method == 'POST':
-        mobile=request.form['mobile']
+        mobile = request.form['mobile']
 
         url = "https://data.octagon58.hasura-app.io/v1/query"
 
