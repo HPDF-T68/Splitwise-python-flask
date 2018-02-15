@@ -14,7 +14,7 @@ app = Flask(__name__)
 # from urllib3 import request
 app.config['SESSION_TYPE'] = 'memcached'
 # for image upload
-UPLOAD_FOLDER = '/static/profile'
+UPLOAD_FOLDER = 'static/profile'
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
