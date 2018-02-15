@@ -42,7 +42,7 @@ def change_profile():
             return render_template('update_profile.html')
         if file and allowed_file(file.filename):
             #filename = secure_filename(file.filename)
-            a='static/profile/'+session['hasura_id']+'.jpg'
+            a='static/profile/'+str(session['hasura_id'])+'.jpg'
             file.save(a)
             flash('Profile picture changes successfully')
             return render_template('main.html')
