@@ -60,7 +60,7 @@ def change_profile():
             resp = requests.put(url, data=file, headers=headers)
 
             flash('Profile picture changes successfully')
-            return redirect(url_for('main'))
+            return render_template('main.html')
 
         else:
             flash('Something wrong')
