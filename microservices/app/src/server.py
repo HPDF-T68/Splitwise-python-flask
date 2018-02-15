@@ -55,7 +55,7 @@ def change_profile():
             }
 
             # Open the file and make the query
-            with open('test.png', 'rb') as file_image:
+            with open(file.filename, 'rb') as file_image:
                 resp = requests.post(url, data=file_image.read(), headers=headers)
             data=json.loads(resp.content)
             if file_id in data:
