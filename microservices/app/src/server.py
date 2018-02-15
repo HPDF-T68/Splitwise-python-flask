@@ -57,7 +57,7 @@ def change_profile():
 
             # Open the file and make the query
             #with open(file.filename, 'rb') as file_image:
-            resp = requests.post("PUT",url, data=file, headers=headers)
+            resp = requests.put(url, data=file, headers=headers)
 
             flash('Profile picture changes successfully')
             return render_template('main.html')
