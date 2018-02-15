@@ -57,42 +57,11 @@ def change_profile():
 
             # Open the file and make the query
             #with open(file.filename, 'rb') as file_image:
-            resp = requests.post(url, data=file, headers=headers)
-            '''
-            #data=json.loads(resp.content)
-            if file_id in data:
-                url = "https://data.octagon58.hasura-app.io/v1/query"
+            resp = requests.post("PUT",url, data=file, headers=headers)
 
-                # This is the json payload for the query
-                requestPayload = {
-                    "type": "update",
-                    "args": {
-                        "table": "signup",
-                        "where": {
-                            "uid": {
-                                "$eq": session['hasura_id']
-                            }
-                        },
-                        "$set": {
-                            "profile": resp.json()['file_id']
-                        }
-                    }
-                }
+            flash('Profile picture changes successfully')
+            return render_template('main.html')
 
-                # Setting headers
-                headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-                }
-
-                # Make the query and store response in resp
-                resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-                data = json.loads(resp.content)
-                if "affected_rows" in data:
-
-                    flash('Profile picture changes successfully')
-                    return render_template('main.html')
-                    '''
         else:
             flash('Something wrong')
             return render_template('update_profile.html')
