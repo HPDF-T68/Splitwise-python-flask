@@ -512,7 +512,7 @@ fetch(url, requestOptions)
 
       $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
-      $('#ul > ulbody').append('<li><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] + ' <a href="https://app.octagon58.hasura-app.io/remove_friend?username='+result[i]['username']+'">Remove</a></li>');
+      $('#ul > ulbody').append('<li><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] + ' </li><a href="https://app.octagon58.hasura-app.io/remove_friend?username='+result[i]['username']+'">Remove</a><br>');
 
 }
 
