@@ -47,7 +47,7 @@ def change_profile():
 
             #file.filename=str(session['hasura_id'])+'.jpg'
             #file.save(file.filename)
-            url = "https://filestore.octagon58.hasura-app.io/v1/"+str(session['hasura_id'])
+            url = "https://filestore.octagon58.hasura-app.io/v1/file/"+str(session['hasura_id'])
 
             # Setting headers
             headers = {
