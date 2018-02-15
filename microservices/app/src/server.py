@@ -58,7 +58,8 @@ def change_profile():
             # Open the file and make the query
             #with open(file.filename, 'rb') as file_image:
             resp = requests.post(url, data=file, headers=headers)
-            data=json.loads(resp.content)
+            '''
+            #data=json.loads(resp.content)
             if file_id in data:
                 url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -91,6 +92,7 @@ def change_profile():
 
                     flash('Profile picture changes successfully')
                     return render_template('main.html')
+                    '''
         else:
             flash('Something wrong')
             return render_template('update_profile.html')
