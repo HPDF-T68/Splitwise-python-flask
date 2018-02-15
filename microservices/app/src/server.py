@@ -14,9 +14,9 @@ app = Flask(__name__)
 # from urllib3 import request
 app.config['SESSION_TYPE'] = 'memcached'
 # for image upload
-UPLOAD_FOLDER = 'static/profile'
+
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -44,9 +44,9 @@ def change_profile():
             return render_template('update_profile.html')
         if file and allowed_file(file.filename):
             #filename = secure_filename(file.filename)
-            filename= str(session['hasura_id'])+'.jpg'
-            a='static/profile/'+str(session['hasura_id'])+'.jpg'
-            file.save(os.path.join(app.config[ 'UPLOAD_FOLDER' ], filename))
+
+            file.filename=str(session['hasura_id'])+'.jpg'
+            file.save("static/profile/",file.filename)
             flash('Profile picture changes successfully')
             return render_template('main.html')
         else:
