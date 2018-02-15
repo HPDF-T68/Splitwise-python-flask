@@ -279,7 +279,7 @@ li a:hover {
       <div >
         <button id="myBtn">+Add friends</button><h4><u>My Friends</u></h4>
 
-        <table id="t1">
+        <table id="tab">
           <tbody>
         </tbody>
         </table>
@@ -512,7 +512,7 @@ fetch(url, requestOptions)
 
       $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
-      $('#t1 > ulbody').append('<tr><td><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] + ' </td><td><a href="https://app.octagon58.hasura-app.io/remove_friend?username='+result[i]['username']+'">Remove</a></td></tr><br>');
+       $('#tab > tbody').append('<tr ><td align="left" bgcolor="#ccccff"><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] + ' </td><td align="right"><a href="https://app.octagon58.hasura-app.io/remove_friend?username='+result[i]['username']+'">Remove</a></td></tr><br>');
 
 }
 
