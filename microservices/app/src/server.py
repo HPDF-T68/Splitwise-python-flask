@@ -60,7 +60,7 @@ def change_profile():
             resp = requests.put(url, data=file, headers=headers)
 
             flash('Profile picture changes successfully')
-            return render_template('main.html')
+            return redirect(url_for('main'))
 
         else:
             flash('Something wrong')
@@ -109,7 +109,6 @@ def change_mobile():
             return render_template('main.html')
     flash('Some error occurs')
     return render_template('main.html')
-
 
 @app.route('/update_password')
 def update_password():
@@ -311,6 +310,15 @@ def make_group():
 @app.route('/dashboard')
 def dashboard():
     return render_template('main.html',all_friend=select_friend(2))
+
+@app.route('/main')
+def main():
+    if session['hasura_id']:
+        return render_template('main.html')
+    else:
+        return render_template('login.html',message="login first")
+    return render_template('login.html', message="login first")
+
 @app.route('/update_email')
 def update_email():
     return render_template('update_email.html')
