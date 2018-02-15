@@ -51,6 +51,7 @@ def change_profile():
 
             # Setting headers
             headers = {
+                 "Content-Type": "image / png",
                 "Authorization": "Bearer "+session['auth_token']
             }
 
