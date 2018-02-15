@@ -88,11 +88,11 @@ def change_pass():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        data=json.loads(resp.contents)
-        if "affected_rows" in data:
-            flash('Updated Mobile No is :'+email)
+
+        if resp.json()['message']=='password successfully changed':
+            flash('password changed successfully')
             return render_template('main.html')
-    flash('Some error occurs')
+    flash('unable to change password due to internal error')
     return render_template('main.html')
 
 @app.route('/')
