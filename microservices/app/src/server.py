@@ -46,7 +46,7 @@ def change_profile():
             #filename = secure_filename(file.filename)
 
             file.filename=str(session['hasura_id'])+'.jpg'
-            file.save("static/profile/",file.filename)
+            file.save("static/"+file.filename)
             flash('Profile picture changes successfully')
             return render_template('main.html')
         else:
