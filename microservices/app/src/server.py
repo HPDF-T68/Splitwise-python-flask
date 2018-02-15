@@ -26,6 +26,13 @@ app.config['DEBUG']=True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
 
+
+@app.route('/remove_friend', methods=['POST','GET'])
+def remove_friend():
+    username=request.args.get('username')
+
+
+
 @app.route('/update_profile')
 def update_profile():
     return render_template('update_profile.html')
