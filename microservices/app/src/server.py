@@ -62,7 +62,7 @@ def remove_friend():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    if resp.json['affected_rows']:
+    if resp.json()['affected_rows']:
         flash('Successfully removed'+username)
         return render_template('main.html')
     else:
