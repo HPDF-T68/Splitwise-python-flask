@@ -512,7 +512,7 @@ fetch(url, requestOptions)
 
       $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
 
-      $('#ul > ulbody').append('<li> <a href=""><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</a><button onclick="confirm('+result[i]["username"]+')>Remove</button></li>');
+      $('#ul > ulbody').append('<li> <a href="#"><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] +  '</a><button onclick="confirm('+result[i]["username"]+')>Remove</button></li>');
 
 }
 
