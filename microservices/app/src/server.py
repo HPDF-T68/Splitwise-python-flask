@@ -60,7 +60,7 @@ def change_profile():
             resp = requests.put(url, data=file, headers=headers)
 
             flash('Profile picture changes successfully')
-            return render_template('main.html')
+            return redirect(url_for('main'))
 
         else:
             flash('Something wrong')
@@ -311,7 +311,7 @@ def make_group():
 def dashboard():
     return render_template('main.html',all_friend=select_friend(2))
 
-@app.route('/main')
+
 def main():
     if session['hasura_id']:
         return render_template('main.html')
