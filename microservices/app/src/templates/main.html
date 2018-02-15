@@ -302,7 +302,7 @@ li a:hover {
 
         <br>
 
-    <
+
 
 
   </form>
@@ -324,21 +324,19 @@ li a:hover {
 
       <pre><h1>DASHBOARD</h1>                                                                       <button type="button" class="btn btn-info btn-lg"><a href="#">Add Bill</a></button>        <button type="button" class="btn btn-warning btn-lg"><a href="#">Settle Up</a></button>  </pre>
 
-    <table border="0" id="customers">
+    <table id="customers">
   <tr valign="center">
     <th class="a">Wallet Amount</th>
-    <th class="a1">Contributed amount</th>
-    <th class="a3"><a href="#" class="button">Redeem Your Wallet</a></th>
+
+    <th align="right" class="a3"><a href="#" class="button">Redeem Your Wallet</a></th>
 
   </tr>
   <tr>
-    <th >Rs. 00 </th>
-    <th >Rs. 00</th>
+    <th >Rs. {{session['wallet_balance']}} </th>
 
-  </tr>
-  <tr>
+
+
   </tr></table>
-<hr>
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">

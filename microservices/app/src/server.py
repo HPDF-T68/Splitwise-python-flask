@@ -603,6 +603,7 @@ def logout_user():
             session.pop('auth_token' , None)
             session.pop('username', None)
             session.pop('all_friend',None)
+            session.pop('wallet_balance', None)
 
             flash('Successfully logged out')
             return render_template('index.html')
@@ -702,13 +703,45 @@ def login_submit():
             session['hasura_id'] = resp.json()['hasura_id']
             session[ 'username' ] = resp.json()[ 'username' ]
             session[ 'all_friend' ] = select_friend(2)
+            session[ 'wallet_balance' ] = wallet_balance(resp.json()['hasura_id'])
             return render_template('main.html')
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
     return redirect(url_for("index"))
 
+def wallet_balance(uid):
+    url = "https://data.octagon58.hasura-app.io/v1/query"
 
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "money"
+            ],
+            "where": {
+                "uid": {
+                    "$eq": uid
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    if resp.json()[0]['money']:
+        return resp.json()[0]['money']
+    else:
+        return "0"
+    return "0"
 def email_send(toaddr, sub, body):
     fromaddr = "t68pf1@gmail.com"
     # toaddr = "manish.kumar212111@gmail.com"
