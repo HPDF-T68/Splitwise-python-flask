@@ -22,7 +22,7 @@
 
     /* Set gray background color and 100% height */
     .sidenav {
-      padding-top: 20px;
+      padding-top: auto;
       background-color: #f1f1f1;
       height: auto;
     }
@@ -43,7 +43,10 @@
       }
       .row.content {height:auto;}
     }
-
+    #customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
 }
 div.x
 {
@@ -320,7 +323,7 @@ li a:hover {
       <div class="x">
         <button class="button button3">DASHBOARD</button>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp<button class="button button2"><a href="#" style="text-decoration:none; color:white;">ADD BILL</a></button> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp<button class="button button2"><a href="#" style="text-decoration:none; color:white;">Redeem Your Wallet</a></button>
         <hr>
-        <b> YOUR WALLLET BALANCE:: &nbsp &nbsp &nbsp &nbsp &nbsp <b>Rs. {{session['wallet_balanve']}}</b></b>
+        <b> YOUR WALLLET BALANCE:: &nbsp &nbsp &nbsp &nbsp &nbsp <b>Rs. {{session['wallet_balance']}}</b></b>
         <hr>
         </div>
 
