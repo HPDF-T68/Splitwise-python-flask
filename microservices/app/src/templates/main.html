@@ -353,17 +353,17 @@ li a:hover {
         <div class="modal-body">
           <form action="#" method="post">
 
-    Select Group: <select name="gid" required>
+    Select Group Name: <select name="gid" required>
             {% for i in session['group_list'] %}
             {% for j in i %}
                 <option value={{j['gid']}}>{{j['gname']}}</option>
             {% endfor %} {% endfor %}<br><br>
 
                     </select><br><br>
+              <br><br>
+     <pre>Enter Amount to pay:    <input type="number" value="money" required></pre>
 
-    Enter Amount to pay:    <input type="number" value="money" required>
-    <br><br>
-    <pre>Add Bill image(optional):                    <input type="file" value="upload image" name="file"></pre><br>
+    <pre>Add Bill image(optional):             <input type="file" value="upload image" name="file"></pre><br>
     <br><input type="submit" value="ADD BILL">
 </form>
         </div>
