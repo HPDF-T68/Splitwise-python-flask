@@ -48,41 +48,39 @@
     border-collapse: collapse;
     width: 100%;
 }
+div.x
+{
+background-color:#00ccff;
+ padding:5px;
+color:grey;
 
-#customers td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
 }
-
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th.a {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: center;
-    background-color: #4CAF50;
+.button.button3 {
+    background-color: #4CAF50; /* Green */
+    border: none;
     color: white;
-}
-#customers th{
-text-align:center;
-}
-
-#customers th.a1 {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding: 20px;
     text-align: center;
-    background-color:#4CAF50;
-    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
-#customers th.a3 {
-    padding-top: 0px;
-    padding-bottom: 0px;
+.button.button2 {
+    background-color:#cc0000;  /* Green */
+    border: none;
+    color: white;
+    padding: 12px;
     text-align: center;
-    background-color: white;
-    color: white;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
 }
+.button3 {border-radius: 8px;}
+.button2 {border-radius: 8px;}
 
 div.a{
     background-color: lightgrey;
@@ -193,7 +191,7 @@ li a:hover {
 </head>
 <body>
 
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -322,21 +320,13 @@ li a:hover {
       </div>
     <div class="col-sm-8 text-left">
 
-      <pre><h1>DASHBOARD</h1>                                                                       <button type="button" class="btn btn-info btn-lg"><a href="#">Add Bill</a></button>        <button type="button" class="btn btn-warning btn-lg"><a href="#">Settle Up</a></button>  </pre>
+      <div class="x">
+        <button class="button button3">DASHBOARD</button>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp<button class="button button2"><a href="#" style="text-decoration:none; color:white;">ADD BILL</a></button> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp<button class="button button2"><a href="#" style="text-decoration:none; color:white;">Redeem Your Wallet</a></button>
+        <hr>
+        <b> YOUR WALLLET BALANCE:: &nbsp &nbsp &nbsp &nbsp &nbsp <b>Rs. {{session['wallet_balanve']}}</b></b>
+        <hr>
+        </div>
 
-    <table id="customers">
-  <tr valign="center">
-    <th class="a">Wallet Amount</th>
-
-    <th align="right" class="a3"><a href="#" class="button">Redeem Your Wallet</a></th>
-
-  </tr>
-  <tr>
-    <th >Rs. {{session['wallet_balance']}} </th>
-
-
-
-  </tr></table>
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
