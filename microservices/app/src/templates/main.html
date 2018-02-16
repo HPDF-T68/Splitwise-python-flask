@@ -313,7 +313,7 @@ li a:hover {
     <div class="col-sm-8 text-left">
 
       <div class="x">
-        <button class="button button3">DASHBOARD</button>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp<button class="button button2"><a href="#" style="text-decoration:none; color:white;">ADD BILL</a></button> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp<button class="button button2"><a href="#" style="text-decoration:none; color:white;">Redeem Your Wallet</a></button>
+        <button class="button button3">DASHBOARD</button>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp<button type="button" class="button button2" data-toggle="modal" data-target="#myModal2"><a href="#" style="text-decoration:none; color:white;">ADD BILL</a></button> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp<button class="button button2"><a href="#" style="text-decoration:none; color:white;">Redeem Your Wallet</a></button>
         <hr>
         <b> YOUR WALLLET BALANCE:: &nbsp &nbsp &nbsp &nbsp &nbsp <b>Rs. {{session['wallet_balance']}}</b></b>
         <hr>
@@ -340,6 +340,30 @@ li a:hover {
 
                {% endfor %}{% endfor %}
     </div>
+
+        <div class="modal fade" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
     <div class="col-sm-2 sidenav">
       <div class="well">
 
