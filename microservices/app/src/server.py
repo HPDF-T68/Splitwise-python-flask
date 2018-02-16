@@ -25,7 +25,201 @@ app.config[ 'SECRET_KEY' ] = 'jnxjasbxjsbxjhabsxhsbxjashxb'
 app.config['DEBUG']=True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
+#****************************************ALL FUNCTIONS COMES HERE
+def select_friend(num):
+    id=session['hasura_id']
+    url = "https://data.octagon58.hasura-app.io/v1/query"
 
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "uid",
+                "username"
+            ],
+            "where": {
+                "uid": {
+                    "$ne": id
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+    s2 = set()
+    len1 = len(resp.json())
+
+    for i in range(0, len1):
+        s2.add(resp.json()[ i ][ 'username' ])
+
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "friend",
+            "columns": [
+                "friend_id",
+                "username"
+            ],
+            "where": {
+                "uid": {
+                    "$eq": id
+                }
+            }
+
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    s4 = set()
+
+    len1 = len(resp.json())
+    for i in range(0, len1):
+        s4.add(resp.json()[ i ][ 'username' ])
+
+    friend=list(s4)
+    if num == 1:
+        return friend
+    else:
+        username = list(s2 - s4)
+        return username
+
+def wallet_balance(uid):
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+
+        # This is the json payload for the query
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "signup",
+                "columns": [
+                    "money"
+                ],
+                "where": {
+                    "uid": {
+                        "$eq": uid
+                    }
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        if resp.json()[ 0 ][ 'money' ]:
+            return resp.json()[ 0 ][ 'money' ]
+        else:
+            return "0"
+        return "0"
+
+def email_send(toaddr, sub, body):
+        fromaddr = "t68pf1@gmail.com"
+        # toaddr = "manish.kumar212111@gmail.com"
+        msg = MIMEMultipart()
+        msg[ 'From' ] = fromaddr
+        msg[ 'To' ] = toaddr
+        msg[ 'Subject' ] = sub
+
+        # body = "Manish here"
+        msg.attach(MIMEText(body, 'plain'))
+
+        server = smtplib.SMTP('smtp.gmail.com', 587)
+        server.starttls()
+        server.login(fromaddr, "man12345")
+        text = msg.as_string()
+        resp = server.sendmail(fromaddr, toaddr, text)
+        server.quit()
+        return True
+
+def group_list(uid):
+    # This is the url to which the query is made
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+    a = [ ]
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "group_member",
+            "columns": [
+                "gid"
+            ],
+            "where": {
+                "uid": {
+                    "$eq":uid
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    data = json.loads(resp.content)
+    for i in range(len(data)):
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+
+        # This is the json payload for the query
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "group",
+                "columns": [
+                    "gdate",
+                    "gname",
+                    "total_expanse",
+                    "member_no",
+                    "gid"
+                ],
+                "where": {
+                    "gid": {
+                        "$eq": data[ i ][ 'gid' ]
+                    }
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data1 = json.loads(resp.content)
+        a.append(data1)
+    session['group_list']=a
+    return True
+#*******************************************************************
 
 @app.route('/remove_friend', methods=['POST','GET'])
 def remove_friend():
@@ -194,82 +388,6 @@ def change_pass():
 def index():
     return render_template('index.html')
 
-def select_friend(num):
-    id=session['hasura_id']
-    url = "https://data.octagon58.hasura-app.io/v1/query"
-
-    requestPayload = {
-        "type": "select",
-        "args": {
-            "table": "signup",
-            "columns": [
-                "uid",
-                "username"
-            ],
-            "where": {
-                "uid": {
-                    "$ne": id
-                }
-            }
-        }
-    }
-
-    # Setting headers
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
-    s2 = set()
-    len1 = len(resp.json())
-
-    for i in range(0, len1):
-        s2.add(resp.json()[ i ][ 'username' ])
-
-    url = "https://data.octagon58.hasura-app.io/v1/query"
-
-    # This is the json payload for the query
-
-    requestPayload = {
-        "type": "select",
-        "args": {
-            "table": "friend",
-            "columns": [
-                "friend_id",
-                "username"
-            ],
-            "where": {
-                "uid": {
-                    "$eq": id
-                }
-            }
-
-        }
-    }
-
-    # Setting headers
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    s4 = set()
-
-    len1 = len(resp.json())
-    for i in range(0, len1):
-        s4.add(resp.json()[ i ][ 'username' ])
-
-    friend=list(s4)
-    if num == 1:
-        return friend
-    else:
-        username = list(s2 - s4)
-        return username
 
 @app.route('/make_group', methods=[ 'GET', 'POST' ])
 def make_group():
@@ -362,6 +480,7 @@ def main():
     else:
         return render_template('login.html',message="login first")
     return render_template('login.html', message="login first")
+
 
 @app.route('/update_email')
 def update_email():
@@ -604,7 +723,7 @@ def logout_user():
             session.pop('username', None)
             session.pop('all_friend',None)
             session.pop('wallet_balance', None)
-
+            session.pop('group_list', None)
             flash('Successfully logged out')
             return render_template('index.html')
         else:
@@ -699,6 +818,7 @@ def login_submit():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         # data=json.loads(resp.content)
         if 'hasura_id' in resp.json():
+            a=group_list(resp.json()['hasura_id'])
             session['auth_token'] = resp.json()['auth_token']
             session['hasura_id'] = resp.json()['hasura_id']
             session[ 'username' ] = resp.json()[ 'username' ]
@@ -709,58 +829,6 @@ def login_submit():
             flash('Please Check username or password')
             return render_template('login.html', username=username)
     return redirect(url_for("index"))
-
-def wallet_balance(uid):
-    url = "https://data.octagon58.hasura-app.io/v1/query"
-
-    # This is the json payload for the query
-    requestPayload = {
-        "type": "select",
-        "args": {
-            "table": "signup",
-            "columns": [
-                "money"
-            ],
-            "where": {
-                "uid": {
-                    "$eq": uid
-                }
-            }
-        }
-    }
-
-    # Setting headers
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    if resp.json()[0]['money']:
-        return resp.json()[0]['money']
-    else:
-        return "0"
-    return "0"
-def email_send(toaddr, sub, body):
-    fromaddr = "t68pf1@gmail.com"
-    # toaddr = "manish.kumar212111@gmail.com"
-    msg = MIMEMultipart()
-    msg[ 'From' ] = fromaddr
-    msg[ 'To' ] = toaddr
-    msg[ 'Subject' ] = sub
-
-    # body = "Manish here"
-    msg.attach(MIMEText(body, 'plain'))
-
-    server = smtplib.SMTP('smtp.gmail.com', 587)
-    server.starttls()
-    server.login(fromaddr, "man12345")
-    text = msg.as_string()
-    resp = server.sendmail(fromaddr, toaddr, text)
-    server.quit()
-    return True
-
 
 @app.route('/add_money_group', methods=[ 'GET', 'POST' ])
 def add_money_group():

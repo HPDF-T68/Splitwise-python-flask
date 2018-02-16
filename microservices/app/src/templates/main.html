@@ -355,13 +355,15 @@ li a:hover {
    <div class="x1">
 <center><h2>My Group</h2></center>
 </div>
+ {% for i in session['group_list'] %}
 
+            </script>
 <table  bgcolor="grey" >
     <tr bgcolor="grey">
-        <td rowspan="12" bgcolor="#f5f5f0"><pre><img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1" /> <font size="6">  Group Name</font>
-    <font size="4">          date
-            Member </font>                                       </pre></td>
-        <td bgcolor="#f5f5f0"> <font size="10">Rs. 100&nbsp &nbsp &nbsp&nbsp &nbsp&nbsp&nbsp &nbsp &nbsp</font></td> </tr>
+        <td rowspan="12" bgcolor="#f5f5f0"><pre><img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1" /> <font size="6">  {{session['group_list'][0][0]['gname']}}</font>
+    <font size="4">          {{session['group_list'][0][0]['date']}}
+     Member No:       {{session['group_list'][0][0]['member_no']}} </font>                                       </pre></td>
+        <td bgcolor="#f5f5f0"> <font size="10">Rs. {{session['group_list'][0][0]['total_expanse']}}&nbsp &nbsp &nbsp&nbsp &nbsp&nbsp&nbsp &nbsp &nbsp</font></td> </tr>
     <tr >
         <td bgcolor="#f5f5f0"><font size="5" color="black">Closed&nbsp&nbsp&nbsp &nbsp &nbsp<button class="button button4"><a href="#" style="text-decoration:none; color:white;">PAY</a></button><button class="button button4"><a href="#" style="text-decoration:none; color:white;">Share</a></button>
         </font></td>
@@ -369,6 +371,7 @@ li a:hover {
 
 </table>
 
+               {% endfor %}
     </div>
     <div class="col-sm-2 sidenav">
       <div class="well">
