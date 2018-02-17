@@ -916,7 +916,7 @@ def add_money_group():
     # Setting headers
     headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+             "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
     }
 
     # Make the query and store response in resp
@@ -924,8 +924,7 @@ def add_money_group():
 
 
     data = json.loads(resp.content)
-    return data[ 0 ][ 'total_expanse' ]
-    '''
+
     a = data[0]['total_expanse'] + js[ 'data' ][ 'money' ]
 
     requestPayload = {
@@ -946,12 +945,12 @@ def add_money_group():
     # Setting headers
     headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
         }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    '''
+
 
     return resp.content
         # resp.content contains the json response.
