@@ -306,7 +306,7 @@ def money_group():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data=json.loads(resp.content)
         if data:
-            a = group_list(resp.json()[ 'hasura_id' ])
+            a = group_list(session[ 'hasura_id' ])
             flash('Money added to the group')
             return render_template('main.html')
         else:
