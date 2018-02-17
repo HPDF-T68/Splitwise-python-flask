@@ -522,41 +522,49 @@ def make_group():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
         data = json.loads(resp.content)
-        requestPayload = {
-            "type": "insert",
-            "args": {
-                "table": "group_member",
-                "objects": [
-                    {
-                        "gid": data[ 'returning' ][ 0 ][ 'gid' ],
-                        "uid": uid,
-                        "gname": gname
 
-                    }
-                ]
-            }
-        }
-        resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
+        b=[]
+        c={"gid":data[ 'returning' ][ 0 ][ 'gid' ],"uid":uid,"gname":gname}
+        b.append(c)
         for i in range(0,mno):
+            c={"gid":data[ 'returning' ][ 0 ][ 'gid' ],"uid":userid[i],"gname":gname}
+            b.append(c)
+        d=[]
+        e={ "gid": data[ 'returning' ][ 0 ][ 'gid' ],"uid": uid,"cash_paid":"00","date":json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str) ,"Description": "None","owe": "00","owed": "00"}
+        for i in range(0,mno):
+            e = {"gid": data[ 'returning' ][ 0 ][ 'gid' ], "uid": userid[i], "cash_paid": "00", "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),  "Description": "None", "owe": "00", "owed": "00"}
+            d.append(e)
 
-            requestPayload = {
-            "type": "insert",
-            "args": {
-                "table": "group_member",
-                "objects": [
-                    {
-                        "gid": data[ 'returning' ][ 0 ][ 'gid' ],
-                        "uid": userid[i],
-                        "gname":gname
+        requestPayload = {
+            "type": "bulk",
+            "args": [
+                {
+                    "type": "insert",
+                    "args": {
+                        "table": "group_member",
+                        "objects": b
 
                     }
-                ]
+                },
+                {
+                    "type": "insert",
+                    "args": {
+                        "table": "group_user",
+                        "objects": d
+                    }
                 }
-                }
+            ]
+        }
 
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
 
-            resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
         data = json.loads(resp1.content)
         if "affected_rows" in data:
             a = group_list(resp.json()[ 'hasura_id' ])
