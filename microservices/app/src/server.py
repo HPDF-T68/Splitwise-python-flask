@@ -515,7 +515,7 @@ def make_group():
 
         headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+         "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
           }
 
     # Make the query and store response in resp
@@ -554,6 +554,8 @@ def make_group():
                 ]
                 }
                 }
+
+
             resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data = json.loads(resp1.content)
         if "affected_rows" in data:
