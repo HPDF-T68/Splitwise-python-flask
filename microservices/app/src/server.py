@@ -226,24 +226,81 @@ def money_group():
         gid=request.form['gid']
         money=request.form['money']
         description=request.form['description']
-        url="https://app.octagon58.hasura-app.io/add_money_group"
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+
+        # This is the json payload for the query
         requestPayload = {
-                "data":
+            "type": "insert",
+            "args": {
+                "table": "group_user",
+                "objects": [
                     {
-
-                        "uid": session[ 'hasura_id' ],
+                        "cash_paid": money,
                         "gid": gid,
-                        "money": money,
-                        "description":description
-
+                        "uid": session['hasura_id'],
+                        "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),
+                        "Description": description
                     }
-
+                ]
+            }
         }
 
+        # Setting headers
         headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "group",
+                "columns": [
+                    "total_expanse"
+                ],
+                "where": {
+                    "gid": {
+                        "$eq": gid
+                    }
+                }
             }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+        data = json.loads(resp.content)
+
+        a = data[ 0 ][ 'total_expanse' ] + money
+
+        requestPayload = {
+            "type": "update",
+            "args": {
+                "table": "group",
+                "where": {
+                    "gid": {
+                        "$eq": gid
+                    }
+                },
+                "$set": {
+                    "total_expanse": a
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
