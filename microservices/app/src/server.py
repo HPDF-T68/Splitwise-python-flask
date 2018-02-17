@@ -565,7 +565,7 @@ def make_group():
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
-        data = json.loads(resp1.content)
+        data = json.loads(resp.content)
         if "affected_rows" in data:
             a = group_list(resp.json()[ 'hasura_id' ])
             flash('Group Created successfully')
