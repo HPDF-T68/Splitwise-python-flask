@@ -567,8 +567,8 @@ def make_group():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
         data = json.loads(resp.content)
-        if "affected_rows" in data:
-            a = group_list(resp.json()[ 'hasura_id' ])
+        if data[ 'returning' ][ 0 ][ 'gid' ]:
+            a = group_list(session[ 'hasura_id' ])
 
             return redirect(url_for('make_group'))
         else:
