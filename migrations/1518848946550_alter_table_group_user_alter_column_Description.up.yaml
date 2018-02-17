@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "group_user" ALTER COLUMN "Description" TYPE text;
+  type: run_sql
+- args:
+    sql: ALTER TABLE ONLY "group_user" ALTER COLUMN "Description" SET DEFAULT 'None';
+  type: run_sql
+- args:
+    sql: ALTER TABLE "group_user" ALTER COLUMN "Description" DROP NOT NULL;
+  type: run_sql

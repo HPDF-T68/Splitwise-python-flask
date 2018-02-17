@@ -11,7 +11,7 @@ import datetime
 import os
 
 app = Flask(__name__)
-# from urllib3 import request
+    # from urllib3 import request
 app.config['SESSION_TYPE'] = 'memcached'
 # for image upload
 
@@ -220,6 +220,42 @@ def group_list(uid):
     session['group_list']=a
     return True
 #*******************************************************************
+@app.route('/money_group',methods=['POST','GET'])
+def money_group():
+    if request.method=='POST':
+        gid=request.form('gid')
+        money=request.form('money')
+        description=request.form('description')
+        url="https://data.octagon58.hasura-app.io/add_money_group"
+        requestPayload = {
+                "data":
+                    {
+
+                        "uid": session[ 'hasura_id' ],
+                        "gid": gid,
+                        "money": money,
+                        "description":description
+
+                    }
+
+        }
+
+        headers = {
+            "Content-Type": "application/json",
+            }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        data=json.loads(resp.content)
+        if data:
+            flash('Money added to the group')
+            return render_template('main.html')
+        else:
+            flash('Some problem occurs')
+            return render_template('main.html')
+    flash('Some problem with request')
+    return render_template('main.html')
+
 
 @app.route('/remove_friend', methods=['POST','GET'])
 def remove_friend():
@@ -722,7 +758,6 @@ def logout_user():
             session.pop('auth_token' , None)
             session.pop('username', None)
             session.pop('all_friend',None)
-            session.pop('wallet_balance', None)
             session.pop('group_list', None)
             flash('Successfully logged out')
             return render_template('index.html')
@@ -823,7 +858,7 @@ def login_submit():
             session['hasura_id'] = resp.json()['hasura_id']
             session[ 'username' ] = resp.json()[ 'username' ]
             session[ 'all_friend' ] = select_friend(2)
-            session[ 'wallet_balance' ] = wallet_balance(resp.json()['hasura_id'])
+
             return render_template('main.html')
         else:
             flash('Please Check username or password')
@@ -837,37 +872,9 @@ def add_money_group():
     # This is the url to which the query is made
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
+
     # This is the json payload for the query
     requestPayload = {
-        "type": "select",
-        "args": {
-            "table": "signup",
-            "columns": [
-                "money"
-            ],
-            "where": {
-                "uid": {
-                    "$eq": js[ 'data' ][ 'uid' ]
-                }
-            }
-        }
-    }
-
-    # Setting headers
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
-    }
-
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    data = json.loads(resp.content)
-    b = data[ 0 ][ 'money' ]
-    c = js[ 'data' ][ 'money' ]
-    if data[ 0 ][ 'money' ] >= js[ 'data' ][ 'money' ]:
-
-        # This is the json payload for the query
-        requestPayload = {
             "type": "insert",
             "args": {
                 "table": "group_user",
@@ -877,21 +884,22 @@ def add_money_group():
                         "gid": js[ 'data' ][ 'gid' ],
                         "uid": js[ 'data' ][ 'uid' ],
                         "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str)
+                        "Description":js['data']['description']
                     }
                 ]
             }
         }
 
-        # Setting headers
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
-        }
+    # Setting headers
+    headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+    }
 
-        # Make the query and store response in resp
-        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
-        requestPayload = {
+    requestPayload = {
             "type": "select",
             "args": {
                 "table": "group",
@@ -904,23 +912,23 @@ def add_money_group():
                     }
                 }
             }
-        }
+    }
 
-        # Setting headers
-        headers = {
+    # Setting headers
+    headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
-        }
+    }
 
-        # Make the query and store response in resp
-        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
-        data = json.loads(resp.content)
-        a = data[ 0 ][ 'total_expanse' ] + js[ 'data' ][ 'money' ]
+    data = json.loads(resp.content)
+    a = data[ 0 ][ 'total_expanse' ] + js[ 'data' ][ 'money' ]
 
-        requestPayload = {
-            "type": "update",
-            "args": {
+    requestPayload = {
+        "type": "update",
+        "args": {
                 "table": "group",
                 "where": {
                     "gid": {
@@ -933,42 +941,17 @@ def add_money_group():
             }
         }
 
-        # Setting headers
-        headers = {
+    # Setting headers
+    headers = {
             "Content-Type": "application/json",
             "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
         }
 
-        # Make the query and store response in resp
-        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
-        requestPayload = {
-            "type": "update",
-            "args": {
-                "table": "signup",
-                "where": {
-                    "uid": {
-                        "$eq": js[ 'data' ][ 'uid' ]
-                    }
-                },
-                "$set": {
-                    "money": b - c
-                }
-            }
-        }
-        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        # resp.content contains the json response.
-
-        return jsonify(list=[ {"message": "money added"} ])
-
-
-
-    else:
-        return jsonify(list=[ {"error": "insufficient amount in account",
-                               "required_amount": (js[ 'data' ][ 'money' ] - data[ 0 ][ 'money' ])} ])
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     return resp.content
-    # resp.content contains the json response.
+        # resp.content contains the json response.
 
 
 @app.route('/add_money_account', methods=[ 'GET', 'POST' ])
