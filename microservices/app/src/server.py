@@ -570,16 +570,16 @@ def make_group():
         if data[ 'returning' ][ 0 ][ 'gid' ]:
             a = group_list(session[ 'hasura_id' ])
 
-            return redirect(url_for('dashboard',message="Group Created Successfully"))
+            return redirect(url_for('make_group'))
         else:
             flash('Group Creation failed')
-            return redirect(url_for('dashboard',message="Group Creation failed"))
-    flash('Methods Error')
+            return render_template('main.html',all_friend=select_friend(2))
+    flash('Group Created Successfully')
     return render_template('main.html',all_friend=select_friend(2) )
 
-@app.route('/dashboard/<message>')
-def dashboard(message):
-    flash(message)
+@app.route('/dashboard')
+def dashboard():
+
     return render_template('main.html',all_friend=select_friend(2))
 
 @app.route('/main')
