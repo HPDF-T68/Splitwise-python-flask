@@ -469,6 +469,7 @@ def money_group():
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
         result=split_bill(resp.json()[4])
+        return result
         if result == '{"affected_rows":1}':
             return redirct(url_for('/money_group'))
         else:
