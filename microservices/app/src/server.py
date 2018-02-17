@@ -484,7 +484,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/make_group', methods=['POST' ])
+@app.route('/make_group', methods=['POST'])
 def make_group():
 
     if request.method =='POST':
@@ -570,15 +570,16 @@ def make_group():
         if data[ 'returning' ][ 0 ][ 'gid' ]:
             a = group_list(session[ 'hasura_id' ])
 
-            return redirect(url_for('make_group'))
+            return redirect(url_for('dashboard',message="Group Created Successfully"))
         else:
             flash('Group Creation failed')
-            return render_template('main.html', all_friend=select_friend(2))
-    flash('Group Created successfully')
-    return render_template('main.html', all_friend=select_friend(2))
+            return redirect(url_for('dashboard',message="Group Creation failed"))
+    flash('Methods Error')
+    return render_template('main.html',all_friend=select_friend(2) )
 
-@app.route('/dashboard')
-def dashboard():
+@app.route('/dashboard/<message>')
+def dashboard(message):
+    flash(message)
     return render_template('main.html',all_friend=select_friend(2))
 
 @app.route('/main')
