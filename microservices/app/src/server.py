@@ -921,11 +921,11 @@ def login_submit():
             session[ 'username' ] = resp.json()[ 'username' ]
             session[ 'all_friend' ] = select_friend(2)
 
-            return render_template('main.html')
+            return redirect(url_for('login_submit'))
         else:
             flash('Please Check username or password')
             return render_template('login.html', username=username)
-    return redirect(url_for("index"))
+    return render_template('main.html')
 
 @app.route('/add_money_group', methods=[ 'GET', 'POST' ])
 def add_money_group():
