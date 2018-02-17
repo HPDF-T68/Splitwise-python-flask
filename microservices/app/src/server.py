@@ -371,7 +371,7 @@ def money_group():
                         },
                         "$set": {},
                         "$inc": {
-                            "owed": split
+                            "owed": int(split)
                         }
                     }
                 },
@@ -386,7 +386,7 @@ def money_group():
                         },
                         "$set": {},
                         "$inc": {
-                            "owed": split
+                            "owed": int(split)
                         }
                     }
                 },
