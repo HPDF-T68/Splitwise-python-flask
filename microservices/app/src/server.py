@@ -344,7 +344,7 @@ def money_group():
         for i in range(0, mno - 1):
             ulist.append(int(resp.json()[ 1 ][ i ][ 'uid' ]))
         ulistall = ulist
-        ulistall.append(57)
+        ulistall.append(uid)
         url = "https://data.octagon58.hasura-app.io/v1/query"
 
         # This is the json payload for the query
@@ -400,7 +400,7 @@ def money_group():
                             }
                         },
                         "$inc": {
-                            "owe": int(money) - split
+                            "owe": int(money) - int(split)
 
                         }
                     }
@@ -425,7 +425,7 @@ def money_group():
                         },
                         "$inc": {
                             "cash_paid": int(money),
-                            "owe": int(money) - split,
+                            "owe": int(money) - int(split),
 
                         }
                     }
