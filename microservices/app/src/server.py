@@ -502,7 +502,7 @@ def make_group():
                     "gdate": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),
                     "uid": session['hasura_id'],
                     "gname": gname,
-                    "member_no": mno,
+                    "member_no": mno+1,
 
                 }
             ],
@@ -559,6 +559,7 @@ def make_group():
             resp1 = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         data = json.loads(resp1.content)
         if "affected_rows" in data:
+            a = group_list(resp.json()[ 'hasura_id' ])
             flash('Group Created successfully')
             return render_template('main.html', all_friend=select_friend(2))
         else:
