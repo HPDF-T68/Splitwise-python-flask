@@ -338,7 +338,7 @@ def money_group():
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         mno = resp.json()[ 0 ][ 0 ][ 'member_no' ]
-        split = money / mno
+        split = int(money) / mno
 
         ulist = [ ]
         for i in range(0, mno - 1):
@@ -425,7 +425,8 @@ def money_group():
                         },
                         "$inc": {
                             "cash_paid": amount,
-                            "owe": amount - split
+                            "owe": amount - split,
+
                         }
                     }
                 },
