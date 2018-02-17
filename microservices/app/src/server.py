@@ -400,7 +400,7 @@ def money_group():
                             }
                         },
                         "$inc": {
-                            "owe": money - split
+                            "owe": int(money) - split
 
                         }
                     }
@@ -424,8 +424,8 @@ def money_group():
                             ]
                         },
                         "$inc": {
-                            "cash_paid": amount,
-                            "owe": amount - split,
+                            "cash_paid": int(money),
+                            "owe": int(money) - split,
 
                         }
                     }
