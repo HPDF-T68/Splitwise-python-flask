@@ -898,7 +898,7 @@ def add_money_group():
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-    '''    requestPayload = {
+    requestPayload = {
             "type": "select",
             "args": {
                 "table": "group",
@@ -922,7 +922,10 @@ def add_money_group():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
+
     data = json.loads(resp.content)
+    return data[ 0 ][ 'total_expanse' ]
+    '''
     a = data[0]['total_expanse'] + js[ 'data' ][ 'money' ]
 
     requestPayload = {
