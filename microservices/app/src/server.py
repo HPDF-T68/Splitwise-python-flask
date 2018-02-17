@@ -325,6 +325,21 @@ def money_group():
                             ]
                         }
                     }
+                },
+                {
+                "type": "update",
+                        "args": {
+            "table": "group",
+            "where": {
+                "gid": {
+                    "$eq": gid
+                }
+            },
+            "$inc": {
+                "total_expanse": int(money)
+            }
+        }
+
                 }
             ]
         }
