@@ -531,6 +531,7 @@ def make_group():
             b.append(c)
         d=[]
         e={ "gid": data[ 'returning' ][ 0 ][ 'gid' ],"uid": uid,"cash_paid":"00","date":json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str) ,"Description": "None","owe": "00","owed": "00"}
+        d.append(e)
         for i in range(0,mno):
             e = {"gid": data[ 'returning' ][ 0 ][ 'gid' ], "uid": userid[i], "cash_paid": "00", "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),  "Description": "None", "owe": "00", "owed": "00"}
             d.append(e)
