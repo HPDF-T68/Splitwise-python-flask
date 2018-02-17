@@ -883,7 +883,7 @@ def add_money_group():
                         "cash_paid": js[ 'data' ][ 'money' ],
                         "gid": js[ 'data' ][ 'gid' ],
                         "uid": js[ 'data' ][ 'uid' ],
-                        "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str)
+                        "date": json.dumps(datetime.date.today(), indent=4, sort_keys=True, default=str),
                         "Description":js['data']['description']
                     }
                 ]
