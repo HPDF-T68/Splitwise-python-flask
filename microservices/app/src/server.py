@@ -226,7 +226,7 @@ def money_group():
         gid=request.form['gid']
         money=request.form['money']
         description=request.form['description']
-        url="https://data.octagon58.hasura-app.io/add_money_group"
+        url="https://app.octagon58.hasura-app.io/add_money_group"
         requestPayload = {
                 "data":
                     {
