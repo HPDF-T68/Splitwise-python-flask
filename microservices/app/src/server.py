@@ -223,9 +223,9 @@ def group_list(uid):
 @app.route('/money_group',methods=['POST','GET'])
 def money_group():
     if request.method=='POST':
-        gid=request.form('gid')
-        money=request.form('money')
-        description=request.form('description')
+        gid=request.form['gid']
+        money=request.form['money']
+        description=request.form['description']
         url="https://data.octagon58.hasura-app.io/add_money_group"
         requestPayload = {
                 "data":
