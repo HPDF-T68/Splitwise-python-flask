@@ -220,9 +220,9 @@ def group_list(uid):
     session['group_list']=a
     return True
 #*******************************************************************
-@app.route('/money_group',methods=['POST','GET'])
+@app.route('/money_group',methods =['POST','GET'])
 def money_group():
-    if request.method=='POST':
+    if request.method == 'POST':
         gid=request.form['gid']
         money=request.form['money']
         description=request.form['description']
