@@ -653,7 +653,7 @@ def add_friend_all():
     data = json.loads(resp.content);
     # print data[0]['uid']
     # resp.content contains the json response.
-    if not data[0]:
+    if not data:
         list = [
                 {
 
