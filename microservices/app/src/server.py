@@ -484,7 +484,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/make_group', methods=['POST'])
+@app.route('/make_group', method=['POST'])
 def make_group():
 
     if request.method =='POST':
