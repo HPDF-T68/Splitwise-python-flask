@@ -566,7 +566,7 @@ def make_group():
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
-        data = json.loads(resp.content)
+        #data = json.loads(resp.content)
         if data[ 'returning' ][ 0 ][ 'gid' ]:
             a = group_list(session[ 'hasura_id' ])
 
