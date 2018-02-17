@@ -279,7 +279,7 @@ def money_group():
 
         data = json.loads(resp.content)
 
-        a = data[ 0 ][ 'total_expanse' ] + money
+        a = data[ 0 ][ 'total_expanse' ] + int(money)
 
         requestPayload = {
             "type": "update",
