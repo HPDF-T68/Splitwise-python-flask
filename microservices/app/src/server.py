@@ -569,7 +569,7 @@ def make_group():
         #data = json.loads(resp.content)
         if data[ 'returning' ][ 0 ][ 'gid' ]:
             a = group_list(session[ 'hasura_id' ])
-            form.data=''
+
             return redirect(url_for('make_group'))
         else:
             flash('Group Creation failed')
