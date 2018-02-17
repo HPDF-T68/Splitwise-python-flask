@@ -924,7 +924,7 @@ def add_money_group():
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
 
     data = json.loads(resp.content)
-    a = data[ 0 ][ 'total_expanse' ] + js[ 'data' ][ 'money' ]
+    a = data[0]['total_expanse'] + js[ 'data' ][ 'money' ]
 
     requestPayload = {
         "type": "update",
