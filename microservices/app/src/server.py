@@ -569,11 +569,12 @@ def make_group():
         data = json.loads(resp.content)
         if "affected_rows" in data:
             a = group_list(resp.json()[ 'hasura_id' ])
-            flash('Group Created successfully')
-            return render_template('main.html', all_friend=select_friend(2))
+
+            return redirect(url_for('make_group'))
         else:
             flash('Group Creation failed')
             return render_template('main.html', all_friend=select_friend(2))
+    flash('Group Created successfully')
     return render_template('main.html', all_friend=select_friend(2))
 
 @app.route('/dashboard')
