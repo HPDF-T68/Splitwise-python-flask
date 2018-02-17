@@ -471,7 +471,7 @@ def money_group():
         result=split_bill(resp.json()[4])
 
         if result:
-            return redirct(url_for('/money_group'))
+            return redirect(url_for('money_group'))
         else:
             flash('Unable to add money this time')
             return render_template('main.html')
