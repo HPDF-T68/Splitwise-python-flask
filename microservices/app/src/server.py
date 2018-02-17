@@ -484,7 +484,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/make_group', methods=[ 'GET', 'POST' ])
+@app.route('/make_group', methods=['POST' ])
 def make_group():
 
     if request.method =='POST':
@@ -569,7 +569,7 @@ def make_group():
         #data = json.loads(resp.content)
         if data[ 'returning' ][ 0 ][ 'gid' ]:
             a = group_list(session[ 'hasura_id' ])
-
+            form.data=''
             return redirect(url_for('make_group'))
         else:
             flash('Group Creation failed')
