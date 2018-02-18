@@ -451,8 +451,8 @@ def more_detail():
     result.append(resp.json()[ 0 ])
     result.append(resp.json()[ 1 ])
     if data:
-
-        return render_template('group_detail.html',jsonify(result=result))
+        return jsonify(result=result)
+        return render_template('group_detail.html',result=jsonify(result))
     else:
         flash('Some error occurs')
         return render_template('main.html')
