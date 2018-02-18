@@ -331,7 +331,7 @@ button
           <div class="col-sm-8 text-left">
               {% for i in result1%}
 
-              <div class="x1">  <img src="https://filestore.octagon58.hasura-app.io/v1/file/g{{gid}}" class="avatar1" onerror="standby()"> <font size="7"> &nbsp&nbsp&nbsp&nbsp {{i[0]['gname']}}</font>&nbsp&nbsp&nbsp&nbspDate:{{i[0]['gdate']}}&nbsp&nbsp&nbsp&nbspMember No.:{{i[0]['member_no']}}&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. {{i[0]['total_expanse']}}</font><br>
+              <div class="x1">  <img id="foo1" src="https://filestore.octagon58.hasura-app.io/v1/file/g{{gid}}" class="avatar1" onerror="standby()2"> <font size="7"> &nbsp&nbsp&nbsp&nbsp {{i[0]['gname']}}</font>&nbsp&nbsp&nbsp&nbspDate:{{i[0]['gdate']}}&nbsp&nbsp&nbsp&nbspMember No.:{{i[0]['member_no']}}&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. {{i[0]['total_expanse']}}</font><br>
               <table class="t">
                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <tr rowspan="5" bgcolor="grey">
                       <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspYou owe
@@ -383,7 +383,7 @@ button
 
 
               {%for i in result%}
-              <br><div class="x"><img src="https://filestore.octagon58.hasura-app.io/v1/file/{{i[2]}}" class="avatar1" onerror="standby()">
+              <br><div class="x"><img id="foo2" src="https://filestore.octagon58.hasura-app.io/v1/file/{{i[2]}}" class="avatar1" onerror="standby()1">
               <font size="5">&nbsp&nbsp&nbsp&nbsp{{i[0]}}</font>&nbsp&nbsp&nbsp&nbsp<font color="green" size="3">Money owe (to recieve) :Rs. {{i[3]}}
               </font>&nbsp&nbsp&nbsp&nbsp <font color="red" size="3">Money owed (To pay):Rs.{{i[4]}}</font>
               &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -584,8 +584,12 @@ fetch(url, requestOptions)
 .catch(function(error) {
 	console.log('Request Failed:' + error);
 });
-
-
+function standby1() {
+    document.getElementById('foo1').src = 'static/image/img_avatar.png'
+    }
+function standby1() {
+    document.getElementById('foo2').src = 'static/image/img_avatar.png'
+    }
 
 function standby() {
     document.getElementById('foo').src = 'static/image/img_avatar.png'
