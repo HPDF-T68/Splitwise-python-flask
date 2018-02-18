@@ -276,7 +276,7 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
-@app.route('/more_detail',methods['POST','GET'])
+@app.route('/more_detail',methods=['POST','GET'])
 def more_detail():
 
     gid=request.get.form['gid']
