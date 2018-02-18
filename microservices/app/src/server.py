@@ -276,6 +276,10 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
+@app.route('/more_detail',methods['POST','GET'])
+def more_detail():
+    return "ok"
+
 @app.route('/money_group',methods =['POST','GET'])
 def money_group():
     if request.method == 'POST':
