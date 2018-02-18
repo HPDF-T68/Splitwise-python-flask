@@ -463,7 +463,7 @@ def more_detail():
     data = resp.json()
     if data:
         #return jsonify(result)
-        return render_template('group_detail.html',result=result,result1=result1)
+        return render_template('group_detail.html',result=result,result1=result1,result2=resp.json()[2])
     else:
         flash('Some error occurs')
         return render_template('main.html')

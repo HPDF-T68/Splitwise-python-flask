@@ -339,14 +339,14 @@ button
                   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Your total paid&nbsp&nbsp
                   &nbsp&nbsp</th><td rowspan="2" bgcolor="#ffb3b3"><button class="button">Settle Up</button></td><td rowspan="2" bgcolor="#ffb3b3">
                   <button class="button" >Print</button></td><td rowspan="2" bgcolor="#ffb3b3"><button class="button" > Send Reminder</button></td>
-                   {% endfor%}
+                   {% endfor%}{%for i in result2%}
                   </tr><tr bgcolor="yellow">
-                      <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRS. 100&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Rs. 100   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Rs. 100&nbsp&nbsp&nbsp&nbsp</th>
+                      <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRS. {{i['owe']}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Rs. {{i['owed']}}   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Rs. {{i['cash_paid']}}&nbsp&nbsp&nbsp&nbsp</th>
 
                   </tr>
 
               </table>
-
+                    {%endfor%}
               </div>
                 <br>
               <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" >Change Group Icon</button><button class="button">Add Bill</button></pre></div>
