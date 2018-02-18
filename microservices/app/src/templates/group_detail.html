@@ -339,8 +339,12 @@ button
               </div>
                 <br>
               <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" >Change Group Icon</button><button class="button">Add Bill</button></pre></div>
-              <br><div class="x"><img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1"> <font size="5">&nbsp&nbsp&nbsp&nbspMember Name</font>&nbsp&nbsp&nbsp&nbsp<font color="green" size="3">Money owe (to recieve) :Rs. 00</font>&nbsp&nbsp&nbsp&nbsp <font color="red" size="3">Money owed (To pay):Rs 00</font></div>
 
+              {%for i in range(0,result[0]['member_no']-1)%}
+              <br><div class="x"><img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1">
+              <font size="5">&nbsp&nbsp&nbsp&nbspMember Name</font>&nbsp&nbsp&nbsp&nbsp<font color="green" size="3">Money owe (to recieve) :Rs. 00
+              </font>&nbsp&nbsp&nbsp&nbsp <font color="red" size="3">Money owed (To pay):Rs 00</font></div>
+                {%endfor%}
 
 
 
