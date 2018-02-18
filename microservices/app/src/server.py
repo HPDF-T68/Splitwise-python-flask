@@ -342,7 +342,7 @@ def more_detail():
     for i in range(len(resp.json()[ 1 ])):
         ulist.append(resp.json()[ 1 ][ i ][ 'uid' ])
     # resp.content contains the json response.
-    print ulist
+
     result = [ ]
     result.append(resp.json()[ 0 ][ 0 ])
 
