@@ -449,15 +449,17 @@ def more_detail():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data=json.loads(resp.content)
-    test = [ ]
-    for i in resp.json()[ 0 ]:
-        test.append(i)
-    result.append(test)
-    test = [ ]
-    for i in resp.json()[ 1 ]:
-        test.append(i)
-    result.append(test)
-
+    result = [ ]
+    for i in range(0, len(ulist)):
+        c = [ resp.json()[ 0 ][ i ][ 'username' ],
+              resp.json()[ 0 ][ i ][ 'email' ],
+              resp.json()[ 0 ][ i ][ 'uid' ],
+              resp.json()[ 1 ][ i ][ 'owe' ],
+              resp.json()[ 1 ][ i ][ 'owed' ],
+              resp.json()[ 1 ][ i ][ 'cash_paid' ],
+              resp.json()[ 1 ][ i ][ 'gid' ] ]
+        result.append(c)
+    data = resp.json()
     if data:
         #return jsonify(result)
         return render_template('group_detail.html',result=result,result1=result1)
