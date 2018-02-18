@@ -284,7 +284,7 @@ def change_group_icon():
             flash('No file part')
             return render_template('group_detail.html')
         file = request.files[ 'file' ]
-        gid=request.form('gid')
+        gid=request.form['gid']
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
