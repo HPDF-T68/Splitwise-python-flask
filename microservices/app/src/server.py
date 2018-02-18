@@ -282,14 +282,14 @@ def change_group_icon():
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
-            return render_template('update_profile.html')
+            return render_template('group_detail.html')
         file = request.files[ 'file' ]
         gid=request.form('gid')
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
             flash('No selected file')
-            return render_template('update_profile.html')
+            return render_template('group_detail.html')
         if file and allowed_file(file.filename):
             # filename = secure_filename(file.filename)
 
@@ -312,7 +312,7 @@ def change_group_icon():
 
         else:
             flash('Something wrong')
-            return render_template('update_profile.html')
+            return render_template('main.html')
     flash('Profile picture changes successfully')
     return render_template('group_detail.html')
 
