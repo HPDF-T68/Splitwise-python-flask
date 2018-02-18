@@ -278,13 +278,13 @@ def split_bill(a):
 #*******************************************************************
 @app.route('/change_group_icon',methods=['POST','GET'])
 def change_group_icon():
-
+    if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
             return render_template('group_detail.html')
         file = request.files[ 'file' ]
-        gid=request.form['gid']
+        gid=76
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
@@ -307,13 +307,14 @@ def change_group_icon():
             # with open(file.filename, 'rb') as file_image:
             resp = requests.put(url, data=file, headers=headers)
 
-            flash('Profile picture changes successfully')
-            return render_template('group_detail.html')
+
+            return redirect(url_for('change_group_icon'))
 
         else:
             flash('Something wrong')
             return render_template('main.html')
-
+    flash('Profile picture changes successfully')
+    return render_template('group_detail.html')
 
 
 
