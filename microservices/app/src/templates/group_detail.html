@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home page</title>
+  <meta charset="utf-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}
+
+    /* Set gray background color and 100% height */
+    .sidenav {
+      padding-top: auto;
+      background-color: #f1f1f1;
+      height: auto;
+    }
+
+    /* Set black background color, white text and some padding */
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+
+
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: auto;
+      }
+      .row.content {height:auto;}
+    }
+    #customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+div.x
+{
+background-color:#00ccff;
+ padding:5px;
+color:grey;
+
+}
+div.x1{
+background-color:#ffb3b3;
+ padding:0px;
+ top-margin:0px;
+color:black;
+}
+.avatar1{
+vertical-align: middle;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.button.button4 {
+    background-color:  #33ccff; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button.button3 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button.button2 {
+    background-color:#cc0000;  /* Green */
+    border: none;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.button3 {border-radius: 8px;}
+.button4 {border-radius: 8px;}
+.button2 {border-radius: 8px;}
+
+div.a{
+    background-color: lightgrey;
+    width: 180px;
+    border: 2px solid green;
+    padding: 2px;
+    margin: 2px;
+}
+div.a1{
+    background-color: green;
+    width: 180px;
+    border: 2px solid green;
+    padding: 12px;
+    margin: 20px;
+}
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 25px;
+    height: 25px;
+    border-radius: 35%;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #f1f1f1;
+}
+
+li a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color on hover */
+li a:hover {
+    background-color: #555;
+    color: white;
+}
+button
+{
+    background-color: #4CAF50; /* Green */
+
+}
+
+  </style>
+</head>
+<body bgcolor="grey">
+
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">S P L I T W I S E</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+
+
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+       <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><img id="foo" src="https://filestore.octagon58.hasura-app.io/v1/file/{{session['hasura_id']}}" class="avatar" onerror="standby()">{{session['username']}}
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="https://app.octagon58.hasura-app.io/dashboard">Dashboard</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/update_email">Update Email</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/update_mobile">Update Mobile No</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/update_password">Update password</a></li>
+            <li><a href="https://app.octagon58.hasura-app.io/update_profile">Update profile pic</a></li>
+          <li><a href="https://app.octagon58.hasura-app.io/logout_user">Logout</a></li>
+        </ul>
+      </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+
+      <ul>
+  <li><a href="#home">Dashboard</a></li>
+  <li><a href="#news">Transactions</a></li>
+  <li><a href="#contact">Invite friend</a></li>
+</ul>
+      </ul>
+       <div ><br>
+        <button type="button" data-toggle="modal" data-target="#myModal1">+Add Group</button><h4><u><i class="fa fa-group"></i> </i>My Groups</u></h4>
+
+        <ul id="ul1">
+          <ulbody>
+        </ulbody>
+        </ul>
+         <br>
+         </div>
+
+        <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Enter Group Detail</h4>
+        </div>
+        <div class="modal-body">
+            <form action="https://app.octagon58.hasura-app.io/make_group" method="post">
+
+      Enter Group Name:: <input type="text" name="gname" placeholder="Group Name" required>
+        <br>      Select Group Member
+      <table id="table1">
+
+            <tbody></tbody>
+
+
+        </table>
+
+        <br>
+
+    <input type="submit" value="Create Group">
+
+
+  </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- Modal content -->
+
+
+
+      <div >
+        <button type="button" data-toggle="modal" data-target="#myModal">+Add friends</button><h4><u>My Friends</u></h4>
+
+        <table id="tab">
+          <tbody>
+        </tbody>
+        </table>
+
+        <hr>
+
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">   Select As Friend </h4>
+        </div>
+        <div class="modal-body">
+          <table>    {% for i in session['all_friend'] %}
+
+  <tr valign="middle"><td>{{i}} </td><td> <a href=https://app.octagon58.hasura-app.io/add_friend_all?uname={{i}}>+add friend</a></td>
+
+      {% endfor%}
+  </table>
+
+        <br>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+      </div>
+     <br>   <ul>
+  <li><a href="#home">Contact</a></li>
+  <li><a href="#news">FAQ</a></li>
+  <li><a href="#contact">Supports</a></li>
+
+</ul>
+      </div>
+          <div class="col-sm-8 text-left">
+
+
+
+              <div class="x1">  <img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1"> <font size="7"> &nbsp&nbsp&nbsp&nbsp Group Name</font>&nbsp&nbsp&nbsp&nbspDate:22/10/2018&nbsp&nbsp&nbsp&nbspMember No.:4&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. 1000</font><br>
+              <table class="t">
+                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <tr rowspan="5" bgcolor="grey">
+                      <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspYou owe
+                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp You owed
+                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Your total paid&nbsp&nbsp
+                  &nbsp&nbsp</th><td rowspan="2" bgcolor="#ffb3b3"><button class="button">Settle Up</button></td><td rowspan="2" bgcolor="#ffb3b3">
+                  <button class="button" >Print</button></td><td rowspan="2" bgcolor="#ffb3b3"><button class="button" > Send Reminder</button></td>
+
+                  </tr><tr bgcolor="yellow">
+                      <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRS. 100&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Rs. 100   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Rs. 100&nbsp&nbsp&nbsp&nbsp</th>
+
+                  </tr>
+
+              </table>
+
+              </div>
+                <br>
+              <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" >Change Group Icon</button><button class="button">Add Bill</button></pre></div>
+              <br><div class="x"><img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1"> <font size="5">&nbsp&nbsp&nbsp&nbspMember Name</font>&nbsp&nbsp&nbsp&nbsp<font color="green" size="3">Money owe (to recieve) :Rs. 00</font>&nbsp&nbsp&nbsp&nbsp <font color="red" size="3">Money owed (To pay):Rs 00</font></div>
+
+
+
+
+</div>
+    <div class="col-sm-2 sidenav">
+      <div class="well">
+
+        <strong><div class="a"><h4><u>RULES</u></h4><br>
+        * Users are given $100 as welcome bonus.<br>
+        * You need to add friends before you can create group.<br>
+        * Groups are immutable to prevent distortion of group history.<br>
+        * Bills are always split equally.<br>
+        * Payments are made outside the app.<br></div>
+        </strong></div><br>
+      <strong><div class="a1"><h4>Minimum Value <u>Product</u></h4>
+
+        Please use a desktop browser & decent internet connection to use this app<br></div>
+        </strong></div>
+
+      </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+<script>
+
+
+
+//  for group list::
+var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "group_member",
+        "columns": [
+            "gname",
+            "gid"
+        ],
+        "where": {
+            "uid": {
+                "$eq":  {{session['hasura_id']}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+	console.log(result);
+	for (i=0;i<=result.length;i++) {
+
+      $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
+
+}
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+
+// for select friend***********************************************************************
+var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "signup",
+        "columns": [
+            "username"
+        ],
+        "where": {
+            "uid": {
+                "$ne": {{session['hasura_id']}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+	console.log(result);
+
+
+	for (i=0;i<=result.length;i++) {
+
+      $('#table > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['username']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+
+}
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+
+  var url = "https://data.octagon58.hasura-app.io/v1/query";
+
+// If you have the auth token saved in offline storage, obtain it in async componentDidMount
+// var authToken = await AsyncStorage.getItem('HASURA_AUTH_TOKEN');
+// And use it in your headers
+// headers = { "Authorization" : "Bearer " + authToken }
+var requestOptions = {
+    "method": "POST",
+    "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+};
+
+var body = {
+    "type": "select",
+    "args": {
+        "table": "friend",
+        "columns": [
+            "username",
+            "friend_id"
+        ],
+        "where": {
+            "uid": {
+                "$eq":  {{session['hasura_id']}}
+            }
+        }
+    }
+};
+
+requestOptions.body = JSON.stringify(body);
+
+fetch(url, requestOptions)
+.then(function(response) {
+	return response.json();
+})
+.then(function(result) {
+
+	for (i=0;i<=result.length;i++) {
+
+
+      $('#table1 > tbody').append('<tr valign="middle"><td><input type="checkbox" name="addfriend" value="'+result[i]['friend_id']+'"></td> <td valign="center">' + result[i]['username'] +  '</td></tr>');
+
+       $('#tab > tbody').append('<tr ><td align="left" bgcolor="#ccccff"><i class="glyphicon glyphicon-user"></i> ' + result[i]['username'] + ' </td><td align="right"><a href="https://app.octagon58.hasura-app.io/remove_friend?username='+result[i]['username']+'">Remove</a></td></tr><br>');
+
+}
+
+})
+.catch(function(error) {
+	console.log('Request Failed:' + error);
+});
+
+
+
+function standby() {
+    document.getElementById('foo').src = 'static/image/img_avatar.png'
+    }
+</script>
+</body>
+{%with messages = get_flashed_messages() %}
+          {% for message in messages %}
+
+             <script type="text/javascript">
+        alert("{{message}}");
+            </script>
+               {% endfor %}
+          {% endwith %}
+
+
+</html>
