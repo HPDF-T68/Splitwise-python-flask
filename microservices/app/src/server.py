@@ -345,6 +345,7 @@ def more_detail():
     test =[]
     test.append(resp.json()[ 0 ][ 0 ])
     result1 = []
+    result = [ ]
     result1.append(test)
 
 
