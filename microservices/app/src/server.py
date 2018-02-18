@@ -342,9 +342,10 @@ def more_detail():
     for i in range(len(resp.json()[ 1 ])):
         ulist.append(resp.json()[ 1 ][ i ][ 'uid' ])
     # resp.content contains the json response.
-
-    result = [ ]
-    result.append(resp.json()[ 0 ][ 0 ])
+    test =[]
+    test.append[resp.json()[ 0 ][ 0 ]]
+    result1 = []
+    result1.append(test)
 
 
 
@@ -428,7 +429,7 @@ def more_detail():
                             },
                             {
                                 "uid": {
-                                    "$eq": gid
+                                    "$eq": session['hasura_id']
                                 }
                             }
                         ]
@@ -447,12 +448,18 @@ def more_detail():
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
     data=json.loads(resp.content)
+    test = [ ]
+    for i in resp.json()[ 0 ]:
+        test.append(i)
+    result.append(test)
+    test = [ ]
+    for i in resp.json()[ 1 ]:
+        test.append(i)
+    result.append(test)
 
-    result.append(resp.json()[ 0 ])
-    result.append(resp.json()[ 1 ])
     if data:
         #return jsonify(result)
-        return render_template('group_detail.html',result=jsonify(result))
+        return render_template('group_detail.html',result=result,result1=result1)
     else:
         flash('Some error occurs')
         return render_template('main.html')
