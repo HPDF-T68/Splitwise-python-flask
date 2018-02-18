@@ -276,6 +276,51 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
+@app.route('/change_group_icon',methods=['POST','GET'])
+def change_group_icon():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return render_template('update_profile.html')
+        file = request.files[ 'file' ]
+        gid=request.form('gid')
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return render_template('update_profile.html')
+        if file and allowed_file(file.filename):
+            # filename = secure_filename(file.filename)
+
+            # file.filename=str(session['hasura_id'])+'.jpg'
+            # file.save(file.filename)
+            url = "https://filestore.octagon58.hasura-app.io/v1/file/g" + str(gid)
+
+            # Setting headers
+            headers = {
+                "Content-Type": "image / png",
+                "Authorization": "Bearer " + session[ 'auth_token' ]
+            }
+
+            # Open the file and make the query
+            # with open(file.filename, 'rb') as file_image:
+            resp = requests.put(url, data=file, headers=headers)
+
+
+            return redirect(url_for('change_group_icon'))
+
+        else:
+            flash('Something wrong')
+            return render_template('update_profile.html')
+    flash('Profile picture changes successfully')
+    return render_template('group_detail.html')
+
+
+
+
+
+
 @app.route('/more_detail',methods=['POST','GET'])
 def more_detail():
 

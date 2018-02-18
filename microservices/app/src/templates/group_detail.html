@@ -331,7 +331,7 @@ button
           <div class="col-sm-8 text-left">
               {% for i in result1%}
 
-              <div class="x1">  <img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1"> <font size="7"> &nbsp&nbsp&nbsp&nbsp {{i[0]['gname']}}</font>&nbsp&nbsp&nbsp&nbspDate:{{i[0]['date']}}&nbsp&nbsp&nbsp&nbspMember No.:{{i[0]['member_no']}}&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. {{i[0]['total_expanse']}}</font><br>
+              <div class="x1">  <img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1"> <font size="7"> &nbsp&nbsp&nbsp&nbsp {{i[0]['gname']}}</font>&nbsp&nbsp&nbsp&nbspDate:{{i[0]['gdate']}}&nbsp&nbsp&nbsp&nbspMember No.:{{i[0]['member_no']}}&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. {{i[0]['total_expanse']}}</font><br>
               <table class="t">
                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <tr rowspan="5" bgcolor="grey">
                       <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspYou owe
@@ -349,10 +349,41 @@ button
                     {%endfor%}
               </div>
                 <br>
-              <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" >Change Group Icon</button><button class="button">Add Bill</button></pre></div>
+              <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" data-toggle="modal" data-target="#myModal3">Change Group Icon</button><button class="button">Add Bill</button></pre></div>
+
+               <div class="modal fade" id="myModal3" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Change Group Icon</h4>
+        </div>
+        <div class="modal-body">
+            <form action="https://app.octagon58.hasura-app.io/change_group_icon" method="post" multiple accept='image/*'>
+                {%for i in result1%}
+                <input type="text" value={{i[0]['gid']}} hidden>
+                {%endfor%}
+        <input type="file" id="fname" name="file" multiple accept='image/*' required><br>
+                <p> Size< 1mb and format- JPG/JPEG/PNG</p>
+    <input type="submit" value="Change Profile Pic">
+
+
+  </form>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
 
               {%for i in result%}
-              <br><div class="x"><img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1">
+              <br><div class="x"><img src="https://filestore.octagon58.hasura-app.io/v1/file/g{{i[6]}}" class="avatar1">
               <font size="5">&nbsp&nbsp&nbsp&nbsp{{i[0]}}</font>&nbsp&nbsp&nbsp&nbsp<font color="green" size="3">Money owe (to recieve) :Rs. {{i[3]}}
               </font>&nbsp&nbsp&nbsp&nbsp <font color="red" size="3">Money owed (To pay):Rs.{{i[4]}}</font>
               &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
