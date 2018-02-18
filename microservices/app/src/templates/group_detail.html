@@ -361,9 +361,9 @@ button
           <h4 class="modal-title">Change Group Icon</h4>
         </div>
         <div class="modal-body">
-            <form action="https://app.octagon58.hasura-app.io/change_group_icon" method="post" multiple accept='image/*'>
+            <form action="https://app.octagon58.hasura-app.io/change_group_icon" method="post" enctype = "multipart/form-data">
 
-                <input type="text" value={{gid}} hidden>
+                <input type="text" value="{{gid}}" hidden>
 
         <input type="file" id="fname" name="file" multiple accept='image/*' required><br>
                 <p> Size< 1mb and format- JPG/JPEG/PNG</p>
