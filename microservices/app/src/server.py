@@ -279,7 +279,7 @@ def split_bill(a):
 @app.route('/more_detail',methods=['POST','GET'])
 def more_detail():
 
-    gid=request.get.form['gid']
+    gid=request.args.get('gid')
     # This is the url to which the query is made
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
