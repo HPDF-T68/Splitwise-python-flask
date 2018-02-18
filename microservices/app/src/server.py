@@ -293,6 +293,16 @@ def change_group_icon():
             return render_template('group_detail.html')
         if file and allowed_file(file.filename):
             # filename = secure_filename(file.filename)
+            url = "https://filestore.octagon58.hasura-app.io/v1/file/g"+str(gid)
+
+            # This is the json payload for the query
+            # Setting headers
+            headers = {
+                "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            }
+
+            # Make the query and store response in resp
+            resp = requests.request("DELETE", url, headers=headers)
 
             # file.filename=str(session['hasura_id'])+'.jpg'
             # file.save(file.filename)
@@ -792,6 +802,16 @@ def change_profile():
             return render_template('update_profile.html')
         if file and allowed_file(file.filename):
             #filename = secure_filename(file.filename)
+            url = "https://filestore.octagon58.hasura-app.io/v1/file/"+str(session['hasura_id'])
+
+            # This is the json payload for the query
+            # Setting headers
+            headers = {
+                "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            }
+
+            # Make the query and store response in resp
+            resp = requests.request("DELETE", url, headers=headers)
 
             #file.filename=str(session['hasura_id'])+'.jpg'
             #file.save(file.filename)
