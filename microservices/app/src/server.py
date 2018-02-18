@@ -295,7 +295,8 @@ def more_detail():
                         "total_expanse",
                         "gname",
                         "gdate",
-                        "member_no"
+                        "member_no",
+                        "gid"
                     ],
                     "where": {
                         "gid": {

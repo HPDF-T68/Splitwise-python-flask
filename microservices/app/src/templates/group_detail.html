@@ -329,10 +329,9 @@ button
 </ul>
       </div>
           <div class="col-sm-8 text-left">
+              {% for i in result1%}
 
-
-
-              <div class="x1">  <img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1"> <font size="7"> &nbsp&nbsp&nbsp&nbsp Group Name</font>&nbsp&nbsp&nbsp&nbspDate:22/10/2018&nbsp&nbsp&nbsp&nbspMember No.:4&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. 1000</font><br>
+              <div class="x1">  <img src="https://filestore.octagon58.hasura-app.io/v1/file/57" class="avatar1"> <font size="7"> &nbsp&nbsp&nbsp&nbsp {{i[0]['gname']}}</font>&nbsp&nbsp&nbsp&nbspDate:{{i[0]['date']}}&nbsp&nbsp&nbsp&nbspMember No.:{{i[0]['member_no']}}&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. {{i[0]['total_expanse']}}</font><br>
               <table class="t">
                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <tr rowspan="5" bgcolor="grey">
                       <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspYou owe
@@ -340,7 +339,7 @@ button
                   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Your total paid&nbsp&nbsp
                   &nbsp&nbsp</th><td rowspan="2" bgcolor="#ffb3b3"><button class="button">Settle Up</button></td><td rowspan="2" bgcolor="#ffb3b3">
                   <button class="button" >Print</button></td><td rowspan="2" bgcolor="#ffb3b3"><button class="button" > Send Reminder</button></td>
-
+                   {% endfor%}
                   </tr><tr bgcolor="yellow">
                       <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRS. 100&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Rs. 100   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Rs. 100&nbsp&nbsp&nbsp&nbsp</th>
 
