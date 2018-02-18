@@ -278,7 +278,184 @@ def split_bill(a):
 #*******************************************************************
 @app.route('/more_detail',methods['POST','GET'])
 def more_detail():
-    return "ok"
+
+    gid=request.get.form['gid']
+    # This is the url to which the query is made
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "bulk",
+        "args": [
+            {
+                "type": "select",
+                "args": {
+                    "table": "group",
+                    "columns": [
+                        "total_expanse",
+                        "gname",
+                        "gdate",
+                        "member_no"
+                    ],
+                    "where": {
+                        "gid": {
+                            "$eq": gid
+                        }
+                    }
+                }
+            },
+            {
+                "type": "select",
+                "args": {
+                    "table": "group_member",
+                    "columns": [
+                        "uid"
+                    ],
+                    "where": {
+                        "$and": [
+                            {
+                                "gid": {
+                                    "$eq": gid
+                                }
+                            },
+                            {
+                                "uid": {
+                                    "$ne": session['hasura_id']
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    ulist = [ ]
+    for i in range(len(resp.json()[ 1 ])):
+        ulist.append(resp.json()[ 1 ][ i ][ 'uid' ])
+    # resp.content contains the json response.
+    print ulist
+    result = [ ]
+    result.append(resp.json()[ 0 ][ 0 ])
+
+
+
+    # This is the url to which the query is made
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "bulk",
+        "args": [
+            {
+                "type": "select",
+                "args": {
+                    "table": "signup",
+                    "columns": [
+                        "email",
+                        "username",
+                        "uid"
+                    ],
+                    "where": {
+                        "uid": {
+                            "$in": ulist
+                        }
+                    },
+                    "order_by": [
+                        {
+                            "column": "uid",
+                            "order": "asc"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "select",
+                "args": {
+                    "table": "group_user",
+                    "columns": [
+                        "owe",
+                        "owed",
+                        "cash_paid",
+                        "uid",
+                        "gid"
+                    ],
+                    "where": {
+                        "$and": [
+                            {
+                                "gid": {
+                                    "$eq": gid
+                                }
+                            },
+                            {
+                                "uid": {
+                                    "$in": ulist
+                                }
+                            }
+                        ]
+                    },
+                    "order_by": [
+                        {
+                            "column": "uid",
+                            "order": "asc"
+                        }
+                    ]
+                }
+            },
+            {
+                "type": "select",
+                "args": {
+                    "table": "group_user",
+                    "columns": [
+                        "owe",
+                        "owed",
+                        "cash_paid"
+                    ],
+                    "where": {
+                        "$and": [
+                            {
+                                "gid": {
+                                    "$eq": gid
+                                }
+                            },
+                            {
+                                "uid": {
+                                    "$eq": gid
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    data=json.loads(resp.content)
+
+    result.append(resp.json()[ 0 ])
+    result.append(resp.json()[ 1 ])
+    if data:
+        
+        return render_template('group_detail.html',jsonify(result=result))
+    else:
+        flash('Some error occurs')
+        return render_template('main.html')
 
 @app.route('/money_group',methods =['POST','GET'])
 def money_group():
@@ -392,7 +569,7 @@ def money_group():
                         "$inc": {
                             "owed": int(split)
                         }
-                    }
+                    },
                 },
                 {
                     "type": "update",
