@@ -323,9 +323,9 @@ def change_group_icon():
 
         else:
             flash('Something wrong')
-            return render_template('main.html')
-    flash('Profile picture changes successfully')
-    return render_template('main.html')
+            return render_template('group_icon_change.html',gid=gid,fail="Profile picture change fail")
+
+    return render_template('group_icon_change.html',gid=gid,message="Profile picture changes successfully")
 
 
 
