@@ -317,19 +317,15 @@ def change_group_icon():
             # Open the file and make the query
             # with open(file.filename, 'rb') as file_image:
             resp = requests.put(url, data=file, headers=headers)
+            if "file_id" in resp.json():
+                return render_template('group_icon_change.html', gid=gid,
+                                       message="Profile picture changes successfully")
 
 
-            return redirect(url_for('change_group_icon'))
+            else:
+                return render_template('group_icon_change.html',gid=gid,fail="Profile picture change fail")
 
-        else:
-            flash('Something wrong')
-            return render_template('group_icon_change.html',gid=gid,fail="Profile picture change fail")
-
-    return render_template('group_icon_change.html',gid=gid,message="Profile picture changes successfully")
-
-
-
-
+    return render_template('group_icon_change.html', fail="Profile picture change fail")
 
 
 @app.route('/more_detail',methods=['POST','GET'])
