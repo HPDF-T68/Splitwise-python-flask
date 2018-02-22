@@ -297,6 +297,64 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
+@app.route('/settle_up_group',methods=['POST','GET'])
+def settle_up_group():
+    gid = request.args.get('gid')
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "group",
+            "columns": [
+                "uid"
+            ],
+            "where": {
+                "gid": {
+                    "$eq": gid
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    if resp.json()[ 0 ][ 'uid' ] == session['hasura_id']:
+        requestPayload = {
+            "type": "update",
+            "args": {
+                "table": "group_user",
+                "where": {
+                    "gid": {
+                        "$eq": gid
+                    }
+                },
+                "$set": {
+                    "owe": "0",
+                    "owed": "0"
+                }
+            }
+        }
+
+        # Setting headers
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        return render_template('settle_up_group.html', message="you have settled this group Means everyone is paid and have payment")
+    else:
+        return render_template('settle_up_group.html',message="Only Admin Can settle Up group")
+
 @app.route('/send_remind_group',methods=['POST','GET'])
 def send_remind_group():
     gid = request.args.get('gid')
