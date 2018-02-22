@@ -297,6 +297,12 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
+@app.route('/refresh',methods=['POST','GET'])
+def refresh():
+    session.pop('group_list',None)
+    group_list(session['hasura_id'])
+    return render_template('main.html')
+
 @app.route('/settle_up_group',methods=['POST','GET'])
 def settle_up_group():
     gid = request.args.get('gid')
