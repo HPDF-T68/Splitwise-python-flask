@@ -276,6 +276,81 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
+@app.route('/remind_member', methods=['POST','GET'])
+def remind_member():
+    gid = request.args.get('gid')
+    username = request.args.get('username')
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "email",
+                "uid"
+            ],
+            "where": {
+                "username": {
+                    "$eq": username
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    email=resp.json()[0]['email']
+
+
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "group_user",
+            "columns": [
+                "owed"
+            ],
+            "where": {
+                "$and": [
+                    {
+                        "gid": {
+                            "$eq": gid
+                        }
+                    },
+                    {
+                        "uid": {
+                            "$eq": resp.json()[ 0 ][ 'uid' ]
+                        }
+                    }
+                ]
+            }
+        }
+    }
+
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+    # resp.content contains the json response.
+    if resp.json()[ 0 ][ 'owed' ] == 0:
+
+        return render_template('remind_friend.html',gid=gid,error="These user has already paid to this group")
+    else:
+        body = "Hey " + username + " Your payment is pending for you recent visit please check out Your SPLITWISE ACCOUNT"
+        sub = "Payment Reminder"
+        email=email
+        email_send(email,sub,body)
+
+
+        return render_template('remind_friend.html',gid=gid,success="Reminder send successfully to this user")
+
+
+
 @app.route('/change_group_icon',methods=['POST','GET'])
 def change_group_icon():
     if request.method == 'POST':
