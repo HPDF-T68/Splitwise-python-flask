@@ -339,7 +339,7 @@ def remind_member():
     # resp.content contains the json response.
     if resp.json()[ 0 ][ 'owed' ] == 0:
 
-        return render_template('remind_friend.html',gid=gid,error="These user has already paid to this group")
+        return render_template('remind_member.html',gid=gid,error="These user has already paid to this group")
     else:
         body = "Hey " + username + " Your payment is pending for you recent visit please check out Your SPLITWISE ACCOUNT"
         sub = "Payment Reminder"
@@ -347,7 +347,7 @@ def remind_member():
         email_send(email,sub,body)
 
 
-        return render_template('remind_friend.html',gid=gid,success="Reminder send successfully to this user")
+        return render_template('remind_member.html',gid=gid,success="Reminder send successfully to this user")
 
 
 
