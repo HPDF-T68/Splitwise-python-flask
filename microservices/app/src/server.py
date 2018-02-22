@@ -659,7 +659,7 @@ def money_group():
                             }
                         },
                         "$inc": {
-                            "owe": int(money) - int(money/int(mno)+1)
+                            "owe": int(money) - int(split)
 
                         }
                     }
