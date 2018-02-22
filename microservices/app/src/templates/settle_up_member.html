@@ -329,105 +329,10 @@ button
 </ul>
       </div>
           <div class="col-sm-8 text-left">
-              {% for i in result1%}
 
-              <div class="x1">  <img id="foo1" src="https://filestore.octagon58.hasura-app.io/v1/file/g{{gid}}" class="avatar1" onerror="standby2()"> <font size="7"> &nbsp&nbsp&nbsp&nbsp {{i[0]['gname']}}</font>&nbsp&nbsp&nbsp&nbspDate:{{i[0]['gdate']}}&nbsp&nbsp&nbsp&nbspMember No.:{{i[0]['member_no']}}&nbsp&nbsp&nbsp&nbsp<font size="6" color="grey">Total: Rs. {{i[0]['total_expanse']}}</font><br>
-              <table class="t">
-                 &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp <tr rowspan="5" bgcolor="grey">
-                      <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspYou owe
-                          &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp You owed
-                  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Your total paid&nbsp&nbsp
-                  &nbsp&nbsp</th><td rowspan="2" bgcolor="#ffb3b3"><button class="button">Settle Up</button></td><td rowspan="2" bgcolor="#ffb3b3">
-                  <button class="button" >Print</button></td><td rowspan="2" bgcolor="#ffb3b3"><button class="button" > Send Reminder</button></td>
-                   {% endfor%}{%for i in result2%}
-                  </tr><tr bgcolor="yellow">
-                      <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRS. {{i['owe']}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Rs. {{i['owed']}}   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Rs. {{i['cash_paid']}}&nbsp&nbsp&nbsp&nbsp</th>
-
-                  </tr>
-
-              </table>
-                    {%endfor%}
-              </div>
-                <br>
-              <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" data-toggle="modal" data-target="#myModal3">Change Group Icon</button><button class="button" data-toggle="modal" data-target="#myModal4">Add Bill</button></pre></div>
-
-
-               <div class="modal fade" id="myModal4" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Bill To Group</h4>
-        </div>
-        <div class="modal-body">
-          <form action="https://app.octagon58.hasura-app.io/money_group" method="post" >
-
-              <input type="text" name="gid" value={{gid}} hidden>
-              <br><br>
-     <pre>Enter Amount to pay:    <input type="number" name="money" required></pre>
-
-    <pre>Enter Description(optional):           <input type="text" value="None" name="description"></pre><br>
-    <br><input type="submit" value="ADD BILL">
-</form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div></div>
-
-
-
-               <div class="modal fade" id="myModal3" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Change Group Icon</h4>
-        </div>
-        <div class="modal-body">
-            <form action="https://app.octagon58.hasura-app.io/change_group_icon" method="post" enctype = "multipart/form-data">
-
-                <input type="text" value={{gid}} name="gid" hidden>
-
-        <input type="file" id="fname" name="file" multiple accept='image/*' required><br>
-                <p> Size< 1mb and format- JPG/JPEG/PNG</p>
-    <input type="submit" value="Change Profile Pic">
-
-
-  </form>
-
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-              {%for i in result%}
-              <br><div class="x"><img id="foo2" src="https://filestore.octagon58.hasura-app.io/v1/file/{{i[2]}}" class="avatar1" onerror="standby1()">
-              <font size="5">&nbsp&nbsp&nbsp&nbsp{{i[0]}}</font>&nbsp&nbsp&nbsp&nbsp<font color="green" size="3">Money owe (to recieve) :Rs. {{i[3]}}
-              </font>&nbsp&nbsp&nbsp&nbsp <font color="red" size="3">Money owed (To pay):Rs.{{i[4]}}</font>
-              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-              <button class="button123"><a href="https://app.octagon58.hasura-app.io/settle_up_member?uid={{i[2]}}&gid={{gid}}" style="color:white; text-decoration:none;">Settle Up</a></button>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-              &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-
-
-              <button class="button123"><a href="https://app.octagon58.hasura-app.io/remind_member?username={{i[0]}}&gid={{gid}}" style="color:white; text-decoration:none;">Remind</a></button></div>
-                {%endfor%}
-
-
-
+              <font size="7">{{message}}<br>
+              <a href="https://app.octagon58.hasura-app.io/more_detail?gid={{gid}}">REFRESH Your Change</a>
+          </font>
 
 </div>
     <div class="col-sm-2 sidenav">
