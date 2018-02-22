@@ -156,7 +156,7 @@ def email_send(toaddr, sub, body):
         return True
 
 
-def email_send_group(toaddr, sub, body):
+def send_email_group(toaddr, sub, body):
     fromaddr = "t68pf1@gmail.com"
     # toaddr = "manish.kumar212111@gmail.com"
     msg = MIMEMultipart()
@@ -361,7 +361,7 @@ def send_remind_group():
     a = [ ]
     for i in range(0, len(resp.json())):
         a.append(resp.json()[ i ][ 'email' ])
-    if send_email_group(a,"Splitwise Reminder","Check your splitwise account"):
+    if send_email_group(a,'Splitwise Reminder','Check your splitwise account'):
         return render_template('send_remind_group.html',message='Reminder sent to everyone')
     else:
         return render_template('send_remind_group.html', message='Some problem occurs')
