@@ -349,7 +349,36 @@ button
                     {%endfor%}
               </div>
                 <br>
-              <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" data-toggle="modal" data-target="#myModal3">Change Group Icon</button><button class="button">Add Bill</button></pre></div>
+              <div style="background-color:grey;"> <pre><font size="6">Group Member</font>                                      <button class="button" data-toggle="modal" data-target="#myModal3">Change Group Icon</button><button class="button" data-toggle="modal" data-target="#myModal4">Add Bill</button></pre></div>
+
+
+               <div class="modal fade" id="myModal4" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Bill To Group</h4>
+        </div>
+        <div class="modal-body">
+          <form action="https://app.octagon58.hasura-app.io/money_group" method="post" >
+
+              <input type="text" name="gid" value={{gid}} hidden>
+              <br><br>
+     <pre>Enter Amount to pay:    <input type="number" name="money" required></pre>
+
+    <pre>Enter Description(optional):           <input type="text" value="None" name="description"></pre><br>
+    <br><input type="submit" value="ADD BILL">
+</form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+
+
 
                <div class="modal fade" id="myModal3" role="dialog">
     <div class="modal-dialog">
