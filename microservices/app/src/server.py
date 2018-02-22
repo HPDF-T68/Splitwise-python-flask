@@ -155,6 +155,27 @@ def email_send(toaddr, sub, body):
         server.quit()
         return True
 
+
+def email_send_group(toaddr, sub, body):
+    fromaddr = "t68pf1@gmail.com"
+    # toaddr = "manish.kumar212111@gmail.com"
+    msg = MIMEMultipart()
+    msg[ 'From' ] = fromaddr
+
+    msg[ 'Subject' ] = sub
+
+    # body = "Manish here"
+    msg.attach(MIMEText(body, 'plain'))
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(fromaddr, "man12345")
+    text = msg.as_string()
+    for i in toaddr:
+        resp = server.sendmail(fromaddr, i, text)
+    server.quit()
+    return True
+
 def group_list(uid):
     # This is the url to which the query is made
     url = "https://data.octagon58.hasura-app.io/v1/query"
@@ -276,6 +297,76 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
+@app.route('/send_remind_group',methods=['POST','GET'])
+def send_remind_group():
+    gid = request.args.get('gid')
+
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "group_member",
+            "columns": [
+                "uid"
+            ],
+            "where": {
+                "gid": {
+                    "$eq": gid
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+    a = [ ]
+    for i in range(0, len(resp.json())):
+        a.append(resp.json()[ i ][ 'uid' ])
+
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "email"
+            ],
+            "where": {
+                "uid": {
+                    "$in": a
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
+    a = [ ]
+    for i in range(0, len(resp.json())):
+        a.append(resp.json()[ i ][ 'email' ])
+    if send_email_group(a,"Splitwise Reminder","Check your splitwise account"):
+        return render_template('send_remind_group.html',message='Reminder sent to everyone')
+    else:
+        return render_template('send_remind_group.html', message='Some problem occurs')
+
+
 @app.route('/settle_up_member',methods=['POST','GET'])
 def settle_up_member():
     gid = request.args.get('gid')
