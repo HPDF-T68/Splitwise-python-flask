@@ -338,7 +338,7 @@ button
                           &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp You owed
                   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Your total paid&nbsp&nbsp
                   &nbsp&nbsp</th><td rowspan="2" bgcolor="#ffb3b3"><button class="button"><a href="https://app.octagon58.hasura-app.io/settle_up_group?gid={{gid}}" style="color:white; text-decoration:none;">Settle Up</a></button></td><td rowspan="2" bgcolor="#ffb3b3">
-                  <button class="button" >Print</button></td><td rowspan="2" bgcolor="#ffb3b3"><button class="button" ><a href="https://app.octagon58.hasura-app.io/send_remind_group?gid={{gid}}" style="color:white; text-decoration:none;">Send Reminder</a></button></td>
+                  <button class="button" onclick="print()">Print</button></td><td rowspan="2" bgcolor="#ffb3b3"><button class="button" ><a href="https://app.octagon58.hasura-app.io/send_remind_group?gid={{gid}}" style="color:white; text-decoration:none;">Send Reminder</a></button></td>
                    {% endfor%}{%for i in result2%}
                   </tr><tr bgcolor="yellow">
                       <th>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspRS. {{i['owe']}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Rs. {{i['owed']}}   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </th><th>|    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp    Rs. {{i['cash_paid']}}&nbsp&nbsp&nbsp&nbsp</th>
@@ -623,6 +623,11 @@ function standby1() {
 function standby() {
     document.getElementById('foo').src = 'static/image/img_avatar.png'
     }
+
+
+    function print() {
+    window.print();
+}
 </script>
 </body>
 {%with messages = get_flashed_messages() %}
@@ -633,6 +638,8 @@ function standby() {
             </script>
                {% endfor %}
           {% endwith %}
+
+
 
 
 </html>

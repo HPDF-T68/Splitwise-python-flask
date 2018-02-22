@@ -351,7 +351,7 @@ def settle_up_group():
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        return render_template('settle_up_group.html', message="you have settled this group Means everyone is paid and have payment")
+        return render_template('settle_up_group.html', message="you have settled this group ")
     else:
         return render_template('settle_up_group.html',message="Only Admin Can settle Up group")
 
