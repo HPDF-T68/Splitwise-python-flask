@@ -306,7 +306,7 @@ def invite_friend():
 def invite_sent():
     if request.method=='POST':
         email=request.form['email']
-        body="Hey "+session['hasura_id']+" has invited you to join splitwise and add him as friend"
+        body="Hey "+str(session['hasura_id'])+" has invited you to join splitwise and add him as friend"
         sub="Splitwise join request"
         if email_send(email,sub,body):
             return redirect(url_for('invite_sent'))
