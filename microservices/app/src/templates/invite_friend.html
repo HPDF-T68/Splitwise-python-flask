@@ -134,6 +134,18 @@ div.a1{
     margin: 4px 2px;
     cursor: pointer;
 }
+.button123 {
+    background-color:  #cc3300;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 
 .avatar {
     vertical-align: middle;
@@ -160,6 +172,11 @@ li a {
 li a:hover {
     background-color: #555;
     color: white;
+}
+button
+{
+    background-color: #4CAF50; /* Green */
+
 }
 
   </style>
@@ -204,9 +221,9 @@ li a:hover {
     <div class="col-sm-2 sidenav">
 
       <ul>
-  <li><a href="https://app.octagon58.hasura-app.io/dashboard">Dashboard</a></li>
-
-  <li><a href="https://app.octagon58.hasura-app.io/invite_friend">Invite friend</a></li>
+  <li><a href="#home">Dashboard</a></li>
+  <li><a href="#news">Transactions</a></li>
+  <li><a href="#contact">Invite friend</a></li>
 </ul>
       </ul>
        <div ><br>
@@ -305,84 +322,26 @@ li a:hover {
 
       </div>
      <br>   <ul>
-  <li><a href="https://app.octagon58.hasura-app.io/money_group/contact">Contact</a></li>
-  <li><a href="https://app.octagon58.hasura-app.io/FAQ">FAQ</a></li>
-  <li><a href="https://app.octagon58.hasura-app.io/support">Supports</a></li>
+  <li><a href="#home">Contact</a></li>
+  <li><a href="#news">FAQ</a></li>
+  <li><a href="#contact">Supports</a></li>
 
 </ul>
       </div>
-    <div class="col-sm-8 text-left">
+          <div class="col-sm-8 text-left">
 
-      <div class="x">
-        <button class="button button3">DASHBOARD</button>  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp&nbsp &nbsp &nbsp &nbsp&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp<button type="button" class="button button2" data-toggle="modal" data-target="#myModal2"><a href="#" style="text-decoration:none; color:white;">ADD BILL</a></button> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp&nbsp<button class="button button2"><a href="https://app.octagon58.hasura-app.io/refresh" style="text-decoration:none; color:white;">&nbspREFRESH&nbsp</a></button>
-          &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp  &nbsp &nbsp<button type="button" class="button button2" data-toggle="modal" data-target="#myModal1">+Add Group</button>
-
-        </div>
-
-   <div class="x1">
-<center><h2>My Group</h2></center>
-</div>
- {% for i in session['group_list'] %}
-{% for j in i %}
-<table  bgcolor="grey" >
-    <tr bgcolor="grey">
-        <td rowspan="12" bgcolor="#f5f5f0"><pre><img src="https://filestore.octagon58.hasura-app.io/v1/file/g{{j['gid']}}" class="avatar1" /> <font size="6">{{j['gname']}}</font>
-    <font size="4"> Date:{{j['gdate']}}
-     Member No:{{j['member_no']}} </font>                                   </pre>   </td>
-        <td bgcolor="#f5f5f0"> <font size="10">Rs. {{j['total_expanse']}}&nbsp &nbsp &nbsp&nbsp &nbsp&nbsp&nbsp &nbsp &nbsp</font></td> </tr>
-    <tr >
-        <td bgcolor="#f5f5f0"><font size="5" color="black">ACTIVE&nbsp&nbsp&nbsp &nbsp &nbsp<button class="button button4"><a href="https://app.octagon58.hasura-app.io/more_detail?gid={{j['gid']}}" style="text-decoration:none; color:white;">MORE</a></button><button class="button button4"><a href="#" style="text-decoration:none; color:white;">Share</a></button>
-        </font></td>
-        <td> <font></font></td></tr>
-
-</table>
-        <br>
-
-               {% endfor %}{% endfor %}
-    </div>
-
-        <div class="modal fade" id="myModal2" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Bill To Group</h4>
-        </div>
-        <div class="modal-body">
-          <form action="https://app.octagon58.hasura-app.io/money_group" method="post" >
-
-    Select Group Name: <select name="gid" required>
-            {% for i in session['group_list'] %}
-            {% for j in i %}
-                <option value={{j['gid']}}>{{j['gname']}}</option>
-            {% endfor %} {% endfor %}<br><br>
-
-                    </select><br><br>
               <br><br>
-     <pre>Enter Amount to pay:    <input type="number" name="money" required></pre>
+              <form action="https://app.octagon58.hasura.app.io/invite_sent" method="POST">
+              Enter Email: <input type="email" name="email" required>
+              <br><input type="submit" value="Invite this mail">
 
-    <pre>Enter Description(optional):           <input type="text" value="None" name="description"></pre><br>
-    <br><input type="submit" value="ADD BILL">
-</form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-
-
-
+              </form>
+</div>
     <div class="col-sm-2 sidenav">
       <div class="well">
 
         <strong><div class="a"><h4><u>RULES</u></h4><br>
-        * only admin can settle group<br>
+        * Users are given $100 as welcome bonus.<br>
         * You need to add friends before you can create group.<br>
         * Groups are immutable to prevent distortion of group history.<br>
         * Bills are always split equally.<br>
@@ -445,7 +404,7 @@ fetch(url, requestOptions)
 	console.log(result);
 	for (i=0;i<=result.length;i++) {
 
-      $('#ul1 > ulbody').append('<li> <a href="https://app.octagon58.hasura-app.io/more_detail?gid=result[i]['gid']">' + result[i]['gname'] +  '</li></a>');
+      $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
 
 }
 
@@ -561,8 +520,12 @@ fetch(url, requestOptions)
 .catch(function(error) {
 	console.log('Request Failed:' + error);
 });
-
-
+function standby1() {
+    document.getElementById('foo1').src = 'static/image/img_avatar.png'
+    }
+function standby1() {
+    document.getElementById('foo2').src = 'static/image/img_avatar.png'
+    }
 
 function standby() {
     document.getElementById('foo').src = 'static/image/img_avatar.png'

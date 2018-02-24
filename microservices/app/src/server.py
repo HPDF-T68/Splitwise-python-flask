@@ -26,6 +26,7 @@ app.config['DEBUG']=True
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
 toolbar=DebugToolbarExtension(app)
 #****************************************ALL FUNCTIONS COMES HERE
+
 def select_friend(num):
     id=session['hasura_id']
     url = "https://data.octagon58.hasura-app.io/v1/query"
@@ -297,6 +298,23 @@ def split_bill(a):
         # resp.content contains the json response.
     return resp.content
 #*******************************************************************
+@app.route('/invite_friend',methods=['POST','GET'])
+def invite_send():
+    return render_template('invite_friend.html')
+
+@app.route('/invite_send',methods=['POST','GET'])
+def invite_send():
+    if request.method=='POST':
+        email=request.form['email']
+        body="Hey "+session['hasura_id']+" has invited you to join splitwise and add him as friend"
+        sub="Splitwise join request"
+        if email_send(email,sub,body):
+            return redirect(url_for('invite_send'))
+        else:
+            flash('Error occurred')
+            return render_template('invite_friend.html')
+    flash('Invitation sent successfully')
+    return render_template('main.html')
 @app.route('/refresh',methods=['POST','GET'])
 def refresh():
     session.pop('group_list',None)
