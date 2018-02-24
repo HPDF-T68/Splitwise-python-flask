@@ -2035,13 +2035,7 @@ def add_friend():
         }
 
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-        list = [
-            {
-
-                "message": "User Added"
-
-            }
-        ]
+        return resp.content
         return jsonify(resp=list)
         # resp.content contains the json response.
 
