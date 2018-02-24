@@ -2037,9 +2037,9 @@ def info():
     js = json.loads(json.dumps(content))
     # This is the url to which the query is made
     url = "https://auth.octagon58.hasura-app.io/v1/user/info"
-
+    a=js[ 'data' ][ 'Authorization' ]
     headers = {
-        "Authorization": js[ 'data' ][ 'Authorization' ],
+        "Authorization": "Bearer 7661ea03154810dfb75259a0bd37db8119d001e5f94bda74",
         "Content-Type": "application/json"
     }
 
