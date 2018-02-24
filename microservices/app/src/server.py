@@ -2039,7 +2039,7 @@ def info():
     url = "https://auth.octagon58.hasura-app.io/v1/user/info"
     a=js[ 'data' ][ 'Authorization' ]
     headers = {
-        "Authorization": "Bearer 7661ea03154810dfb75259a0bd37db8119d001e5f94bda74",
+        "Authorization": a,
         "Content-Type": "application/json"
     }
 
@@ -2047,40 +2047,6 @@ def info():
     resp = requests.request("GET", url, headers=headers)
     data = resp.json()
     # This is the url to which the query is made
-    url = "https://data.octagon58.hasura-app.io/v1/query"
-
-    # This is the json payload for the query
-    requestPayload = {
-        "type": "select",
-        "args": {
-            "table": "signup",
-            "columns": [
-                "username"
-                "email",
-                "mobile",
-                "currency",
-                "money"
-            ],
-            "where": {
-                "uid": {
-                    "$eq": data[ 'hasura_id' ]
-                }
-            }
-        }
-    }
-
-    # Setting headers
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
-
-    # Make the query and store response in resp
-    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
-
-    # resp.content contains the json response.
-
-
     return resp.content
 
 
