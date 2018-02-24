@@ -306,7 +306,7 @@ def invite_friend():
 def invite_sent():
     if request.method=='POST':
         email=request.form['email']
-        body="Hey "+str(session['hasura_id'])+" has invited you to join splitwise and add him as friend"
+        body="Hey "+str(session['username'])+" has invited you to join splitwise and add him as friend"
         sub="Splitwise join request"
         if email_send(email,sub,body):
             return redirect(url_for('invite_sent'))
@@ -2065,6 +2065,36 @@ def info():
     resp = requests.request("GET", url, headers=headers)
     data = resp.json()
     # This is the url to which the query is made
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "uid",
+                "username",
+                "email",
+                "mobile"
+            ],
+            "where": {
+                "uid": {
+                    "$eq": resp.json()['hasura_id']
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
     return resp.content
 
 

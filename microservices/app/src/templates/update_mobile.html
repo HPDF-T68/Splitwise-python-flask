@@ -418,7 +418,7 @@ fetch(url, requestOptions)
 	console.log(result);
 	for (i=0;i<=result.length;i++) {
 
-      $('#ul1 > ulbody').append('<li> <a href="#">' + result[i]['gname'] +  '</li></a>');
+      $('#ul1 > ulbody').append('<li> <a href="https://app.octagon58.hasura-app.io/more_detail?gid='+result[i]['gid']+'">' + result[i]['gname'] +  '</li></a>');
 
 }
 
