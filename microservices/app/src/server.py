@@ -299,7 +299,7 @@ def split_bill(a):
     return resp.content
 #*******************************************************************
 @app.route('/invite_friend',methods=['POST','GET'])
-def invite_send():
+def invite_friend():
     return render_template('invite_friend.html')
 
 @app.route('/invite_sent',methods=['POST','GET'])
