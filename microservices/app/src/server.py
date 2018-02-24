@@ -302,14 +302,14 @@ def split_bill(a):
 def invite_send():
     return render_template('invite_friend.html')
 
-@app.route('/invite_send',methods=['POST','GET'])
+@app.route('/invite_sent',methods=['POST','GET'])
 def invite_send():
     if request.method=='POST':
         email=request.form['email']
         body="Hey "+session['hasura_id']+" has invited you to join splitwise and add him as friend"
         sub="Splitwise join request"
         if email_send(email,sub,body):
-            return redirect(url_for('invite_send'))
+            return redirect(url_for('invite_sent'))
         else:
             flash('Error occurred')
             return render_template('invite_friend.html')
