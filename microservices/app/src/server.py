@@ -303,7 +303,7 @@ def invite_friend():
     return render_template('invite_friend.html')
 
 @app.route('/invite_sent',methods=['POST','GET'])
-def invite_send():
+def invite_sent():
     if request.method=='POST':
         email=request.form['email']
         body="Hey "+session['hasura_id']+" has invited you to join splitwise and add him as friend"
