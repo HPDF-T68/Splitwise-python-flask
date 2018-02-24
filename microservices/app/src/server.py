@@ -2080,7 +2080,7 @@ def info():
             ],
             "where": {
                 "uid": {
-                    "$eq": resp.json()['hasura_id']
+                    "$eq": resp.json()[2]
                 }
             }
         }
