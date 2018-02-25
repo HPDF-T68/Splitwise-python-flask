@@ -1823,9 +1823,6 @@ def list_group():
             "columns": [
                 "gid",
                 "gname",
-                "gdate",
-                "member_no",
-                "total_expense"
             ],
             "where": {
                 "uid": {
