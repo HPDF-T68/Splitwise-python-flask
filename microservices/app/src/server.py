@@ -2,7 +2,7 @@ from flask import session,Flask ,url_for, request, render_template , flash,redir
 import requests
 from flask import jsonify
 import json
-from flask_debugtoolbar import DebugToolbarExtension
+
 import smtplib
 import random
 from email.mime.text import MIMEText
@@ -22,9 +22,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app.config[ 'SECRET_KEY' ] = 'jnxjasbxjsbxjhabsxhsbxjashxb'
-app.config['DEBUG']=True
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
-toolbar=DebugToolbarExtension(app)
 #****************************************ALL FUNCTIONS COMES HERE
 
 def select_friend(num):
@@ -1835,7 +1832,7 @@ def list_group():
     # Setting headers
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer  c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
     }
 
     # Make the query and store response in resp
