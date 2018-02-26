@@ -1822,7 +1822,7 @@ def list_group():
             "table": "group",
             "columns": [
                 "gid",
-                "gname",
+                "gname"
             ],
             "where": {
                 "uid": {
