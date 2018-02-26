@@ -1,0 +1,3 @@
+- args:
+    sql: ALTER TABLE "group" ADD COLUMN "bill_image" text NOT NULL DEFAULT 'https://placeimg.com/150/150/people'
+  type: run_sql

@@ -1,0 +1,3 @@
+- args:
+    sql: ALTER TABLE "friend" ADD FOREIGN KEY ("friend_id") REFERENCES "signup" ("uid")
+  type: run_sql
