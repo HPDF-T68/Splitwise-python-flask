@@ -297,10 +297,18 @@ def split_bill(a):
 #*******************************************************************
 @app.route('/invite_friend',methods=['POST','GET'])
 def invite_friend():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     return render_template('invite_friend.html')
 
 @app.route('/invite_sent',methods=['POST','GET'])
 def invite_sent():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     if request.method=='POST':
         email=request.form['email']
         body="Hey "+str(session['username'])+" has invited you to join splitwise and add him as friend"
@@ -314,12 +322,20 @@ def invite_sent():
     return render_template('main.html')
 @app.route('/refresh',methods=['POST','GET'])
 def refresh():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     session.pop('group_list',None)
     group_list(session['hasura_id'])
     return render_template('main.html')
 
 @app.route('/settle_up_group',methods=['POST','GET'])
 def settle_up_group():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     gid = request.args.get('gid')
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -378,6 +394,10 @@ def settle_up_group():
 
 @app.route('/send_remind_group',methods=['POST','GET'])
 def send_remind_group():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     gid = request.args.get('gid')
 
     url = "https://data.octagon58.hasura-app.io/v1/query"
@@ -448,6 +468,10 @@ def send_remind_group():
 
 @app.route('/settle_up_member',methods=['POST','GET'])
 def settle_up_member():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     gid = request.args.get('gid')
     uid = request.args.get('uid')
     url = "https://data.octagon58.hasura-app.io/v1/query"
@@ -513,6 +537,10 @@ def settle_up_member():
 
 @app.route('/remind_member', methods=['POST','GET'])
 def remind_member():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     gid = request.args.get('gid')
     username = request.args.get('username')
     url = "https://data.octagon58.hasura-app.io/v1/query"
@@ -588,6 +616,10 @@ def remind_member():
 
 @app.route('/change_group_icon',methods=['POST','GET'])
 def change_group_icon():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -640,6 +672,9 @@ def change_group_icon():
 
 @app.route('/more_detail',methods=['POST','GET'])
 def more_detail():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
 
     gid=request.args.get('gid')
     # This is the url to which the query is made
@@ -832,6 +867,10 @@ def more_detail():
 
 @app.route('/money_group',methods =['POST','GET'])
 def money_group():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     if request.method == 'POST':
         gid=request.form['gid']
         money=request.form['money']
@@ -1049,6 +1088,10 @@ def money_group():
 
 @app.route('/remove_friend', methods=['POST','GET'])
 def remove_friend():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     username=request.args.get('username')
     url = "https://data.octagon58.hasura-app.io/v1/query"
 
@@ -1092,9 +1135,17 @@ def remove_friend():
 
 @app.route('/update_profile')
 def update_profile():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     return render_template('update_profile.html')
 @app.route('/change_profile', methods=['POST','GET'])
 def change_profile():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -1145,9 +1196,17 @@ def change_profile():
 
 @app.route('/update_mobile')
 def update_mobile():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     return render_template('update_mobile.html')
 @app.route('/change_mobile', methods=['POST','GET'])
 def change_mobile():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     if request.method == 'POST':
         mobile = request.form['mobile']
 
@@ -1186,9 +1245,17 @@ def change_mobile():
 
 @app.route('/update_password')
 def update_password():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     return render_template('/update_password.html')
 @app.route('/change_pass', methods=['POST','GET'])
 def change_pass():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     if request.method == 'POST':
         new_password=request.form['new_password']
         old_password=request.form['old_password']
@@ -1227,6 +1294,9 @@ def index():
 
 @app.route('/make_group', methods=['POST','GET'])
 def make_group():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
 
     if request.method =='POST':
         userid=request.form.getlist("addfriend")
@@ -1320,6 +1390,9 @@ def make_group():
 
 @app.route('/dashboard')
 def dashboard():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
 
     return render_template('main.html',all_friend=select_friend(2))
 
@@ -1335,12 +1408,16 @@ def main():
 @app.route('/update_email')
 def update_email():
     if 'hasura_id' not in session:
-        flash('Please Check username or password')
+        flash('Please login first')
         return render_template('login.html')
     return render_template('update_email.html')
 
 @app.route('/change_email', methods=['POST','GET'])
 def change_email():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     if request.method == 'POST':
         email=request.form['email']
 
@@ -1378,6 +1455,10 @@ def change_email():
     return render_template('main.html')
 @app.route('/add_friend_all', methods=[ 'POST', 'GET' ])
 def add_friend_all():
+    if 'hasura_id' not in session:
+        flash('Please login first')
+        return render_template('login.html')
+
     username=request.args.get('uname')
 
     # user authorization
