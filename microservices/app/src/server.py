@@ -1595,6 +1595,9 @@ def signup_submit():
         mobile = request.form[ 'mobile' ]
         password = request.form[ 'password' ]
 
+        
+
+
         url = "https://app.octagon58.hasura-app.io/signup"
 
         # This is the json payload for the query
