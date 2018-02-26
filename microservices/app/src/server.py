@@ -2,7 +2,7 @@ from flask import session,Flask ,url_for, request, render_template , flash,redir
 import requests
 from flask import jsonify
 import json
-from flask_debugtoolbar import DebugToolbarExtension
+
 import smtplib
 import random
 from email.mime.text import MIMEText
@@ -22,9 +22,6 @@ def allowed_file(filename):
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 app.config[ 'SECRET_KEY' ] = 'jnxjasbxjsbxjhabsxhsbxjashxb'
-app.config['DEBUG']=True
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS']=False
-toolbar=DebugToolbarExtension(app)
 #****************************************ALL FUNCTIONS COMES HERE
 
 def select_friend(num):
@@ -306,7 +303,7 @@ def invite_friend():
 def invite_sent():
     if request.method=='POST':
         email=request.form['email']
-        body="Hey "+str(session['hasura_id'])+" has invited you to join splitwise and add him as friend"
+        body="Hey "+str(session['username'])+" has invited you to join splitwise and add him as friend"
         sub="Splitwise join request"
         if email_send(email,sub,body):
             return redirect(url_for('invite_sent'))
@@ -1337,6 +1334,9 @@ def main():
 
 @app.route('/update_email')
 def update_email():
+    if 'hasura_id' not in session:
+        flash('Please Check username or password')
+        return render_template('login.html')
     return render_template('update_email.html')
 
 @app.route('/change_email', methods=['POST','GET'])
@@ -1597,6 +1597,34 @@ def signup_submit():
         email = request.form[ 'email' ]
         mobile = request.form[ 'mobile' ]
         password = request.form[ 'password' ]
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "signup",
+                "columns": [
+                    "email"
+                ],
+                "where": {
+
+                    "email": {
+                        "$eq": email
+                    }
+
+                }
+            }
+        }
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        if len(resp.json()) != 0:
+            flash('Email already registered')
+            return render_template('register.html', email=email, mobile=mobile, username=username)
 
         url = "https://app.octagon58.hasura-app.io/signup"
 
@@ -1835,7 +1863,7 @@ def list_group():
     # Setting headers
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
     }
 
     # Make the query and store response in resp
@@ -1871,7 +1899,7 @@ def list_friend():
     # Setting headers
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
     }
 
     # Make the query and store response in resp
@@ -1990,7 +2018,7 @@ def add_friend():
 
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
     }
 
     # Make the query and store response in resp
@@ -2031,7 +2059,7 @@ def add_friend():
         # Setting headers
         headers = {
             "Content-Type": "application/json",
-            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
         }
 
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -2065,6 +2093,36 @@ def info():
     resp = requests.request("GET", url, headers=headers)
     data = resp.json()
     # This is the url to which the query is made
+    url = "https://data.octagon58.hasura-app.io/v1/query"
+
+    # This is the json payload for the query
+    requestPayload = {
+        "type": "select",
+        "args": {
+            "table": "signup",
+            "columns": [
+                "uid",
+                "username",
+                "email",
+                "mobile"
+            ],
+            "where": {
+                "uid": {
+                    "$eq": resp.json()['hasura_id']
+                }
+            }
+        }
+    }
+
+    # Setting headers
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+    }
+
+    # Make the query and store response in resp
+    resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+
     return resp.content
 
 
