@@ -1334,6 +1334,9 @@ def main():
 
 @app.route('/update_email')
 def update_email():
+    if 'hasura_id' not in session:
+        flash('Please Check username or password')
+        return render_template('login.html')
     return render_template('update_email.html')
 
 @app.route('/change_email', methods=['POST','GET'])
@@ -1594,9 +1597,34 @@ def signup_submit():
         email = request.form[ 'email' ]
         mobile = request.form[ 'mobile' ]
         password = request.form[ 'password' ]
+        url = "https://data.octagon58.hasura-app.io/v1/query"
+        requestPayload = {
+            "type": "select",
+            "args": {
+                "table": "signup",
+                "columns": [
+                    "email"
+                ],
+                "where": {
 
-        
+                    "email": {
+                        "$eq": email
+                    }
 
+                }
+            }
+        }
+
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        }
+
+        # Make the query and store response in resp
+        resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
+        if len(resp.json()) != 0:
+            flash('Email already registered')
+            return render_template('register.html', email=email, mobile=mobile, username=username)
 
         url = "https://app.octagon58.hasura-app.io/signup"
 
