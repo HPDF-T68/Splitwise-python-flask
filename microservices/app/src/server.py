@@ -720,8 +720,7 @@ def more_detail():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
@@ -830,8 +829,7 @@ def more_detail():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
