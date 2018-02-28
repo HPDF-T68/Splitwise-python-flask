@@ -1599,7 +1599,8 @@ def password_change():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization":"Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
         }
 
         # Make the query and store response in resp
