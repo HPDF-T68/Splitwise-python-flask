@@ -46,9 +46,8 @@ def select_friend(num):
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
-    }
+        "Content-Type": "application/json"
+        }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -82,9 +81,8 @@ def select_friend(num):
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
-    }
+        "Content-Type": "application/json"
+        }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -122,8 +120,7 @@ def wallet_balance(uid):
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
         # Make the query and store response in resp
@@ -196,8 +193,7 @@ def group_list(uid):
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
@@ -285,9 +281,7 @@ def split_bill(a):
 
         # Setting headers
         headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-        }
+        "Content-Type": "application/json"        }
 
         # Make the query and store response in resp
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -357,8 +351,7 @@ def settle_up_group():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
@@ -382,8 +375,7 @@ def settle_up_group():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
         # Make the query and store response in resp
@@ -524,8 +516,7 @@ def settle_up_member():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
@@ -564,8 +555,7 @@ def remind_member():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
@@ -939,8 +929,7 @@ def money_group():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
         # Make the query and store response in resp
@@ -1069,8 +1058,7 @@ def money_group():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
         # Make the query and store response in resp
@@ -1119,8 +1107,7 @@ def remove_friend():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
@@ -1325,8 +1312,7 @@ def make_group():
         }
 
         headers = {
-        "Content-Type": "application/json",
-         "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
           }
 
     # Make the query and store response in resp
@@ -1370,8 +1356,7 @@ def make_group():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
         # Make the query and store response in resp
@@ -1441,8 +1426,7 @@ def change_email():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
         # Make the query and store response in resp
@@ -1483,8 +1467,7 @@ def add_friend_all():
         }
 
     headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
     # Make the query and store response in resp
@@ -1566,8 +1549,7 @@ def password_otp():
         }
 
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
 
@@ -1870,8 +1852,7 @@ def add_money_group():
 
     # Setting headers
     headers = {
-            "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Content-Type": "application/json"
         }
 
     # Make the query and store response in resp
@@ -1943,8 +1924,7 @@ def list_group():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
@@ -1979,9 +1959,7 @@ def list_friend():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
+        "Content-Type": "application/json"    }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -2020,9 +1998,7 @@ def create_group():
     }
 
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
-    }
+        "Content-Type": "application/json"    }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -2098,9 +2074,7 @@ def add_friend():
     }
 
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
-    }
+        "Content-Type": "application/json"    }
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -2139,8 +2113,7 @@ def add_friend():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
+            "Content-Type": "application/json"
         }
 
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -2197,9 +2170,7 @@ def info():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
-    }
+        "Content-Type": "application/json"}
 
     # Make the query and store response in resp
     resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
@@ -2292,8 +2263,7 @@ def signup():
 
         # Setting headers
         headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer b660de1696fbdc8daa1d32d1d8f19bf03315ec407b9e2ebf"
+            "Content-Type": "application/json"
         }
 
         # Make the query and store response in resp
@@ -2336,8 +2306,7 @@ def login():
 
     # Setting headers
     headers = {
-        "Content-Type": "application/json",
-        "Authorization":"Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
+        "Content-Type": "application/json"
     }
 
     # Make the query and store response in resp
