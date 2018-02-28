@@ -1,0 +1,15 @@
+- args:
+    permission:
+      columns:
+      - Description
+      - owed
+      - gid
+      - s.n
+      - cash_paid
+      - uid
+      - owe
+      - date
+      filter: {}
+    role: user
+    table: group_user
+  type: create_select_permission

@@ -1,0 +1,15 @@
+- args:
+    permission:
+      columns:
+      - uid
+      - s.n
+      - cash_paid
+      - owed
+      - owe
+      - Description
+      - gid
+      - date
+      filter: {}
+    role: user
+    table: group_user
+  type: create_update_permission

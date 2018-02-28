@@ -1,0 +1,19 @@
+- args:
+    role: user
+    table: group
+  type: drop_update_permission
+- args:
+    permission:
+      columns:
+      - uid
+      - group_note
+      - total_expanse
+      - bill_image
+      - member_no
+      - gname
+      - gdate
+      - gid
+      filter: {}
+    role: user
+    table: group
+  type: create_update_permission

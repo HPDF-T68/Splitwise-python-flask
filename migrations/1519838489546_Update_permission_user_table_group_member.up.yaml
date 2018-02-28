@@ -1,0 +1,17 @@
+- args:
+    role: user
+    table: group_member
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - gname
+      - s.n
+      - paid
+      - uid
+      - gid
+      - to_pay
+      filter: {}
+    role: user
+    table: group_member
+  type: create_select_permission

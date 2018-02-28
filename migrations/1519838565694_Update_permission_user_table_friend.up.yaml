@@ -1,0 +1,12 @@
+- args:
+    role: user
+    table: friend
+  type: drop_update_permission
+- args:
+    permission:
+      columns:
+      - s.n
+      filter: {}
+    role: user
+    table: friend
+  type: create_update_permission

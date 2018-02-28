@@ -1,0 +1,15 @@
+- args:
+    permission:
+      columns:
+      - uid
+      - image_id
+      - username
+      - owe
+      - email
+      - mobile
+      - owed
+      - currency
+      filter: {}
+    role: user
+    table: signup
+  type: create_update_permission

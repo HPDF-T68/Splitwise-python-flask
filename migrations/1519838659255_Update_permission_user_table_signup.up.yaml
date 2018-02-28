@@ -1,0 +1,15 @@
+- args:
+    permission:
+      columns:
+      - owed
+      - uid
+      - email
+      - mobile
+      - username
+      - currency
+      - owe
+      - image_id
+      filter: {}
+    role: user
+    table: signup
+  type: create_select_permission

@@ -1,0 +1,6 @@
+- args:
+    permission:
+      check: {}
+    role: user
+    table: group_member
+  type: create_insert_permission

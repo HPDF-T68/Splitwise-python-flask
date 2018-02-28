@@ -1,0 +1,15 @@
+- args:
+    role: user
+    table: friend
+  type: drop_select_permission
+- args:
+    permission:
+      columns:
+      - s.n
+      - uid
+      - friend_id
+      - username
+      filter: {}
+    role: user
+    table: friend
+  type: create_select_permission
