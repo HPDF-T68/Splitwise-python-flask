@@ -47,7 +47,7 @@ def select_friend(num):
     # Setting headers
     headers = {
         "Content-Type": "application/json",
-        "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Authorization": "Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
     }
 
     # Make the query and store response in resp
