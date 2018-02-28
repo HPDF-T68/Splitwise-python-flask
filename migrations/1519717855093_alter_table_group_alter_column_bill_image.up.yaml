@@ -1,0 +1,9 @@
+- args:
+    sql: ALTER TABLE "group" ALTER COLUMN "bill_image" TYPE text;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "group" ALTER COLUMN "bill_image" DROP DEFAULT;
+  type: run_sql
+- args:
+    sql: ALTER TABLE "group" ALTER COLUMN "bill_image" DROP NOT NULL;
+  type: run_sql

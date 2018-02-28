@@ -1,0 +1,3 @@
+- args:
+    sql: ALTER TABLE "group_member" ADD COLUMN "description" text NUll
+  type: run_sql
