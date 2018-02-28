@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://E:/python/Internship/.idea/Internship.iml" filepath="E:/python/Internship/.idea/Internship.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/hello-python-flask.iml" filepath="$PROJECT_DIR$/.idea/hello-python-flask.iml" />
     </modules>
   </component>
