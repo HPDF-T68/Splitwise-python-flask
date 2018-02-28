@@ -1,0 +1,4 @@
+- args:
+    role: user
+    table: signup
+  type: drop_delete_permission

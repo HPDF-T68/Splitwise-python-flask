@@ -1,0 +1,13 @@
+- args:
+    permission:
+      columns:
+      - gname
+      - s.n
+      - paid
+      - uid
+      - gid
+      - to_pay
+      filter: {}
+    role: anonymous
+    table: group_member
+  type: create_select_permission

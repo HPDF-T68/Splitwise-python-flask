@@ -1,0 +1,15 @@
+- args:
+    role: anonymous
+    table: friend
+  type: drop_update_permission
+- args:
+    permission:
+      columns:
+      - uid
+      - friend_id
+      - s.n
+      - username
+      filter: {}
+    role: anonymous
+    table: friend
+  type: create_update_permission

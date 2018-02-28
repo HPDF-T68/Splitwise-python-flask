@@ -1,0 +1,4 @@
+- args:
+    role: user
+    table: friend
+  type: drop_delete_permission
