@@ -1162,7 +1162,7 @@ def change_profile():
             # Setting headers
             headers = {
                  "Content-Type": "image / png",
-                "Authorization": "Bearer Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
+                "Authorization": "Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
             }
 
             # Open the file and make the query
