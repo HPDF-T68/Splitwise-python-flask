@@ -1149,7 +1149,7 @@ def change_profile():
             # This is the json payload for the query
             # Setting headers
             headers = {
-                "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+            "Authorization":"Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
             }
 
             # Make the query and store response in resp
@@ -1162,7 +1162,7 @@ def change_profile():
             # Setting headers
             headers = {
                  "Content-Type": "image / png",
-                "Authorization": "Bearer "+session['auth_token']
+                "Authorization": "Bearer Bearer bbaa14a4678aa95b48f009258441ea4dd383b90231cbb544"
             }
 
             # Open the file and make the query
