@@ -1506,8 +1506,7 @@ def add_friend_all():
 
         # Setting headers
         headers = {
-        "Content-Type": "application/json",
-            "Authorization": "Bearer c6fd65b8291402d919b7e940069cdd655109daa75b970967"
+        "Content-Type": "application/json"
         }
         resp = requests.request("POST", url, data=json.dumps(requestPayload), headers=headers)
         list = [
